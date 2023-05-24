@@ -1,0 +1,1 @@
+export const HIDE_SPLASH_SCREEN_DELAY = 500
