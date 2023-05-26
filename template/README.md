@@ -16,7 +16,7 @@ Currently includes:
 
 The Mobile template project's structure will look similar to this:
 
-````
+```
 ├── app
 │   ├── common
 │   │   ├── constants
@@ -76,6 +76,7 @@ The Mobile template project's structure will look similar to this:
 │   └── PlaceholderNameTests
 ├── .env
 └── package.json
+```
 
 **common**
 This is where your common types, constants, and enums will live.
@@ -127,7 +128,7 @@ Commnad for running tests:
 
 ```bash
 yarn test:maestro
-````
+```
 
 ## Before running app
 
