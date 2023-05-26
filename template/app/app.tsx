@@ -9,6 +9,7 @@
  * The app navigation resides in ./app/navigators, so head over there
  * if you're interested in adding screens and navigators.
  */
+
 import { useFonts } from "expo-font"
 import * as Linking from "expo-linking"
 import React from "react"
@@ -26,7 +27,7 @@ import { MMKVStorage } from "./utils/storage"
 
 import { appLifeCycle } from "./services"
 import { customFontsToLoad } from "./theme"
-import { HIDE_SPLASH_SCREEN_DELAY, NAVIGATION_PERSISTENCE_KEY } from "./constants"
+import { HIDE_SPLASH_SCREEN_DELAY, NAVIGATION_PERSISTENCE_KEY } from "./common/constants"
 
 // Set up Reactotron, which is a free desktop app for inspecting and debugging
 // React Native apps. Learn more here: https://github.com/infinitered/reactotron

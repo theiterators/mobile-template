@@ -5,7 +5,7 @@ import { flow, Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 import { appLifeCycle } from "../services"
 import { ILoginRequestData, ILoginResponseData } from "../services/api"
 import { apiAuth } from "../services/api/apiAuth"
-import { DATA_STATUS } from "../types"
+import { DATA_STATUS } from "../common/types"
 import { reportCrash } from "../services/reports/crashReporting"
 import { useAlert } from "../utils/hooks"
 

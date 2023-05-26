@@ -7,7 +7,7 @@
 // import * as Sentry from "@sentry/react-native"
 
 // import crashlytics from "@react-native-firebase/crashlytics"
-import { CrashalyticsEventType, ErrorType } from "../../types"
+import { CrashalyticsEventType, ErrorType } from "../../common/types"
 
 /**
  * If you're using Bugsnag:

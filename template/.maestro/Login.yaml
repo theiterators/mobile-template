@@ -1,20 +1,21 @@
 #flow: Login
-#intent:
-# Open up our app and use the default credentials to login
-# and navigate to the demo screen
 
-appId: com.placeholdername # the app id of the app we want to test
-# You can find the appId of an Ignite app in the `app.json` file
-# as the "package" under the "android" section and "bundleIdentifier" under the "ios" section
+appId: com.placeholdername
 ---
 - clearState # clears the state of our app (navigation and authentication)
 - launchApp # launches the app
-- assertVisible: "Sign In"
+- assertVisible:
+    id: "auth.login.heading"
 - tapOn:
-    text: "Tap to sign in!"
+    id: "auth.login.usernameField"
+- inputText: "jkowalski"
+- tapOn:
+    id: "auth.login.passwordField"
+- inputText: "d03676cd116b76b48ab4756232949f76"
+- tapOn:
+    id: "auth.login.signInButton"
 - assertVisible: "Your app, almost ready for launch!"
 - tapOn:
-    text: "Let's go!"
-- assertVisible: "Components to jump start your project!"
-
-# @demo remove-file
+    text: "Log Out"
+- assertVisible:
+    id: "auth.login.heading"

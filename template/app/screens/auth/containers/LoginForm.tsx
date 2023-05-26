@@ -9,10 +9,12 @@ import { spacing } from "../../../theme"
 
 import { useAppForm, useFormComplete } from "../../../utils/hooks"
 import { FORM_VALIDATION_RULES } from "../../../utils/validation"
+import Config from "app/config"
+import { TEST_IDS } from "app/tests"
 
 const defaultValues = {
-  username: "jkowalski",
-  password: "d03676cd116b76b48ab4756232949f76",
+  username: Config.TEST_USERNAME,
+  password: Config.TEST_PASSWORD,
 }
 
 export const LoginForm: FC = observer(() => {
@@ -34,8 +36,9 @@ export const LoginForm: FC = observer(() => {
         control={control}
         inputWrapperStyle={$inputWrapperStyle}
         name="username"
-        placeholderTx="loginScreen.login"
+        placeholderTx="loginScreen.username"
         returnKeyType="next"
+        testID={TEST_IDS.auth.login.usernameField}
         rules={FORM_VALIDATION_RULES.required}
         onSubmitEditing={() => setFocus("password")}
       />
@@ -46,10 +49,11 @@ export const LoginForm: FC = observer(() => {
         name="password"
         placeholderTx="loginScreen.password"
         returnKeyType="done"
+        testID={TEST_IDS.auth.login.passwordField}
         rules={FORM_VALIDATION_RULES.required}
       />
       <Button
-        testID="login-button"
+        testID={TEST_IDS.auth.login.signInButton}
         tx="loginScreen.tapToSignIn"
         disabled={!isButtonEnabled}
         isLoading={isDataLoading}

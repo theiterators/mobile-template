@@ -6,7 +6,7 @@ import { useStores } from "../../models"
 import { MainStackScreenProps } from "../../navigators"
 import { colors, spacing } from "../../theme"
 import { useHeader } from "../../utils/hooks/useHeader"
-import { MainScreenName } from "../../types"
+import { MainScreenName } from "../../common/types"
 
 interface WelcomeScreenProps extends MainStackScreenProps<MainScreenName.Welcome> {}
 

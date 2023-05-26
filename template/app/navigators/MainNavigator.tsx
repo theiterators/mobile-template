@@ -1,7 +1,7 @@
 import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack"
 import * as Screens from "app/screens"
 import { colors } from "app/theme"
-import { MainNavigatorParamListType, MainScreenName } from "app/types"
+import { MainNavigatorParamListType, MainScreenName } from "app/common/types"
 import React from "react"
 
 export type MainStackScreenProps<T extends keyof MainNavigatorParamListType> =

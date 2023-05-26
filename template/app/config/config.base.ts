@@ -8,6 +8,8 @@ export interface ConfigBaseProps {
 interface ConfigType extends NativeConfig {
   API_URL: string
   PRODUCTION: string
+  TEST_USERNAME: string
+  TEST_PASSWORD: string
 }
 
 export type PersistNavigationConfig = ConfigBaseProps["persistNavigation"]
@@ -32,6 +34,8 @@ const BaseConfig: ConfigBaseProps = {
 const ExtraConfig: ConfigType = {
   API_URL: Config.API_URL,
   PRODUCTION: Config.PRODUCTION,
+  TEST_USERNAME: Config.TEST_USERNAME,
+  TEST_PASSWORD: Config.TEST_PASSWORD,
 }
 
 export default { ...BaseConfig, ...ExtraConfig }

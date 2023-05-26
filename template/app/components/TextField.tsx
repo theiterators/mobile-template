@@ -171,6 +171,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       activeOpacity={1}
       style={$containerStyles}
       onPress={focusInput}
+      accessible={false}
       accessibilityState={{ disabled }}
     >
       {!!(label || labelTx) && (

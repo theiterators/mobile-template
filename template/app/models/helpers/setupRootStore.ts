@@ -12,7 +12,7 @@
 import { applySnapshot, IDisposer, onSnapshot } from "mobx-state-tree"
 import { MMKVStorage } from "../../utils/storage"
 import type { RootStore } from "../RootStore"
-import { ROOT_STATE_STORAGE_KEY } from "app/constants"
+import { ROOT_STATE_STORAGE_KEY } from "app/common/constants"
 
 /**
  * Setup the root state.

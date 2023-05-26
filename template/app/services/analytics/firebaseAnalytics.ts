@@ -1,5 +1,5 @@
 // import analytics from "@react-native-firebase/analytics"
-import { AnalyticsEventType } from "../../types"
+import { AnalyticsEventType } from "../../common/types"
 
 const Analytics = {
   async trackEvent(

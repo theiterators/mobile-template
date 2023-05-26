@@ -1,7 +1,7 @@
 import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack"
 import * as Screens from "app/screens"
 import { colors } from "app/theme"
-import { AuthNavigatorParamListType, AuthScreenName } from "app/types"
+import { AuthNavigatorParamListType, AuthScreenName } from "app/common/types"
 import React from "react"
 
 export type AuthStackScreenProps<T extends keyof AuthNavigatorParamListType> =
