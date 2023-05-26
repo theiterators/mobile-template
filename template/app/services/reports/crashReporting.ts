@@ -6,7 +6,7 @@
 // import * as Sentry from "sentry-expo"
 // import * as Sentry from "@sentry/react-native"
 
-// import crashlytics from "@react-native-firebase/crashlytics"
+import crashlytics from "@react-native-firebase/crashlytics"
 import { CrashalyticsEventType, ErrorType } from "../../common/types"
 
 /**
@@ -48,10 +48,10 @@ export const reportCrash = (
     console.tron.log(error)
     return
   }
-  // if (eventMessage) {
-  //   crashlytics().log(eventMessage)
-  // }
-  // crashlytics().recordError(error)
+  if (eventMessage) {
+    crashlytics().log(eventMessage)
+  }
+  crashlytics().recordError(error)
   // In production, utilize crash reporting service of choice below:
   // RN
   // Sentry.captureException(error)

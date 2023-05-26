@@ -1,10 +1,4 @@
-# Welcome to your new ignited app!
-
-[![CircleCI](https://circleci.com/gh/infinitered/ignite.svg?style=svg)](https://circleci.com/gh/infinitered/ignite)
-
-## The latest and greatest boilerplate for Infinite Red opinions
-
-This is the boilerplate that [Infinite Red](https://infinite.red) uses as a way to test bleeding-edge changes to our React Native stack.
+# Welcome to your new mobile app!
 
 Currently includes:
 
@@ -12,29 +6,49 @@ Currently includes:
 - React Navigation
 - MobX State Tree
 - TypeScript
+- Reactotron
+- MMKV
+- Firebase
+- React Hook Form
 - And more!
 
 ## Quick Start
 
-The Ignite boilerplate project's structure will look similar to this:
+The Mobile template project's structure will look similar to this:
 
-```
-ignite-project
+````
 ├── app
+│   ├── common
+│   │   ├── constants
+│   │   ├── enums
+│   │   └── types
 │   ├── components
 │   ├── config
 │   ├── i18n
 │   ├── models
 │   ├── navigators
 │   ├── screens
+│   │   └── feature
+│   │       ├── __tests__
+│   │       ├── common
+│   │       ├── components
+│   │       ├── containers
+│   │       ├── logic
+│   │       └── FeatureScreen.tsx
 │   ├── services
 │   ├── theme
 │   ├── utils
+│   │  ├── helpers
+│   │  ├── hooks
+│   │  ├── storage
+│   │  └── validators
 │   ├── app.tsx
 ├── test
 │   ├── __snapshots__
 │   ├── mockFile.ts
 │   ├── setup.ts
+├── .maestro
+│   ├── Feature.yaml
 ├── README.md
 ├── android
 │   ├── app
@@ -54,38 +68,23 @@ ignite-project
 │       └── screen
 ├── index.js
 ├── ios
-│   ├── IgniteProject
-│   ├── IgniteProject-tvOS
-│   ├── IgniteProject-tvOSTests
-│   ├── IgniteProject.xcodeproj
-│   └── IgniteProjectTests
+│   └── PlaceholderName
+│       ├── firebase
+│   ├── PlaceholderName-tvOS
+│   ├── PlaceholderName-tvOSTests
+│   ├── PlaceholderName.xcodeproj
+│   └── PlaceholderNameTests
 ├── .env
 └── package.json
 
-```
-
-### ./app directory
-
-Included in an Ignite boilerplate project is the `app` directory. This is a directory you would normally have to create when using vanilla React Native.
-
-The inside of the `app` directory looks similar to the following:
-
-```
-app
-├── components
-├── config
-├── i18n
-├── models
-├── navigators
-├── screens
-├── services
-├── theme
-├── utils
-├── app.tsx
-```
+**common**
+This is where your common types, constants, and enums will live.
 
 **components**
 This is where your reusable components live which help you build your screens.
+
+**config**
+This is where your application's configuration will live. Production and development environments are provided for you, but you are free to add more.
 
 **i18n**
 This is where your translations will live if you are using `react-native-i18n`.
@@ -120,11 +119,25 @@ This directory will hold your Jest configs and mocks.
 
 ## Running Maestro end-to-end tests
 
-Follow our [Maestro Setup](https://ignitecookbook.com/docs/recipes/MaestroSetup) recipe from the [Ignite Cookbook](https://ignitecookbook.com/)!
+Example flow for running Maestro end-to-end tests locally in .maestro/Login.yaml
 
-## Previous Boilerplates
+For running you need to have installed [Maestro](https://maestro.mobile.dev/getting-started/installing-maestro)
 
-- [2018 aka Bowser](https://github.com/infinitered/ignite-bowser)
-- [2017 aka Andross](https://github.com/infinitered/ignite-andross)
-- [2016 aka Ignite 1.0](https://github.com/infinitered/ignite-ir-boilerplate-2016)
+Commnad for running tests:
 
+```bash
+yarn test:maestro
+````
+
+## Before running app
+
+Config your firebase project:
+
+1. Create [firebase project](https://console.firebase.google.com/)
+2. Add `android` and `ios` apps to your project
+3. Download `google-services.json` and `GoogleService-Info.plist` files
+4. Replace `google-services.json` and `GoogleService-Info.plist` files in `template` project
+
+Config your apple developer account. Create [App IDs](https://developer.apple.com/account/resources/identifiers/list/appId).
+
+Made with [Ignite](https://github.com/infinitered/ignite)

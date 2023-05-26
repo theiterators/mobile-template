@@ -6,6 +6,7 @@ require File.join(File.dirname(`cd #{pod_folder} && node --print "require.resolv
 
 require 'json'
 podfile_properties = JSON.parse(File.read(File.join(__dir__, 'Podfile.properties.json'))) rescue {}
+$RNFirebaseAsStaticFramework = true
 
 production = ENV["PRODUCTION"] == "1"
 ENV['RCT_NEW_ARCH_ENABLED'] = podfile_properties['newArchEnabled'] == 'true' ? '1' : '0'
@@ -50,6 +51,16 @@ target 'PlaceholderName' do
   # Flags change depending on the env values.
   flags = get_default_flags()
 
+  pod 'Firebase', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'FirebaseSessions', :modular_headers => true
+  pod 'FirebaseCoreExtension', :modular_headers => true
+  pod 'FirebaseInstallations', :modular_headers => true
+  pod 'GoogleDataTransport', :modular_headers => true
+  pod 'nanopb', :modular_headers => true
+
   use_react_native!(
     :path => config[:reactNativePath],
     :production => production,
@@ -63,6 +74,11 @@ target 'PlaceholderName' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+
+  target 'PlaceholderName staging' do
+    inherit! :complete
+    # Pods for staging
+  end
 
   target 'PlaceholderNameTests' do
     inherit! :complete

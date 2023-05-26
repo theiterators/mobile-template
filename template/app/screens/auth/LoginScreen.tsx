@@ -8,7 +8,7 @@ import { spacing } from "app/theme"
 import { AuthStackScreenProps } from "../../navigators"
 import { AuthScreenName } from "../../common/types"
 import { LoginForm } from "./containers"
-import { TEST_IDS } from "app/tests"
+import { TEST_IDS } from "app/common/constants"
 
 interface LoginScreenProps extends AuthStackScreenProps<AuthScreenName.Login> {}
 

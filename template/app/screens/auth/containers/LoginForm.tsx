@@ -8,9 +8,9 @@ import { ILoginRequestData } from "../../../services/api"
 import { spacing } from "../../../theme"
 
 import { useAppForm, useFormComplete } from "../../../utils/hooks"
-import { FORM_VALIDATION_RULES } from "../../../utils/validation"
+import { FORM_VALIDATION_RULES } from "../../../utils/validators"
 // import Config from "app/config"
-import { TEST_IDS } from "app/tests"
+import { TEST_IDS } from "app/common/constants"
 
 /* This code is defining an object called `defaultValues` with two properties: `username` and
 `password`. The values of these properties are being set to `Config.TEST_USERNAME` and

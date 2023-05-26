@@ -1,4 +1,4 @@
-// import analytics from "@react-native-firebase/analytics"
+import analytics from "@react-native-firebase/analytics"
 import { AnalyticsEventType } from "../../common/types"
 
 const Analytics = {
@@ -8,15 +8,15 @@ const Analytics = {
       [key: string]: any
     },
   ) {
-    // await analytics().logEvent(name, params)
+    await analytics().logEvent(name, params)
     console.log("[Analytics] trackEvent", name, params)
   },
 
   async trackScreen(currentRouteName: string) {
-    // await analytics().logScreenView({
-    //   screen_name: currentRouteName,
-    //   screen_class: currentRouteName,
-    // })
+    await analytics().logScreenView({
+      screen_name: currentRouteName,
+      screen_class: currentRouteName,
+    })
     console.log("[Analytics] trackScreen", currentRouteName)
   },
 }
