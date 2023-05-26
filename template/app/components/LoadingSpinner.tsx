@@ -12,7 +12,7 @@ type Props = {
 export const LoadingSpinner: FC<Props> = ({ size = DEFAULT_LOADING_SPINNER_SIZE }) => {
   return (
     <View style={$container}>
-      <ActivityIndicator color={colors.text} size={size} />
+      <ActivityIndicator color={colors.palette.neutral100} size={size} />
     </View>
   )
 }

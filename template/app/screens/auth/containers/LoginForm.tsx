@@ -9,12 +9,23 @@ import { spacing } from "../../../theme"
 
 import { useAppForm, useFormComplete } from "../../../utils/hooks"
 import { FORM_VALIDATION_RULES } from "../../../utils/validation"
-import Config from "app/config"
+// import Config from "app/config"
 import { TEST_IDS } from "app/tests"
 
+/* This code is defining an object called `defaultValues` with two properties: `username` and
+`password`. The values of these properties are being set to `Config.TEST_USERNAME` and
+`Config.TEST_PASSWORD` respectively. These values are likely being used as default values for the
+`ControlledTextField` components in the `LoginForm` component. However, this code is currently
+commented out, so the default values for the text fields are empty strings. */
+// const defaultValues = {
+//   username: Config.TEST_USERNAME,
+//   password: Config.TEST_PASSWORD,
+// }
+
+// you can uncomment this code to see what the default values look like
 const defaultValues = {
-  username: Config.TEST_USERNAME,
-  password: Config.TEST_PASSWORD,
+  username: "",
+  password: "",
 }
 
 export const LoginForm: FC = observer(() => {
