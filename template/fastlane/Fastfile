@@ -1,0 +1,30 @@
+import('./utils/build_android')
+import('./utils/build_ios')
+import('./utils/deploy_firebase')
+import('./utils/set_up_env')
+
+desc "--buildType=staging|production"
+desc "--platform=ios|android"
+desc ""
+lane :deploy do |options|	
+	buildType = options[:buildType]	
+	platform = options[:platform]
+		
+	UI.success "Type: #{buildType}, Platform: #{platform}"
+
+	set_up_env(buildType: buildType, platform: platform)
+	
+	if platform == "android"
+		build_android(buildType: buildType)
+	else 
+		unlock_keychain( 
+			path: "projects",
+			password: "iterators"
+		)
+		build_ios(buildType: buildType)
+	end
+	
+	deploy_firebase
+
+	clean_build_artifacts
+end

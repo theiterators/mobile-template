@@ -138,7 +138,29 @@ Config your firebase project:
 2. Add `android` and `ios` apps to your project
 3. Download `google-services.json` and `GoogleService-Info.plist` files
 4. Replace `google-services.json` and `GoogleService-Info.plist` files in `template` project
+5. Login to firebase in terminal by running `firebase login:ci`
+6. Add `FIREBASE_TOKEN` to `fastlane/Appfile`
+7. Change firebase App IDs to yours in `fastlane/Appfile`
 
-Config your apple developer account. Create [App IDs](https://developer.apple.com/account/resources/identifiers/list/appId).
+Config your iOS project:
+
+1. Create [App IDs](https://developer.apple.com/account/resources/identifiers/list/appId).
+2. Create [Certificates](https://developer.apple.com/account/resources/certificates/list). ADHOC certificate is required for deploying to Firebase.
+3. Create [Provisioning Profiles](https://developer.apple.com/account/resources/profiles/list).
+4. Add created certificates to your keychain. Keychain name should be `projects` and password should be `iterators`.
+5. Add Profiles to your project using Xcode.
+
+Make sure you have installed:
+
+1. [node_modules](https://classic.yarnpkg.com/en/docs/install/#mac-stable). Run `yarn` in main directory.
+2. [CocoaPods](https://cocoapods.org/). Run `pod install` in `ios` directory.
+3. [Fastlane](https://docs.fastlane.tools/getting-started/ios/setup/). Run `bundle install` in main directory.
+
+## Running app
+
+1. Run `yarn start` in main directory.
+2. Run `yarn ios:staging` or `yarn android:staging:debug` in main directory.
+
+---
 
 Made with [Ignite](https://github.com/infinitered/ignite)

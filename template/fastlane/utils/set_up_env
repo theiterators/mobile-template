@@ -1,0 +1,13 @@
+desc "Set env for build type"
+desc "buildType: staging | production"
+desc "platform: ios | android"
+private_lane :set_up_env do |options|
+	buildType = options[:buildType].upcase
+	platform = options[:platform].upcase
+		
+	# firebase
+	ENV["FIREBASE_APP_GROUP"] = ENV["FIREBASE_GROUPS_#{platform}_#{buildType}"]
+    ENV["FIREBASE_APP_ID"] = ENV["FIREBASE_APP_ID_#{platform}_#{buildType}"]
+	
+	ENV["APP_IDENTIFIER"] = ENV["APP_IDENTIFIER_#{platform}_#{buildType}"]
+end

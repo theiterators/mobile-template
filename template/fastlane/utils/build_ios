@@ -1,0 +1,16 @@
+desc "--buildType=staging|production"
+lane :build_ios do |options|
+  buildType = options[:buildType]
+  scheme = "PlaceholderName"
+  if buildType === "staging"
+    scheme = "PlaceholderName staging"
+  end
+
+  build_app( 
+    scheme: scheme, 
+    xcargs: "-allowProvisioningUpdates",
+    workspace: "./ios/PlaceholderName.xcworkspace",
+    export_method: "ad-hoc", 
+    output_directory: "./ios/"
+  )
+end
