@@ -18,13 +18,12 @@ export type UseAppFormParams<T extends FieldValues = FieldValues> = {
 
 export type UseAppFormResult<T extends FieldValues = FieldValues> = {
   control: Control<T>
-  errors: FormState<T>["errors"],
-  handleSubmit: UseFormHandleSubmit<T>,
-  isDirty: FormState<T>["isDirty"],
-  isValid: FormState<T>["isValid"],
+  formState: FormState<T>
+  isEmptyFields: boolean
+  handleSubmit: UseFormHandleSubmit<T>
   reset: UseFormReset<T>
-  setFocus: UseFormSetFocus<T>,
-  setValue: UseFormSetValue<T>,
+  setFocus: UseFormSetFocus<T>
+  setValue: UseFormSetValue<T>
   watch: UseFormWatch<T>
 }
 
@@ -32,24 +31,17 @@ const useAppForm = <T extends FieldValues = FieldValues>({
   defaultValues,
   mode = "onSubmit",
 }: UseAppFormParams<T>): UseAppFormResult<T> => {
-  const {
-    control,
-    formState: { errors, isDirty, isValid },
-    handleSubmit,
-    reset,
-    setFocus,
-    setValue,
-    watch,
-  } = useForm<T>({
+  const { control, formState, handleSubmit, reset, setFocus, setValue, watch } = useForm<T>({
     defaultValues,
     mode,
   })
+  const isEmptyFields =
+    Object.keys(formState.dirtyFields).length !== Object.keys(defaultValues).length
 
   return {
     control,
-    isDirty,
-    errors,
-    isValid,
+    formState,
+    isEmptyFields,
     handleSubmit: handleSubmit as UseFormHandleSubmit<T>,
     reset,
     setValue,

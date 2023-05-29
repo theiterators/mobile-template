@@ -7,7 +7,7 @@ import { useStores } from "../../../models"
 import { ILoginRequestData } from "../../../services/api"
 import { spacing } from "../../../theme"
 
-import { useAppForm, useFormComplete } from "../../../utils/hooks"
+import { useAppForm } from "../../../utils/hooks"
 import { FORM_VALIDATION_RULES } from "../../../utils/validators"
 // import Config from "app/config"
 import { TEST_IDS } from "app/common/constants"
@@ -33,10 +33,10 @@ export const LoginForm: FC = observer(() => {
     authStore: { isDataLoading, login },
   } = useStores()
 
-  const { control, handleSubmit, setFocus } = useAppForm({
+  const { control, handleSubmit, setFocus, isEmptyFields } = useAppForm({
     defaultValues,
   })
-  const { complete: isButtonEnabled } = useFormComplete(control)
+
   const onSubmit = (data: ILoginRequestData) => {
     login(data)
   }
@@ -66,7 +66,7 @@ export const LoginForm: FC = observer(() => {
       <Button
         testID={TEST_IDS.auth.login.signInButton}
         tx="loginScreen.tapToSignIn"
-        disabled={!isButtonEnabled}
+        disabled={isEmptyFields}
         isLoading={isDataLoading}
         style={$tapButton}
         preset="reversed"
