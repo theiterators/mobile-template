@@ -1,6 +1,7 @@
 # firebase
 # You can get this token by running `firebase login:ci` in your terminal
-ENV["FIREBASE_TOKEN"] = "your_firebase_token"
+# uncomment this line if you want to run local deploy
+# ENV["FIREBASE_TOKEN"] = "your_firebase_token"
 
 # You can find data for this variables in your Firebase project settings
 ENV["FIREBASE_APP_ID_IOS_STAGING"] = "1:502013518841:ios:7bd9d39d4ffeff34735328"
@@ -21,17 +22,11 @@ ENV["FIREBASE_GROUPS_IOS_PRODUCTION"] = "developers"
 ENV["FIREBASE_GROUPS_ANDROID_STAGING"] = "developers"
 ENV["FIREBASE_GROUPS_ANDROID_PRODUCTION"] = "developers"
 
-# You can find data for this variables in your Apple Developer account
-ENV["TEAM_ID"] = "your_team_id"
-ENV["ISSUER_ID"] = "your_issuer_id"
-ENV["KEY_ID"] = "your_key_id"
-
 ENV["METHOD"] = "adhoc"
 
 # Example: git@gitlab.iterato.rs:mobile/mobile-template.git
-ENV["GITLAB_URL"] = "your_git_url"
+ENV["GIT_URL"] = "your_git_url"
+ENV["GIT_BRANCH"] = "certificates"
 
-ENV["GITLAB_BRANCH"] = "certificates"
 ENV["MATCH_KEYCHAIN_NAME"] = "ci"
 ENV["MATCH_KEYCHAIN_PASSWORD"] = "ci"
-ENV["MATCH_PASSWORD"] = "iterators"

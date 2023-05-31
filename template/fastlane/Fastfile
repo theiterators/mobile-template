@@ -6,7 +6,7 @@ import('./utils/set_up_env')
 desc "--buildType=staging|production"
 desc "--platform=ios|android"
 desc ""
-lane :deploy do |options|	
+lane :local_deploy do |options|	
 	buildType = options[:buildType]	
 	platform = options[:platform]
 		
@@ -28,3 +28,37 @@ lane :deploy do |options|
 
 	clean_build_artifacts
 end
+
+
+desc "--buildType=staging | production"
+desc "--platform=ios | android"
+desc ""
+lane :build_proj do |options|	
+	buildType = options[:buildType]	
+	platform = options[:platform]
+		
+	UI.success "Type: #{buildType}, Platform: #{platform}"
+
+	set_up_env(buildType: buildType, platform: platform)
+
+	if platform == "android"
+		build_android(buildType: buildType)
+	else 
+		setup_circle_ci
+		create_ci_keychain
+		app_store_connect_api
+    	generate_new_certificates
+		build_ios(buildType: buildType)
+	end
+end
+
+desc "--buildType=staging | production"
+desc "--platform=ios | android"
+desc ""
+lane :deploy do |options|	
+
+	build_proj(options)
+	
+	deploy_firebase
+end
+
