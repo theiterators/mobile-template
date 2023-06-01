@@ -28,10 +28,6 @@ export const AuthStoreModel = types
     clearAuthData() {
       store.setProp("accessToken", "")
     },
-    signOut() {
-      this.clearAuthData()
-      appLifeCycle.onUserSignOut()
-    },
     setDataStatus(dataStatus: DATA_STATUS) {
       store.dataStatus = dataStatus
     },
@@ -40,7 +36,6 @@ export const AuthStoreModel = types
     get isAuthenticated() {
       return !!self.accessToken
     },
-
     get isDataLoading() {
       return self.dataStatus === DATA_STATUS.PENDING
     },
