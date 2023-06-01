@@ -580,6 +580,8 @@ PODS:
     - React-Core
   - RNCAsyncStorage (1.17.11):
     - React-Core
+  - RNCPicker (2.4.10):
+    - React-Core
   - RNFBAnalytics (17.5.0):
     - Firebase/Analytics (= 10.7.0)
     - React-Core
@@ -712,6 +714,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBCrashlytics (from `../node_modules/@react-native-firebase/crashlytics`)"
@@ -851,6 +854,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNFBAnalytics:
     :path: "../node_modules/@react-native-firebase/analytics"
   RNFBApp:
@@ -944,6 +949,7 @@ SPEC CHECKSUMS:
   ReactCommon: dbfbe2f7f3c5ce4ce44f43f2fd0d5950d1eb67c5
   RNBootSplash: 364ec0f6a61d96bce40e8630d80d949c214a5749
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
+  RNCPicker: 0bc2f0a29abcca7b7ed44a2d036aac9ab6d25700
   RNFBAnalytics: b4e2f1fb446c4bd15a5e778b0554464a8a303a1e
   RNFBApp: d59efa0872fff4e27de03cca3c528c203a436ae5
   RNFBCrashlytics: f2dd2ad20eff4d5ceaa5c19936efff3b1607eb33
