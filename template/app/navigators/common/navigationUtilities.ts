@@ -5,12 +5,12 @@ import {
   createNavigationContainerRef,
   PartialState,
 } from "@react-navigation/native"
-import Config from "../config"
-import type { PersistNavigationConfig } from "../config/config.base"
-import { useIsMounted } from "../utils/hooks/useIsMounted"
-import type { NavigationProps } from "./Router"
+import Config from "../../config"
+import type { PersistNavigationConfig } from "../../config/config.base"
+import { useIsMounted } from "../../utils/hooks/useIsMounted"
+import type { NavigationProps } from "../Router"
 
-import { MMKVStorage as storage } from "../utils/storage"
+import { MMKVStorage as storage } from "../../utils/storage"
 
 type Storage = typeof storage
 

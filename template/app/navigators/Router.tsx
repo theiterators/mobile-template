@@ -5,7 +5,7 @@ import { useColorScheme } from "react-native"
 import Config from "../config"
 import { useStores } from "../models"
 import { MainNavigator, AuthNavigator } from "."
-import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
+import { navigationRef, useBackButtonHandler } from "./common/navigationUtilities"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
