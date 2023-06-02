@@ -9,6 +9,7 @@ import { AuthStackScreenProps } from "../../navigators"
 import { AuthScreenName } from "../../common/types"
 import { LoginForm } from "./containers"
 import { TEST_IDS } from "app/common/constants"
+import Config from "app/config"
 
 interface LoginScreenProps extends AuthStackScreenProps<AuthScreenName.Login> {}
 

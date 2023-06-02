@@ -46,7 +46,8 @@ jest.mock("i18n-js", () => ({
 
 declare const tron // eslint-disable-line @typescript-eslint/no-unused-vars
 
-jest.useFakeTimers()
+// Doen't work with jest 27
+// jest.useFakeTimers()
 declare global {
   let __TEST__
 }
