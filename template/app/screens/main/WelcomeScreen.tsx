@@ -18,8 +18,6 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
     authStore: { logout },
   } = useStores()
 
-  const [value, setValue] = useState("man")
-
   useHeader(
     {
       rightTx: "common.logOut",
