@@ -29,8 +29,8 @@ const pl: Translations = {
   },
   loginScreen: {
     signIn: "Sign In",
-    password: "password",
-    login: "login",
+    password: "Password",
+    username: "Username",
     tapToSignIn: "Tap to sign in!",
   },
 }
