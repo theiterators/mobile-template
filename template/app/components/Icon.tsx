@@ -86,6 +86,9 @@ export function Icon(props: IconProps) {
 
 export const iconRegistry = {
   back: require("../../assets/icons/back.png"),
+  check: require("../../assets/icons/check.png"),
+  hidden: require("../../assets/icons/hidden.png"),
+  view: require("../../assets/icons/view.png"),
 }
 
 const $imageStyle: ImageStyle = {
