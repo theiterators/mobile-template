@@ -26,10 +26,9 @@ const plugins = [
 module.exports = {
   presets: ["babel-preset-expo"],
   env: {
-      production: {
-        plugins: ['transform-remove-console'],
-      },
-     
+    production: {
+      plugins: ["transform-remove-console"],
     },
+  },
   plugins,
 }

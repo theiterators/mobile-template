@@ -21,7 +21,7 @@ import { mst } from "reactotron-mst"
 import { RootStore, RootStoreSnapshot } from "../../models/RootStore"
 import { clear } from "../../utils/storage"
 import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotronConfig"
-import { goBack, resetRoot, navigate } from "../../navigators/navigationUtilities"
+import { goBack, resetRoot, navigate } from "../../navigators/common/navigationUtilities"
 import { fakeReactotron } from "./reactotronFake"
 
 /**

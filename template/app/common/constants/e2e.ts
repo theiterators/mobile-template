@@ -7,4 +7,7 @@ export const TEST_IDS = {
       passwordField: "auth.login.passwordField",
     },
   },
+  main: {
+    heading: "main.heading",
+  },
 }

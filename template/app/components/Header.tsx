@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from "react-native"
 import { isRTL, translate } from "../i18n"
-import { colors, spacing } from "../theme"
+import { ACTIVE_OPACITY, colors, spacing } from "../theme"
 import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/hooks/useSafeAreaInsetsStyle"
 import { Icon, IconTypes } from "./Icon"
 import { Text, TextProps } from "./Text"
@@ -123,6 +123,15 @@ export interface HeaderProps {
    * Override the default edges for the safe area.
    */
   safeAreaEdges?: ExtendedEdge[]
+
+  /**
+   * TestID used for testing purposes
+   * */
+  testID?: string
+
+  rightActionTestID?: string
+
+  leftActionTestID?: string
 }
 
 interface HeaderActionProps {
@@ -134,6 +143,7 @@ interface HeaderActionProps {
   txOptions?: TextProps["txOptions"]
   onPress?: TouchableOpacityProps["onPress"]
   ActionComponent?: ReactElement
+  testID?: string
 }
 
 /**
@@ -168,6 +178,9 @@ export function Header(props: HeaderProps) {
     style: $styleOverride,
     titleStyle: $titleStyleOverride,
     containerStyle: $containerStyleOverride,
+    testID,
+    rightActionTestID,
+    leftActionTestID,
   } = props
 
   const $containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)
@@ -175,12 +188,16 @@ export function Header(props: HeaderProps) {
   const titleContent = titleTx ? translate(titleTx, titleTxOptions) : title
 
   return (
-    <View style={[$container, $containerInsets, { backgroundColor }, $containerStyleOverride]}>
+    <View
+      testID={testID}
+      style={[$container, $containerInsets, { backgroundColor }, $containerStyleOverride]}
+    >
       <View style={[$wrapper, $styleOverride]}>
         <HeaderAction
           tx={leftTx}
           text={leftText}
           icon={leftIcon}
+          testID={leftActionTestID}
           iconColor={leftIconColor}
           onPress={onLeftPress}
           txOptions={leftTxOptions}
@@ -210,6 +227,7 @@ export function Header(props: HeaderProps) {
           tx={rightTx}
           text={rightText}
           icon={rightIcon}
+          testID={rightActionTestID}
           iconColor={rightIconColor}
           onPress={onRightPress}
           txOptions={rightTxOptions}
@@ -222,7 +240,17 @@ export function Header(props: HeaderProps) {
 }
 
 function HeaderAction(props: HeaderActionProps) {
-  const { backgroundColor, icon, text, tx, txOptions, onPress, ActionComponent, iconColor } = props
+  const {
+    backgroundColor,
+    icon,
+    text,
+    tx,
+    txOptions,
+    onPress,
+    ActionComponent,
+    iconColor,
+    testID,
+  } = props
 
   const content = tx ? translate(tx, txOptions) : text
 
@@ -231,10 +259,11 @@ function HeaderAction(props: HeaderActionProps) {
   if (content) {
     return (
       <TouchableOpacity
+        testID={testID}
         style={[$actionTextContainer, { backgroundColor }]}
         onPress={onPress}
         disabled={!onPress}
-        activeOpacity={0.8}
+        activeOpacity={ACTIVE_OPACITY}
       >
         <Text weight="medium" size="md" text={content} style={$actionText} />
       </TouchableOpacity>
