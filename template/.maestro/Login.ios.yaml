@@ -1,0 +1,23 @@
+#flow: Login
+
+appId: com.placeholdername.staging
+---
+- clearState # clears the state of our app (navigation and authentication)
+- launchApp # launches the app
+- assertVisible:
+    id: "auth.login.heading"
+- tapOn:
+    id: "auth.login.usernameField"
+- inputText: "jkowalski"
+- tapOn:
+    id: "auth.login.passwordField"
+- inputText: "d03676cd116b76b48ab4756232949f76"
+- tapOn:
+    id: "auth.login.signInButton"
+- assertVisible:
+    id: "main.heading"
+- assertVisible: "Your app, almost ready for launch!"
+- tapOn:
+    text: "Log Out"
+- assertVisible:
+    id: "auth.login.heading"

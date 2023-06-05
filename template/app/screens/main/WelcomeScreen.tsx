@@ -7,6 +7,7 @@ import { MainStackScreenProps } from "../../navigators"
 import { colors, spacing } from "../../theme"
 import { useHeader } from "../../utils/hooks/useHeader"
 import { MainScreenName } from "../../common/types"
+import { TEST_IDS } from "app/common/constants"
 
 interface WelcomeScreenProps extends MainStackScreenProps<MainScreenName.Welcome> {}
 
@@ -27,7 +28,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
     <View style={$container}>
       <View style={$topContainer}>
         <Text
-          testID="welcome-heading"
+          testID={TEST_IDS.main.heading}
           style={$welcomeHeading}
           tx="welcomeScreen.readyForLaunch"
           preset="heading"

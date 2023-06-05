@@ -19,7 +19,6 @@
 		4DD054B02A20CC170072A6CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4DD054AE2A20CC130072A6CF /* GoogleService-Info.plist */; };
 		4DF025902A1E459B00CEAF42 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		4DF025912A1E459B00CEAF42 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		4DF025922A1E459B00CEAF42 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */; };
 		4DF025962A1E459B00CEAF42 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE406F552862D73000A81E39 /* BootSplash.storyboard */; };
 		4DF025972A1E459B00CEAF42 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		B59AB2143E59F6E05310DFA8 /* libPods-PlaceholderName-PlaceholderName staging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12DE86D8F0618BC65BE50BE6 /* libPods-PlaceholderName-PlaceholderName staging.a */; };
@@ -674,7 +673,6 @@
 			files = (
 				4DF025902A1E459B00CEAF42 /* AppDelegate.mm in Sources */,
 				4DF025912A1E459B00CEAF42 /* main.m in Sources */,
-				4DF025922A1E459B00CEAF42 /* ExpoModulesProvider.swift in Sources */,
 				1215B7382ADC41F5D4F09392 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

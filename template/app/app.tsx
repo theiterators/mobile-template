@@ -11,7 +11,6 @@
  */
 
 import { useFonts } from "expo-font"
-import * as Linking from "expo-linking"
 import React from "react"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 
@@ -20,7 +19,7 @@ import "./utils/helpers/ignoreWarnings"
 
 import Config from "./config"
 import { useInitialRootStore } from "./models"
-import { Router, useNavigationPersistence } from "./navigators"
+import { linking, Router, useNavigationPersistence } from "./navigators"
 import { ErrorBoundary } from "./screens/error/ErrorBoundary"
 import { setupReactotron } from "./services/reactotron"
 import { MMKVStorage } from "./utils/storage"
@@ -43,17 +42,6 @@ setupReactotron({
   // log out any snapshots as they happen (this is useful for debugging but slow)
   logSnapshots: false,
 })
-
-// Web linking configuration
-const prefix = Linking.createURL("/")
-const config = {
-  screens: {
-    Login: {
-      path: "",
-    },
-    Welcome: "welcome",
-  },
-}
 
 interface AppProps {
   hideSplashScreen: () => Promise<void>
@@ -94,11 +82,6 @@ function App(props: AppProps) {
   // In Android: https://stackoverflow.com/a/45838109/204044
   // You can replace with your own loading component if you wish.
   if (!rehydrated || !isNavigationStateRestored || !areFontsLoaded) return null
-
-  const linking = {
-    prefixes: [prefix],
-    config,
-  }
 
   // otherwise, we're ready to render the app
   return (

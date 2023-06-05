@@ -1,4 +1,5 @@
-export * from "./navigationUtilities"
+export * from "./common/navigationUtilities"
+export * from "./common/linking"
 
 export * from "./Router"
 export * from "./AuthNavigator"

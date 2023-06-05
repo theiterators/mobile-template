@@ -4,9 +4,12 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 project.ext.envConfigFiles = [
-    staging: ".env.staging",
-    production: ".env.production",
+  productionDebug: ".env.production",
+  productionRelease: ".env.production",
+  stagingDebug: ".env.staging",
+  stagingRelease: ".env.staging",
 ]
+
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 
@@ -125,6 +128,7 @@ android {
     flavorDimensions "default"
 
     namespace "com.placeholdername"
+
     defaultConfig {
         applicationId "com.placeholdername"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -132,7 +136,7 @@ android {
         versionCode 1
         versionName "1.0"
         resValue "string", "app_name", "PlaceholderName"
-        resValue "string", "build_config_package", "com.placeholdername"
+        // resValue "string", "build_config_package", "com.placeholdername"
     }
 
     splits {
@@ -182,7 +186,7 @@ android {
       }
       staging {
         applicationId  "com.placeholdername.staging"
-        resValue "string", "build_config_package", "com.placeholdername.staging"
+        resValue "string", "build_config_package", "com.placeholdername"
         resValue "string", "app_name", "PlaceholderName String"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

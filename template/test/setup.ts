@@ -2,6 +2,16 @@
 import * as ReactNative from "react-native"
 import mockFile from "./mockFile"
 
+import "react-native-gesture-handler/jestSetup"
+
+import "./mocks/firebase-mock"
+
+import "./mocks/react-navigation"
+
+import "./mocks/safe-area-context-mock"
+
+import "./mocks/react-navigation-elements-mock"
+
 // libraries to mock
 jest.doMock("react-native", () => {
   // Extend ReactNative
@@ -36,7 +46,8 @@ jest.mock("i18n-js", () => ({
 
 declare const tron // eslint-disable-line @typescript-eslint/no-unused-vars
 
-jest.useFakeTimers()
+// Doen't work with jest 27
+// jest.useFakeTimers()
 declare global {
   let __TEST__
 }

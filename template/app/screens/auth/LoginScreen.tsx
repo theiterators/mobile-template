@@ -1,14 +1,14 @@
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
-import { TextStyle, ViewStyle } from "react-native"
+import { Platform, TextStyle, ViewStyle } from "react-native"
+
+import { androidAvoidOffset, spacing } from "app/theme"
 import { Screen, Text } from "app/components"
-
-import { spacing } from "app/theme"
-
-import { AuthStackScreenProps } from "../../navigators"
-import { AuthScreenName } from "../../common/types"
-import { LoginForm } from "./containers"
 import { TEST_IDS } from "app/common/constants"
+import { AvoidSoftInputView } from "react-native-avoid-softinput"
+import { AuthScreenName } from "../../common/types"
+import { AuthStackScreenProps } from "../../navigators"
+import { LoginForm } from "./containers"
 
 interface LoginScreenProps extends AuthStackScreenProps<AuthScreenName.Login> {}
 
@@ -25,7 +25,17 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
         preset="heading"
         style={$signIn}
       />
-      <LoginForm />
+      {Platform.OS === "android" ? (
+        <AvoidSoftInputView
+          style={$formContentContainer}
+          avoidOffset={androidAvoidOffset}
+          easing="easeIn"
+        >
+          <LoginForm />
+        </AvoidSoftInputView>
+      ) : (
+        <LoginForm />
+      )}
     </Screen>
   )
 })
@@ -33,10 +43,11 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
 const $screenContentContainer: ViewStyle = {
   paddingVertical: spacing.huge,
   paddingHorizontal: spacing.large,
-  justifyContent: "center",
   flexGrow: 1,
 }
-
+const $formContentContainer: ViewStyle = {
+  flex: 1,
+}
 const $signIn: TextStyle = {
   marginBottom: spacing.small,
 }
