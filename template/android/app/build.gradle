@@ -2,12 +2,15 @@ apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 project.ext.envConfigFiles = [
-    staging: ".env.staging",
-    production: ".env.production",
+  productionDebug: ".env.production",
+  productionRelease: ".env.production",
+  stagingDebug: ".env.staging",
+  stagingRelease: ".env.staging",
 ]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 
 import com.android.build.OutputFile
@@ -125,6 +128,7 @@ android {
     flavorDimensions "default"
 
     namespace "com.placeholdername"
+
     defaultConfig {
         applicationId "com.placeholdername"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -172,7 +176,7 @@ android {
     productFlavors {
       production {
         applicationId "com.placeholdername"
-        // resValue "string", "build_config_package",  "com.placeholdername"
+        resValue "string", "build_config_package",  "com.placeholdername"
         resValue "string", "app_name", "PlaceholderName"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -182,7 +186,7 @@ android {
       }
       staging {
         applicationId  "com.placeholdername.staging"
-        // resValue "string", "build_config_package", "com.placeholdername.staging"
+        resValue "string", "build_config_package", "com.placeholdername"
         resValue "string", "app_name", "PlaceholderName String"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
