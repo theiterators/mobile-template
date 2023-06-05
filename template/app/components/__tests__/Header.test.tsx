@@ -8,7 +8,7 @@ const rightText = "Logout"
 
 describe("Header component", () => {
   const onLogoutPress = jest.fn()
-  test("renders with logout button", () => {
+  it("Renders with logout button", () => {
     const { getByTestId } = render(
       <Header
         testID={componentTestID}
@@ -20,7 +20,8 @@ describe("Header component", () => {
     const content = getByTestId(componentTestID)
     expect(content).toBeTruthy()
   })
-  test("calls onLogoutPress when the rightAction button is pressed", () => {
+
+  it("Calls onLogoutPress when the rightAction button is pressed", () => {
     const { getByTestId } = render(
       <Header
         rightText={rightText}

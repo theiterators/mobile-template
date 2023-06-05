@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, waitFor } from "@testing-library/react-native"
+import { fireEvent, render } from "@testing-library/react-native"
 import React from "react"
 import { Button } from "../Button"
 
@@ -8,7 +8,7 @@ const buttonText = "Submit"
 describe("Button component", () => {
   const onPressMock = jest.fn()
 
-  it("renders with text and onPress handler", async () => {
+  it("Renders with text and onPress handler", async () => {
     const { getByTestId } = render(
       <Button testID={componentTestID} text={buttonText} onPress={onPressMock} />,
     )
@@ -16,10 +16,6 @@ describe("Button component", () => {
     const button = getByTestId(componentTestID)
     fireEvent.press(button)
 
-    await waitFor(() => {
-      expect(onPressMock).toHaveBeenCalled()
-    })
-
-    cleanup()
+    expect(onPressMock).toHaveBeenCalled()
   })
 })
