@@ -1,13 +1,15 @@
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { TextStyle, View, ViewStyle } from "react-native"
+
 import { Text } from "../../components"
+
+import { TEST_IDS } from "app/common/constants"
+import { MainScreenName } from "../../common/types"
 import { useStores } from "../../models"
 import { MainStackScreenProps } from "../../navigators"
 import { colors, spacing } from "../../theme"
 import { useHeader } from "../../utils/hooks/useHeader"
-import { MainScreenName } from "../../common/types"
-import { TEST_IDS } from "app/common/constants"
 
 interface WelcomeScreenProps extends MainStackScreenProps<MainScreenName.Welcome> {}
 
@@ -15,6 +17,8 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
   const {
     authStore: { logout },
   } = useStores()
+
+  const [value, setValue] = useState("man")
 
   useHeader(
     {
