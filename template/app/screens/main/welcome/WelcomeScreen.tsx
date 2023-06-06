@@ -1,15 +1,15 @@
 import { observer } from "mobx-react-lite"
-import React, { FC, useState } from "react"
+import React, { FC } from "react"
 import { TextStyle, View, ViewStyle } from "react-native"
 
-import { Text } from "../../components"
+import { Button, Text } from "../../../components"
 
 import { TEST_IDS } from "app/common/constants"
-import { MainScreenName } from "../../common/types"
-import { useStores } from "../../models"
-import { MainStackScreenProps } from "../../navigators"
-import { colors, spacing } from "../../theme"
-import { useHeader } from "../../utils/hooks/useHeader"
+import { MainScreenName } from "../../../common/types"
+import { useStores } from "../../../models"
+import { MainStackScreenProps } from "../../../navigators"
+import { colors, spacing } from "../../../theme"
+import { useHeader } from "../../../utils/hooks/useHeader"
 
 interface WelcomeScreenProps extends MainStackScreenProps<MainScreenName.Welcome> {}
 
@@ -26,6 +26,10 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
     [logout],
   )
 
+  const onNavigationPress = () => {
+    _props.navigation.navigate(MainScreenName.Projects)
+  }
+
   return (
     <View style={$container}>
       <View style={$topContainer}>
@@ -35,6 +39,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
           tx="welcomeScreen.readyForLaunch"
           preset="heading"
         />
+        <Button tx="project.openProjects" onPress={onNavigationPress} />
       </View>
     </View>
   )

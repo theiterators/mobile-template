@@ -1,4 +1,5 @@
-export * from "./main/WelcomeScreen"
+export * from "./main/welcome/WelcomeScreen"
+export * from "./main/projects/ProjectsScreen"
 
 export * from "./auth/LoginScreen"
 

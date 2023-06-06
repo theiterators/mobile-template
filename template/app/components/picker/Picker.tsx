@@ -10,9 +10,9 @@ export interface IPickerItem {
 }
 
 interface PickerProps {
-  /* `value: string` is defining a prop called `value` with a type of `string`. This prop is used to
+  /* `selectedValue: string` is defining a prop called `selectedValue` with a type of `string`. This prop is used to
   determine the currently selected value in the picker component. */
-  value: string
+  selectedValue: string
 
   /* `data: IPickerItem[]` is defining a prop called `data` with a type of an array of objects that
   implement the `IPickerItem` interface. This prop is used to pass an array of items to be displayed
@@ -33,9 +33,9 @@ interface PickerProps {
   onValueChange: (value: string) => void
 }
 
-export const Picker = ({ data, value, children, onValueChange }: PickerProps) => {
+export const Picker = ({ data, selectedValue, children, onValueChange }: PickerProps) => {
   return Platform.OS === "android" ? (
-    <NativeAndroidPicker data={data} selectedValue={value} onValueChange={onValueChange}>
+    <NativeAndroidPicker data={data} selectedValue={selectedValue} onValueChange={onValueChange}>
       {children}
     </NativeAndroidPicker>
   ) : (

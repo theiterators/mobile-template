@@ -3,7 +3,7 @@ import { appLifeCycle } from "../../services"
 import { setReactotronRootStore } from "../../services/reactotron"
 import { RootStore, RootStoreModel } from "../RootStore"
 import { setupRootStore } from "./setupRootStore"
-import { apiAuth } from "../../services/api"
+import { apiAuth, apiProject } from "../../services/api"
 import { MMKVStorage } from "../../utils/storage"
 import { catchErrorMiddleware } from "../middlewares"
 
@@ -22,6 +22,7 @@ import { catchErrorMiddleware } from "../middlewares"
 
 const extraArguments = {
   apiAuth,
+  apiProject,
   storage: MMKVStorage,
   appLifeCycle,
 }

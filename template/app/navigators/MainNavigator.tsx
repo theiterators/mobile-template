@@ -17,6 +17,7 @@ export const MainNavigator = () => {
       initialRouteName={MainScreenName.Welcome}
     >
       <Stack.Screen name={MainScreenName.Welcome} component={Screens.WelcomeScreen} />
+      <Stack.Screen name={MainScreenName.Projects} component={Screens.ProjectsScreen} />
     </Stack.Navigator>
   )
 }

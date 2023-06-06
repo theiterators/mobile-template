@@ -24,6 +24,7 @@ export const DEFAULT_API_CONFIG: IApiConfig = {
 
 export const API_ROUTES = {
   login: "/auth/session", // POST
+  getProjects: "/projects", // GET
 }
 
 export const ERROR_CODE_UNAUTHORIZED = 401

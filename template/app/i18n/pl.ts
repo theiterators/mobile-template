@@ -10,6 +10,10 @@ const pl: Translations = {
   welcomeScreen: {
     readyForLaunch: "Your app, almost ready for launch!",
   },
+  project: {
+    projects: "Projects",
+    openProjects: "Open Projects",
+  },
   errorScreen: {
     title: "Something went wrong!",
     friendlySubtitle:

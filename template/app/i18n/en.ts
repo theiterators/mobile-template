@@ -25,6 +25,10 @@ const en = {
     invalidEmail: "Invalid email address.",
     required: "Required",
   },
+  project: {
+    projects: "Projects",
+    openProjects: "Open Projects",
+  },
   loginScreen: {
     signIn: "Sign In",
     password: "Password",
