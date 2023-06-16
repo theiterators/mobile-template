@@ -1,7 +1,8 @@
 import { addMiddleware } from "mobx-state-tree"
-import { RootStore } from "../RootStore"
+
 import { DATA_STATUS } from "../../common/types"
 import { reportCrash } from "../../services/reports/crashReporting"
+import { RootStore } from "../RootStore"
 
 export const catchErrorMiddleware = (rootStore: RootStore) =>
   addMiddleware(

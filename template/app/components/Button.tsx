@@ -7,74 +7,76 @@ import {
   TextStyle,
   ViewStyle,
 } from "react-native"
+
 import { colors, spacing, typography } from "../theme"
-import { Text, TextProps } from "./Text"
+
 import { LoadingSpinner } from "./LoadingSpinner"
+import { Text, TextProps } from "./Text"
 
 type Presets = keyof typeof $viewPresets
 
 export interface ButtonAccessoryProps {
+  pressableState: PressableStateCallbackType,
   style: StyleProp<any>
-  pressableState: PressableStateCallbackType
 }
 
 export interface ButtonProps extends PressableProps {
   /**
-   * Text which is looked up via i18n.
+   * An optional component to render on the left side of the text.
+   * Example: `LeftAccessory={(props) => <View {...props} />}`
    */
-  tx?: TextProps["tx"]
+  LeftAccessory?: ComponentType<ButtonAccessoryProps>,
+  /**
+   * An optional component to render on the right side of the text.
+   * Example: `RightAccessory={(props) => <View {...props} />}`
+   */
+  RightAccessory?: ComponentType<ButtonAccessoryProps>,
+  /**
+   * Children components.
+   */
+  children?: React.ReactNode,
+  /**
+   * Indicates whether the component is disabled.
+   */
+  disabled?: boolean,
+  /**
+   * Indicates whether the component is in a loading state.
+   */
+  isLoading?: boolean,
+  /**
+   * One of the different types of button presets.
+   */
+  preset?: Presets,
+  /**
+   * An optional style override for the "pressed" state.
+   */
+  pressedStyle?: StyleProp<ViewStyle>,
+  /**
+   * An optional style override for the button text when in the "pressed" state.
+   */
+  pressedTextStyle?: StyleProp<TextStyle>,
+
+  /**
+   * An optional style override useful for padding & margin.
+   */
+  style?: StyleProp<ViewStyle>,
   /**
    * The text to display if not using `tx` or nested components.
    */
-  text?: TextProps["text"]
+  text?: TextProps["text"],
+  /**
+   * An optional style override for the button text.
+   */
+  textStyle?: StyleProp<TextStyle>,
+  /**
+   * Text which is looked up via i18n.
+   */
+  tx?: TextProps["tx"],
   /**
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
   txOptions?: TextProps["txOptions"]
-  /**
-   * An optional style override useful for padding & margin.
-   */
-  style?: StyleProp<ViewStyle>
-  /**
-   * An optional style override for the "pressed" state.
-   */
-  pressedStyle?: StyleProp<ViewStyle>
-  /**
-   * An optional style override for the button text.
-   */
-  textStyle?: StyleProp<TextStyle>
-  /**
-   * An optional style override for the button text when in the "pressed" state.
-   */
-  pressedTextStyle?: StyleProp<TextStyle>
-  /**
-   * One of the different types of button presets.
-   */
-  preset?: Presets
-
-  /**
-   * Indicates whether the component is disabled.
-   */
-  disabled?: boolean
-  /**
-   * Indicates whether the component is in a loading state.
-   */
-  isLoading?: boolean
-  /**
-   * An optional component to render on the right side of the text.
-   * Example: `RightAccessory={(props) => <View {...props} />}`
-   */
-  RightAccessory?: ComponentType<ButtonAccessoryProps>
-  /**
-   * An optional component to render on the left side of the text.
-   * Example: `LeftAccessory={(props) => <View {...props} />}`
-   */
-  LeftAccessory?: ComponentType<ButtonAccessoryProps>
-  /**
-   * Children components.
-   */
-  children?: React.ReactNode
 }
 
 /**
@@ -85,17 +87,17 @@ export interface ButtonProps extends PressableProps {
  */
 export function Button(props: ButtonProps) {
   const {
-    tx,
-    text,
-    txOptions,
-    style: $viewStyleOverride,
-    pressedStyle: $pressedViewStyleOverride,
-    textStyle: $textStyleOverride,
-    pressedTextStyle: $pressedTextStyleOverride,
     children,
     isLoading,
-    RightAccessory,
     LeftAccessory,
+    pressedStyle: $pressedViewStyleOverride,
+    pressedTextStyle: $pressedTextStyleOverride,
+    RightAccessory,
+    style: $viewStyleOverride,
+    text,
+    textStyle: $textStyleOverride,
+    tx,
+    txOptions,
     ...rest
   } = props
 
@@ -116,10 +118,10 @@ export function Button(props: ButtonProps) {
   }
 
   return (
-    <Pressable style={$viewStyle} accessibilityRole="button" {...rest}>
+    <Pressable accessibilityRole="button" style={$viewStyle} {...rest}>
       {(state) => (
         <>
-          {!!LeftAccessory && <LeftAccessory style={$leftAccessoryStyle} pressableState={state} />}
+          {!!LeftAccessory && <LeftAccessory pressableState={state} style={$leftAccessoryStyle} />}
 
           {isLoading ? (
             <LoadingSpinner />
@@ -130,7 +132,7 @@ export function Button(props: ButtonProps) {
           )}
 
           {!!RightAccessory && (
-            <RightAccessory style={$rightAccessoryStyle} pressableState={state} />
+            <RightAccessory pressableState={state} style={$rightAccessoryStyle} />
           )}
         </>
       )}

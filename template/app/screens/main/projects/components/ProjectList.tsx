@@ -1,13 +1,13 @@
-import { FlashList } from "@shopify/flash-list"
-import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { View, ViewStyle } from "react-native"
-
-import { spacing } from "app/theme"
+import { FlashList } from "@shopify/flash-list"
+import { observer } from "mobx-react-lite"
 
 import { TProject } from "app/common/types/projectType"
-import { ProjectListItem } from "./ProjectListItem"
 import { ListItem } from "app/components"
+import { spacing } from "app/theme"
+
+import { ProjectListItem } from "./ProjectListItem"
 
 interface IProjectListProps {
   data: TProject[]

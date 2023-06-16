@@ -1,11 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from "react"
+
 import { appLifeCycle } from "../../services"
-import { setReactotronRootStore } from "../../services/reactotron"
-import { RootStore, RootStoreModel } from "../RootStore"
-import { setupRootStore } from "./setupRootStore"
 import { apiAuth, apiProject } from "../../services/api"
+import { setReactotronRootStore } from "../../services/reactotron"
 import { MMKVStorage } from "../../utils/storage"
 import { catchErrorMiddleware } from "../middlewares"
+import { RootStore, RootStoreModel } from "../RootStore"
+
+import { setupRootStore } from "./setupRootStore"
 
 /**
  * Create the initial (empty) global RootStore instance here.

@@ -1,4 +1,6 @@
+/* eslint-disable no-console */
 import analytics from "@react-native-firebase/analytics"
+
 import { AnalyticsEventType } from "../../common/types"
 
 const Analytics = {

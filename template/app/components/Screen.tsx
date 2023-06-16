@@ -1,5 +1,3 @@
-import { useScrollToTop } from "@react-navigation/native"
-import { StatusBar, StatusBarProps } from "expo-status-bar"
 import React, { useRef, useState } from "react"
 import {
   KeyboardAvoidingView,
@@ -12,62 +10,65 @@ import {
   View,
   ViewStyle,
 } from "react-native"
+import { useScrollToTop } from "@react-navigation/native"
+import { StatusBar, StatusBarProps } from "expo-status-bar"
+
 import { colors } from "../theme"
 import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/hooks/useSafeAreaInsetsStyle"
 
 interface BaseScreenProps {
   /**
-   * Children components.
+   * Pass any additional props directly to the KeyboardAvoidingView component.
    */
-  children?: React.ReactNode
-  /**
-   * Style for the outer content container useful for padding & margin.
-   */
-  style?: StyleProp<ViewStyle>
-  /**
-   * Style for the inner content container useful for padding & margin.
-   */
-  contentContainerStyle?: StyleProp<ViewStyle>
-  /**
-   * Override the default edges for the safe area.
-   */
-  safeAreaEdges?: ExtendedEdge[]
-  /**
-   * Background color
-   */
-  backgroundColor?: string
-  /**
-   * Status bar setting. Defaults to dark.
-   */
-  statusBarStyle?: "light" | "dark"
-  /**
-   * By how much should we offset the keyboard? Defaults to 0.
-   */
-  keyboardOffset?: number
+  KeyboardAvoidingViewProps?: KeyboardAvoidingViewProps
   /**
    * Pass any additional props directly to the StatusBar component.
    */
   StatusBarProps?: StatusBarProps
   /**
-   * Pass any additional props directly to the KeyboardAvoidingView component.
+   * Background color
    */
-  KeyboardAvoidingViewProps?: KeyboardAvoidingViewProps
+  backgroundColor?: string
+  /**
+   * Children components.
+   */
+  children?: React.ReactNode
+  /**
+   * Style for the inner content container useful for padding & margin.
+   */
+  contentContainerStyle?: StyleProp<ViewStyle>
+  /**
+   * By how much should we offset the keyboard? Defaults to 0.
+   */
+  keyboardOffset?: number
+  /**
+   * Override the default edges for the safe area.
+   */
+  safeAreaEdges?: ExtendedEdge[]
+  /**
+   * Status bar setting. Defaults to dark.
+   */
+  statusBarStyle?: "light" | "dark"
+  /**
+   * Style for the outer content container useful for padding & margin.
+   */
+  style?: StyleProp<ViewStyle>
 }
 
 interface FixedScreenProps extends BaseScreenProps {
   preset?: "fixed"
 }
 interface ScrollScreenProps extends BaseScreenProps {
-  preset?: "scroll"
+  /**
+   * Pass any additional props directly to the ScrollView component.
+   */
+  ScrollViewProps?: ScrollViewProps
   /**
    * Should keyboard persist on screen tap. Defaults to handled.
    * Only applies to scroll preset.
    */
   keyboardShouldPersistTaps?: "handled" | "always" | "never"
-  /**
-   * Pass any additional props directly to the ScrollView component.
-   */
-  ScrollViewProps?: ScrollViewProps
+  preset?: "scroll"
 }
 
 interface AutoScreenProps extends Omit<ScrollScreenProps, "preset"> {
@@ -87,9 +88,11 @@ function isNonScrolling(preset?: ScreenProps["preset"]) {
   return !preset || preset === "fixed"
 }
 
+const AUTO_SCREEN_PERCENT = 0.92
+
 function useAutoPreset(props: AutoScreenProps) {
   const { preset, scrollEnabledToggleThreshold } = props
-  const { percent = 0.92, point = 0 } = scrollEnabledToggleThreshold || {}
+  const { percent = AUTO_SCREEN_PERCENT, point = 0 } = scrollEnabledToggleThreshold || {}
 
   const scrollViewHeight = useRef(null)
   const scrollViewContentHeight = useRef(null)
@@ -138,7 +141,7 @@ function useAutoPreset(props: AutoScreenProps) {
 }
 
 function ScreenWithoutScrolling(props: ScreenProps) {
-  const { style, contentContainerStyle, children } = props
+  const { children, contentContainerStyle, style } = props
   return (
     <View style={[$outerStyle, style]}>
       <View style={[$innerStyle, contentContainerStyle]}>{children}</View>
@@ -149,15 +152,15 @@ function ScreenWithoutScrolling(props: ScreenProps) {
 function ScreenWithScrolling(props: ScreenProps) {
   const {
     children,
-    keyboardShouldPersistTaps = "handled",
     contentContainerStyle,
+    keyboardShouldPersistTaps = "handled",
     ScrollViewProps,
     style,
   } = props as ScrollScreenProps
 
   const ref = useRef<ScrollView>()
 
-  const { scrollEnabled, onContentSizeChange, onLayout } = useAutoPreset(props as AutoScreenProps)
+  const { onContentSizeChange, onLayout, scrollEnabled } = useAutoPreset(props as AutoScreenProps)
 
   // Add native behavior of pressing the active tab to scroll to the top of the content
   // More info at: https://reactnavigation.org/docs/use-scroll-to-top/
@@ -167,20 +170,20 @@ function ScreenWithScrolling(props: ScreenProps) {
     <ScrollView
       {...{ keyboardShouldPersistTaps, scrollEnabled, ref }}
       {...ScrollViewProps}
-      onLayout={(e) => {
-        onLayout(e)
-        ScrollViewProps?.onLayout?.(e)
-      }}
-      onContentSizeChange={(w: number, h: number) => {
-        onContentSizeChange(w, h)
-        ScrollViewProps?.onContentSizeChange?.(w, h)
-      }}
       style={[$outerStyle, ScrollViewProps?.style, style]}
       contentContainerStyle={[
         $innerStyle,
         ScrollViewProps?.contentContainerStyle,
         contentContainerStyle,
       ]}
+      onContentSizeChange={(w: number, h: number) => {
+        onContentSizeChange(w, h)
+        ScrollViewProps?.onContentSizeChange?.(w, h)
+      }}
+      onLayout={(e) => {
+        onLayout(e)
+        ScrollViewProps?.onLayout?.(e)
+      }}
     >
       {children}
     </ScrollView>

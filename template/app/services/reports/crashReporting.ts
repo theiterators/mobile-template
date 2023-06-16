@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 /**
  * If you're using Sentry
  *   RN   https://docs.sentry.io/platforms/react-native/
@@ -7,6 +9,7 @@
 // import * as Sentry from "@sentry/react-native"
 
 import crashlytics from "@react-native-firebase/crashlytics"
+
 import { CrashalyticsEventType, ErrorType } from "../../common/types"
 
 /**

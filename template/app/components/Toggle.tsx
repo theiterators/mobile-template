@@ -13,7 +13,9 @@ import {
   ViewStyle,
 } from "react-native"
 import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated"
+
 import { colors, spacing } from "../theme"
+
 import { iconRegistry, IconTypes } from "./Icon"
 import { Text, TextProps } from "./Text"
 
@@ -21,134 +23,134 @@ type Variants = "checkbox" | "switch" | "radio"
 
 interface BaseToggleProps extends Omit<TouchableOpacityProps, "style"> {
   /**
-   * The variant of the toggle.
-   * Options: "checkbox", "switch", "radio"
-   * Default: "checkbox"
+   * Pass any additional props directly to the helper Text component.
    */
-  variant?: unknown
+  HelperTextProps?: TextProps,
   /**
-   * A style modifier for different input states.
+   * Pass any additional props directly to the label Text component.
    */
-  status?: "error" | "disabled"
-  /**
-   * If false, input is not editable. The default value is true.
-   */
-  editable?: TextInputProps["editable"]
-  /**
-   * The value of the field. If true the component will be turned on.
-   */
-  value?: boolean
-  /**
-   * Invoked with the new value when the value changes.
-   */
-  onValueChange?: SwitchProps["onValueChange"]
+  LabelTextProps?: TextProps,
   /**
    * Style overrides for the container
    */
-  containerStyle?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>,
   /**
-   * Style overrides for the input wrapper
+   * If false, input is not editable. The default value is true.
    */
-  inputWrapperStyle?: StyleProp<ViewStyle>
+  editable?: TextInputProps["editable"],
   /**
-   * Optional input wrapper style override.
-   * This gives the inputs their size, shape, "off" background-color, and outer border.
+   * The helper text to display if not using `helperTx`.
    */
-  inputOuterStyle?: ViewStyle
+  helper?: TextProps["text"],
+  /**
+   * Helper text which is looked up via i18n.
+   */
+  helperTx?: TextProps["tx"],
+  /**
+   * Optional helper options to pass to i18n. Useful for interpolation
+   * as well as explicitly setting locale or translation fallbacks.
+   */
+  helperTxOptions?: TextProps["txOptions"],
   /**
    * Optional input style override.
    * This gives the inputs their inner characteristics and "on" background-color.
    */
-  inputInnerStyle?: ViewStyle
+  inputInnerStyle?: ViewStyle,
   /**
-   * The position of the label relative to the action component.
-   * Default: right
+   * Optional input wrapper style override.
+   * This gives the inputs their size, shape, "off" background-color, and outer border.
    */
-  labelPosition?: "left" | "right"
+  inputOuterStyle?: ViewStyle,
+  /**
+   * Style overrides for the input wrapper
+   */
+  inputWrapperStyle?: StyleProp<ViewStyle>,
   /**
    * The label text to display if not using `labelTx`.
    */
   label?: TextProps["text"]
   /**
+   * The position of the label relative to the action component.
+   * Default: right
+   */
+  labelPosition?: "left" | "right",
+  /**
+   * Style overrides for label text.
+   */
+  labelStyle?: StyleProp<TextStyle>,
+  /**
    * Label text which is looked up via i18n.
    */
-  labelTx?: TextProps["tx"]
+  labelTx?: TextProps["tx"],
   /**
    * Optional label options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  labelTxOptions?: TextProps["txOptions"]
+  labelTxOptions?: TextProps["txOptions"],
   /**
-   * Style overrides for label text.
+   * Invoked with the new value when the value changes.
    */
-  labelStyle?: StyleProp<TextStyle>
+  onValueChange?: SwitchProps["onValueChange"],
   /**
-   * Pass any additional props directly to the label Text component.
+   * A style modifier for different input states.
    */
-  LabelTextProps?: TextProps
+  status?: "error" | "disabled",
   /**
-   * The helper text to display if not using `helperTx`.
+   * The value of the field. If true the component will be turned on.
    */
-  helper?: TextProps["text"]
+  value?: boolean,
   /**
-   * Helper text which is looked up via i18n.
+   * The variant of the toggle.
+   * Options: "checkbox", "switch", "radio"
+   * Default: "checkbox"
    */
-  helperTx?: TextProps["tx"]
-  /**
-   * Optional helper options to pass to i18n. Useful for interpolation
-   * as well as explicitly setting locale or translation fallbacks.
-   */
-  helperTxOptions?: TextProps["txOptions"]
-  /**
-   * Pass any additional props directly to the helper Text component.
-   */
-  HelperTextProps?: TextProps
+  variant?: unknown
 }
 
 interface CheckboxToggleProps extends BaseToggleProps {
-  variant?: "checkbox"
+  /**
+   * Checkbox-only prop that changes the icon used for the "on" state.
+   */
+  checkboxIcon?: IconTypes,
   /**
    * Optional style prop that affects the Image component.
    */
   inputDetailStyle?: ImageStyle
-  /**
-   * Checkbox-only prop that changes the icon used for the "on" state.
-   */
-  checkboxIcon?: IconTypes
+  variant?: "checkbox"
 }
 
 interface RadioToggleProps extends BaseToggleProps {
-  variant?: "radio"
   /**
    * Optional style prop that affects the dot View.
    */
-  inputDetailStyle?: ViewStyle
+  inputDetailStyle?: ViewStyle,
+  variant?: "radio"
 }
 
 interface SwitchToggleProps extends BaseToggleProps {
-  variant?: "switch"
-  /**
-   * Switch-only prop that adds a text/icon label for on/off states.
-   */
-  switchAccessibilityMode?: "text" | "icon"
   /**
    * Optional style prop that affects the knob View.
    * Note: `width` and `height` rules should be points (numbers), not percentages.
    */
-  inputDetailStyle?: Omit<ViewStyle, "width" | "height"> & { width?: number; height?: number }
+  inputDetailStyle?: Omit<ViewStyle, "width" | "height"> & { height?: number, width?: number; },
+  /**
+   * Switch-only prop that adds a text/icon label for on/off states.
+   */
+  switchAccessibilityMode?: "text" | "icon"
+  variant?: "switch"
 }
 
 export type ToggleProps = CheckboxToggleProps | RadioToggleProps | SwitchToggleProps
 
 interface ToggleInputProps {
-  on: boolean
-  status: BaseToggleProps["status"]
+  checkboxIcon?: CheckboxToggleProps["checkboxIcon"],
+  detailStyle: Omit<ViewStyle & ImageStyle, "overflow">,
   disabled: boolean
-  outerStyle: ViewStyle
-  innerStyle: ViewStyle
-  detailStyle: Omit<ViewStyle & ImageStyle, "overflow">
+  innerStyle: ViewStyle,
+  on: boolean,
+  outerStyle: ViewStyle,
+  status: BaseToggleProps["status"],
   switchAccessibilityMode?: SwitchToggleProps["switchAccessibilityMode"]
-  checkboxIcon?: CheckboxToggleProps["checkboxIcon"]
 }
 
 /**
@@ -159,19 +161,19 @@ interface ToggleInputProps {
  */
 export function Toggle(props: ToggleProps) {
   const {
-    variant = "checkbox",
+    containerStyle: $containerStyleOverride,
     editable = true,
-    status,
-    value,
-    onPress,
-    onValueChange,
-    labelPosition = "right",
     helper,
+    HelperTextProps,
     helperTx,
     helperTxOptions,
-    HelperTextProps,
-    containerStyle: $containerStyleOverride,
     inputWrapperStyle: $inputWrapperStyleOverride,
+    labelPosition = "right",
+    onPress,
+    onValueChange,
+    status,
+    value,
+    variant = "checkbox",
     ...WrapperProps
   } = props
 
@@ -202,9 +204,9 @@ export function Toggle(props: ToggleProps) {
 
   return (
     <Wrapper
-      activeOpacity={1}
       accessibilityRole={variant}
       accessibilityState={{ checked: value, disabled }}
+      activeOpacity={1}
       {...WrapperProps}
       style={$containerStyles}
       onPress={handlePress}
@@ -213,14 +215,14 @@ export function Toggle(props: ToggleProps) {
         {labelPosition === "left" && <FieldLabel {...props} labelPosition={labelPosition} />}
 
         <ToggleInput
-          on={value}
-          disabled={disabled}
-          status={status}
-          outerStyle={props.inputOuterStyle}
-          innerStyle={props.inputInnerStyle}
-          detailStyle={props.inputDetailStyle}
-          switchAccessibilityMode={switchAccessibilityMode}
           checkboxIcon={checkboxIcon}
+          detailStyle={props.inputDetailStyle}
+          disabled={disabled}
+          innerStyle={props.inputInnerStyle}
+          on={value}
+          outerStyle={props.inputOuterStyle}
+          status={status}
+          switchAccessibilityMode={switchAccessibilityMode}
         />
 
         {labelPosition === "right" && <FieldLabel {...props} labelPosition={labelPosition} />}
@@ -248,13 +250,13 @@ const ToggleInputs: Record<Variants, FC<ToggleInputProps>> = {
 
 function Checkbox(props: ToggleInputProps) {
   const {
-    on,
-    status,
-    disabled,
     checkboxIcon,
-    outerStyle: $outerStyleOverride,
-    innerStyle: $innerStyleOverride,
     detailStyle: $detailStyleOverride,
+    disabled,
+    innerStyle: $innerStyleOverride,
+    on,
+    outerStyle: $outerStyleOverride,
+    status,
   } = props
 
   const offBackgroundColor = [
@@ -309,12 +311,12 @@ function Checkbox(props: ToggleInputProps) {
 
 function Radio(props: ToggleInputProps) {
   const {
-    on,
-    status,
-    disabled,
-    outerStyle: $outerStyleOverride,
-    innerStyle: $innerStyleOverride,
     detailStyle: $detailStyleOverride,
+    disabled,
+    innerStyle: $innerStyleOverride,
+    on,
+    outerStyle: $outerStyleOverride,
+    status,
   } = props
 
   const offBackgroundColor = [
@@ -368,12 +370,12 @@ function Radio(props: ToggleInputProps) {
 
 function Switch(props: ToggleInputProps) {
   const {
-    on,
-    status,
-    disabled,
-    outerStyle: $outerStyleOverride,
-    innerStyle: $innerStyleOverride,
     detailStyle: $detailStyleOverride,
+    disabled,
+    innerStyle: $innerStyleOverride,
+    on,
+    outerStyle: $outerStyleOverride,
+    status,
   } = props
 
   const knobSizeFallback = 2
@@ -469,7 +471,7 @@ function Switch(props: ToggleInputProps) {
 }
 
 function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off" }) {
-  const { on, disabled, status, switchAccessibilityMode, role, innerStyle, detailStyle } = props
+  const { detailStyle, disabled, innerStyle, on, role, status, switchAccessibilityMode } = props
 
   if (!switchAccessibilityMode) return null
 
@@ -503,8 +505,8 @@ function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off"
 
       {switchAccessibilityMode === "icon" && shouldLabelBeVisible && (
         <Image
-          style={[$switchAccessibilityIcon, { tintColor: color }]}
           source={role === "off" ? iconRegistry.hidden : iconRegistry.view}
+          style={[$switchAccessibilityIcon, { tintColor: color }]}
         />
       )}
     </View>
@@ -513,13 +515,13 @@ function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off"
 
 function FieldLabel(props: BaseToggleProps) {
   const {
-    status,
     label,
-    labelTx,
-    labelTxOptions,
-    LabelTextProps,
     labelPosition,
     labelStyle: $labelStyleOverride,
+    LabelTextProps,
+    labelTx,
+    labelTxOptions,
+    status,
   } = props
 
   if (!label && !labelTx && !LabelTextProps?.children) return null

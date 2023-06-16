@@ -1,15 +1,15 @@
 import Config, { NativeConfig } from "react-native-config"
 
 export interface ConfigBaseProps {
+  catchErrors: "always" | "dev" | "prod" | "never",
+  exitRoutes: string[],
   persistNavigation: "always" | "dev" | "prod" | "never"
-  catchErrors: "always" | "dev" | "prod" | "never"
-  exitRoutes: string[]
 }
 interface ConfigType extends NativeConfig {
   API_URL: string
   PRODUCTION: string
+  TEST_PASSWORD: string,
   TEST_USERNAME: string
-  TEST_PASSWORD: string
 }
 
 export type PersistNavigationConfig = ConfigBaseProps["persistNavigation"]

@@ -1,16 +1,19 @@
-import { useState, useEffect, useRef } from "react"
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable no-console */
+import { useEffect, useRef, useState } from "react"
 import { BackHandler, Platform } from "react-native"
 import {
-  NavigationState,
   createNavigationContainerRef,
+  NavigationState,
   PartialState,
 } from "@react-navigation/native"
+
 import Config from "../../config"
 import type { PersistNavigationConfig } from "../../config/config.base"
 import { useIsMounted } from "../../utils/hooks/useIsMounted"
-import type { NavigationProps } from "../Router"
-
 import { MMKVStorage as storage } from "../../utils/storage"
+import type { NavigationProps } from "../Router"
 
 type Storage = typeof storage
 

@@ -7,59 +7,45 @@ import {
   View,
   ViewStyle,
 } from "react-native"
+
 import { colors, spacing } from "../theme"
+
 import { Icon, IconTypes } from "./Icon"
 import { Text, TextProps } from "./Text"
 
 export interface ListItemProps extends TouchableOpacityProps {
   /**
-   * How tall the list item should be.
-   * Default: 56
+   * Left action custom ReactElement.
+   * Overrides `leftIcon`.
    */
-  height?: number
+  LeftComponent?: ReactElement
   /**
-   * Whether to show the top separator.
-   * Default: false
+   * Right action custom ReactElement.
+   * Overrides `rightIcon`.
    */
-  topSeparator?: boolean
+  RightComponent?: ReactElement
+  /**
+   * Pass any additional props directly to the Text component.
+   */
+  TextProps?: TextProps
   /**
    * Whether to show the bottom separator.
    * Default: false
    */
   bottomSeparator?: boolean
   /**
-   * Text to display if not using `tx` or nested components.
-   */
-  text?: TextProps["text"]
-  /**
-   * Text which is looked up via i18n.
-   */
-  tx?: TextProps["tx"]
-  /**
    * Children components.
    */
   children?: TextProps["children"]
-  /**
-   * Optional options to pass to i18n. Useful for interpolation
-   * as well as explicitly setting locale or translation fallbacks.
-   */
-  txOptions?: TextProps["txOptions"]
-  /**
-   * Optional text style override.
-   */
-  textStyle?: StyleProp<TextStyle>
-  /**
-   * Pass any additional props directly to the Text component.
-   */
-  TextProps?: TextProps
   /**
    * Optional View container style override.
    */
   containerStyle?: StyleProp<ViewStyle>
   /**
-   * Optional TouchableOpacity style override.
+   * How tall the list item should be.
+   * Default: 56
    */
-  style?: StyleProp<ViewStyle>
+  height?: number
   /**
    * Icon that should appear on the left.
    */
@@ -77,25 +63,42 @@ export interface ListItemProps extends TouchableOpacityProps {
    */
   rightIconColor?: string
   /**
-   * Right action custom ReactElement.
-   * Overrides `rightIcon`.
+   * Optional TouchableOpacity style override.
    */
-  RightComponent?: ReactElement
+  style?: StyleProp<ViewStyle>
   /**
-   * Left action custom ReactElement.
-   * Overrides `leftIcon`.
+   * Text to display if not using `tx` or nested components.
    */
-  LeftComponent?: ReactElement
+  text?: TextProps["text"]
+  /**
+   * Optional text style override.
+   */
+  textStyle?: StyleProp<TextStyle>
+  /**
+   * Whether to show the top separator.
+   * Default: false
+   */
+  topSeparator?: boolean
+  /**
+   * Text which is looked up via i18n.
+   */
+  tx?: TextProps["tx"]
+  /**
+   * Optional options to pass to i18n. Useful for interpolation
+   * as well as explicitly setting locale or translation fallbacks.
+   */
+  txOptions?: TextProps["txOptions"]
 }
 
 interface ListItemActionProps {
+  Component?: ReactElement
   icon: IconTypes
   iconColor?: string
-  Component?: ReactElement
-  size: number
   side: "left" | "right"
+  size: number
 }
 
+const ITEM_HEIGHT = 56
 /**
  * A styled row component that can be used in FlatList, SectionList, or by itself.
  *
@@ -105,7 +108,8 @@ export function ListItem(props: ListItemProps) {
   const {
     bottomSeparator,
     children,
-    height = 56,
+    containerStyle: $containerStyleOverride,
+    height = ITEM_HEIGHT,
     LeftComponent,
     leftIcon,
     leftIconColor,
@@ -115,11 +119,10 @@ export function ListItem(props: ListItemProps) {
     style,
     text,
     TextProps,
+    textStyle: $textStyleOverride,
     topSeparator,
     tx,
     txOptions,
-    textStyle: $textStyleOverride,
-    containerStyle: $containerStyleOverride,
     ...TouchableOpacityProps
   } = props
 
@@ -137,23 +140,23 @@ export function ListItem(props: ListItemProps) {
     <View style={$containerStyles}>
       <TouchableOpacity {...TouchableOpacityProps} style={$touchableStyles}>
         <ListItemAction
-          side="left"
-          size={height}
+          Component={LeftComponent}
           icon={leftIcon}
           iconColor={leftIconColor}
-          Component={LeftComponent}
+          side="left"
+          size={height}
         />
 
-        <Text {...TextProps} tx={tx} text={text} txOptions={txOptions} style={$textStyles}>
+        <Text {...TextProps} style={$textStyles} text={text} tx={tx} txOptions={txOptions}>
           {children}
         </Text>
 
         <ListItemAction
-          side="right"
-          size={height}
+          Component={RightComponent}
           icon={rightIcon}
           iconColor={rightIconColor}
-          Component={RightComponent}
+          side="right"
+          size={height}
         />
       </TouchableOpacity>
     </View>
@@ -161,7 +164,7 @@ export function ListItem(props: ListItemProps) {
 }
 
 function ListItemAction(props: ListItemActionProps) {
-  const { icon, Component, iconColor, size, side } = props
+  const { Component, icon, iconColor, side, size } = props
 
   const $iconContainerStyles = [$iconContainer]
 
@@ -170,9 +173,9 @@ function ListItemAction(props: ListItemActionProps) {
   if (icon) {
     return (
       <Icon
-        size={24}
-        icon={icon}
         color={iconColor}
+        icon={icon}
+        size={24}
         containerStyle={[
           $iconContainerStyles,
           side === "left" && $iconContainerLeft,

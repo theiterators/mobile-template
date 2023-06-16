@@ -4,17 +4,18 @@ import { Picker } from "@react-native-picker/picker"
 import { observer } from "mobx-react-lite"
 
 import { colors } from "app/theme"
+
 import { IPickerItem } from "./Picker"
 
 interface NativeAndroidPickerProps {
   children: React.ReactNode
-  onValueChange: (itemValue: string) => void
-  data: IPickerItem[]
+  data: IPickerItem[],
+  onValueChange: (itemValue: string) => void,
   selectedValue: string
 }
 
 export const NativeAndroidPicker: FC<NativeAndroidPickerProps> = observer(
-  ({ children, onValueChange, data, selectedValue, ...pickerProps }) => {
+  ({ children, data, onValueChange, selectedValue, ...pickerProps }) => {
     return (
       <>
         <View pointerEvents="box-only">{children}</View>

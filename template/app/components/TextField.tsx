@@ -8,39 +8,44 @@ import {
   View,
   ViewStyle,
 } from "react-native"
+
 import { isRTL, translate } from "../i18n"
 import { colors, spacing, typography } from "../theme"
+
 import { Text, TextProps } from "./Text"
 
 export interface TextFieldAccessoryProps {
+  editable: boolean,
+  multiline: boolean,
+  status: TextFieldProps["status"],
   style: StyleProp<any>
-  status: TextFieldProps["status"]
-  multiline: boolean
-  editable: boolean
 }
 
 export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
   /**
-   * A style modifier for different input states.
+   * Pass any additional props directly to the helper Text component.
    */
-  status?: "error" | "disabled"
-  /**
-   * The label text to display if not using `labelTx`.
-   */
-  label?: TextProps["text"]
-  /**
-   * Label text which is looked up via i18n.
-   */
-  labelTx?: TextProps["tx"]
-  /**
-   * Optional label options to pass to i18n. Useful for interpolation
-   * as well as explicitly setting locale or translation fallbacks.
-   */
-  labelTxOptions?: TextProps["txOptions"]
+  HelperTextProps?: TextProps,
   /**
    * Pass any additional props directly to the label Text component.
    */
-  LabelTextProps?: TextProps
+  LabelTextProps?: TextProps,
+  /**
+   * An optional component to render on the left side of the input.
+   * Example: `LeftAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
+   * Note: It is a good idea to memoize this.
+   */
+  LeftAccessory?: ComponentType<TextFieldAccessoryProps>,
+  /**
+   * An optional component to render on the right side of the input.
+   * Example: `RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
+   * Note: It is a good idea to memoize this.
+   */
+  RightAccessory?: ComponentType<TextFieldAccessoryProps>,
+  /**
+   * Style overrides for the container
+   */
+  containerStyle?: StyleProp<ViewStyle>,
   /**
    * The helper text to display if not using `helperTx`.
    */
@@ -55,46 +60,43 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
    */
   helperTxOptions?: TextProps["txOptions"]
   /**
-   * Pass any additional props directly to the helper Text component.
+   * Style overrides for the input wrapper
    */
-  HelperTextProps?: TextProps
+  inputWrapperStyle?: StyleProp<ViewStyle>,
+  /**
+   * The label text to display if not using `labelTx`.
+   */
+  label?: TextProps["text"],
+  /**
+   * Label text which is looked up via i18n.
+   */
+  labelTx?: TextProps["tx"],
+  /**
+   * Optional label options to pass to i18n. Useful for interpolation
+   * as well as explicitly setting locale or translation fallbacks.
+   */
+  labelTxOptions?: TextProps["txOptions"],
   /**
    * The placeholder text to display if not using `placeholderTx`.
    */
-  placeholder?: TextProps["text"]
+  placeholder?: TextProps["text"],
   /**
    * Placeholder text which is looked up via i18n.
    */
-  placeholderTx?: TextProps["tx"]
+  placeholderTx?: TextProps["tx"],
   /**
    * Optional placeholder options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  placeholderTxOptions?: TextProps["txOptions"]
+  placeholderTxOptions?: TextProps["txOptions"],
+  /**
+   * A style modifier for different input states.
+   */
+  status?: "error" | "disabled",
   /**
    * Optional input style override.
    */
   style?: StyleProp<TextStyle>
-  /**
-   * Style overrides for the container
-   */
-  containerStyle?: StyleProp<ViewStyle>
-  /**
-   * Style overrides for the input wrapper
-   */
-  inputWrapperStyle?: StyleProp<ViewStyle>
-  /**
-   * An optional component to render on the right side of the input.
-   * Example: `RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
-   * Note: It is a good idea to memoize this.
-   */
-  RightAccessory?: ComponentType<TextFieldAccessoryProps>
-  /**
-   * An optional component to render on the left side of the input.
-   * Example: `LeftAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
-   * Note: It is a good idea to memoize this.
-   */
-  LeftAccessory?: ComponentType<TextFieldAccessoryProps>
 }
 
 /**
@@ -104,23 +106,23 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
  */
 export const TextField = forwardRef(function TextField(props: TextFieldProps, ref: Ref<TextInput>) {
   const {
-    labelTx,
-    label,
-    labelTxOptions,
-    placeholderTx,
-    placeholder,
-    placeholderTxOptions,
+    containerStyle: $containerStyleOverride,
     helper,
+    HelperTextProps,
     helperTx,
     helperTxOptions,
-    status,
-    RightAccessory,
-    LeftAccessory,
-    HelperTextProps,
-    LabelTextProps,
-    style: $inputStyleOverride,
-    containerStyle: $containerStyleOverride,
     inputWrapperStyle: $inputWrapperStyleOverride,
+    label,
+    LabelTextProps,
+    labelTx,
+    labelTxOptions,
+    LeftAccessory,
+    placeholder,
+    placeholderTx,
+    placeholderTxOptions,
+    RightAccessory,
+    status,
+    style: $inputStyleOverride,
     ...TextInputProps
   } = props
   const input = useRef<TextInput>()
@@ -168,11 +170,11 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
   return (
     <TouchableOpacity
+      accessibilityState={{ disabled }}
+      accessible={false}
       activeOpacity={1}
       style={$containerStyles}
       onPress={focusInput}
-      accessible={false}
-      accessibilityState={{ disabled }}
     >
       {!!(label || labelTx) && (
         <Text
@@ -188,19 +190,19 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       <View style={$inputWrapperStyles}>
         {!!LeftAccessory && (
           <LeftAccessory
-            style={$leftAccessoryStyle}
-            status={status}
             editable={!disabled}
             multiline={TextInputProps.multiline}
+            status={status}
+            style={$leftAccessoryStyle}
           />
         )}
 
         <TextInput
-          ref={input}
-          underlineColorAndroid={colors.transparent}
-          textAlignVertical="top"
           placeholder={placeholderContent}
           placeholderTextColor={colors.textDim}
+          ref={input}
+          textAlignVertical="top"
+          underlineColorAndroid={colors.transparent}
           {...TextInputProps}
           editable={!disabled}
           style={$inputStyles}
@@ -208,10 +210,10 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
         {!!RightAccessory && (
           <RightAccessory
-            style={$rightAccessoryStyle}
-            status={status}
             editable={!disabled}
             multiline={TextInputProps.multiline}
+            status={status}
+            style={$rightAccessoryStyle}
           />
         )}
       </View>

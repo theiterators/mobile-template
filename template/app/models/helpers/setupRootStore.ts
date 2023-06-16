@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * This file is where we do "rehydration" of your RootStore from mmkv.
  * This lets you persist your state between app launches.
@@ -10,9 +11,11 @@
  * @refresh reset
  */
 import { applySnapshot, IDisposer, onSnapshot } from "mobx-state-tree"
+
+import { ROOT_STATE_STORAGE_KEY } from "app/common/constants"
+
 import { MMKVStorage } from "../../utils/storage"
 import type { RootStore } from "../RootStore"
-import { ROOT_STATE_STORAGE_KEY } from "app/common/constants"
 
 /**
  * Setup the root state.

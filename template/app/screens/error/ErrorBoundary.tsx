@@ -1,9 +1,10 @@
 import React, { Component, ErrorInfo, ReactNode } from "react"
+
 import { ErrorDetails } from "./ErrorDetails"
 
 interface Props {
+  catchErrors: "always" | "dev" | "prod" | "never",
   children: ReactNode
-  catchErrors: "always" | "dev" | "prod" | "never"
 }
 
 interface State {
@@ -59,9 +60,9 @@ export class ErrorBoundary extends Component<Props, State> {
   render() {
     return this.isEnabled() && this.state.error ? (
       <ErrorDetails
-        onReset={this.resetError}
         error={this.state.error}
         errorInfo={this.state.errorInfo}
+        onReset={this.resetError}
       />
     ) : (
       this.props.children

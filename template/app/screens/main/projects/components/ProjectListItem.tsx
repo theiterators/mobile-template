@@ -1,10 +1,11 @@
-import { observer, useLocalObservable } from "mobx-react-lite"
 import React, { FC } from "react"
 import { View, ViewStyle } from "react-native"
+import { observer, useLocalObservable } from "mobx-react-lite"
 
 import { TProject } from "app/common/types/projectType"
-import { colors } from "app/theme"
 import { Text } from "app/components"
+import { colors } from "app/theme"
+
 import { ProjectLocalStore } from "../logic/projectsLocalStore"
 
 export interface IProjectListItemProps {

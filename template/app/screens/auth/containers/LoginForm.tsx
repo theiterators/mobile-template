@@ -1,16 +1,16 @@
-import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { View, ViewStyle } from "react-native"
+import { observer } from "mobx-react-lite"
+
+// import Config from "app/config"
+import { TEST_IDS } from "app/common/constants"
 
 import { Button, ControlledTextField } from "../../../components"
 import { useStores } from "../../../models"
 import { ILoginRequestData } from "../../../services/api"
 import { spacing } from "../../../theme"
-
 import { useAppForm } from "../../../utils/hooks"
 import { FORM_VALIDATION_RULES } from "../../../utils/validators"
-// import Config from "app/config"
-import { TEST_IDS } from "app/common/constants"
 
 /* This code is defining an object called `defaultValues` with two properties: `username` and
 `password`. The values of these properties are being set to `Config.TEST_USERNAME` and
@@ -33,7 +33,7 @@ export const LoginForm: FC = observer(() => {
     authStore: { isDataLoading, login },
   } = useStores()
 
-  const { control, handleSubmit, setFocus, isEmptyFields } = useAppForm({
+  const { control, handleSubmit, isEmptyFields, setFocus } = useAppForm({
     defaultValues,
   })
 
@@ -49,8 +49,8 @@ export const LoginForm: FC = observer(() => {
         name="username"
         placeholderTx="loginScreen.username"
         returnKeyType="next"
-        testID={TEST_IDS.auth.login.usernameField}
         rules={FORM_VALIDATION_RULES.required}
+        testID={TEST_IDS.auth.login.usernameField}
         onSubmitEditing={() => setFocus("password")}
       />
       <ControlledTextField
@@ -60,16 +60,16 @@ export const LoginForm: FC = observer(() => {
         name="password"
         placeholderTx="loginScreen.password"
         returnKeyType="done"
-        testID={TEST_IDS.auth.login.passwordField}
         rules={FORM_VALIDATION_RULES.required}
+        testID={TEST_IDS.auth.login.passwordField}
       />
       <Button
-        testID={TEST_IDS.auth.login.signInButton}
-        tx="loginScreen.tapToSignIn"
         disabled={isEmptyFields}
         isLoading={isDataLoading}
-        style={$tapButton}
         preset="reversed"
+        style={$tapButton}
+        testID={TEST_IDS.auth.login.signInButton}
+        tx="loginScreen.tapToSignIn"
         onPress={handleSubmit(onSubmit)}
       />
     </View>

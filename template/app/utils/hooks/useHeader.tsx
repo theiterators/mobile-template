@@ -1,5 +1,7 @@
-import React, { useLayoutEffect } from "react"
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useLayoutEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
+
 import { Header, HeaderProps } from "../../components"
 
 /**
@@ -13,7 +15,7 @@ export function useHeader(
 ) {
   const navigation = useNavigation()
 
-  React.useEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerShown: true,
       header: () => <Header {...headerProps} />,
