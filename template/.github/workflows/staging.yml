@@ -3,7 +3,7 @@ name: Staging Deploy
 on:
   push:
     branches:
-      - dev
+      - develop
 
 env:
   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
