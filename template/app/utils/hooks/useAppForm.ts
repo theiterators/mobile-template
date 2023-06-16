@@ -19,8 +19,8 @@ export type UseAppFormParams<T extends FieldValues = FieldValues> = {
 export type UseAppFormResult<T extends FieldValues = FieldValues> = {
   control: Control<T>
   formState: FormState<T>
-  isEmptyFields: boolean
-  handleSubmit: UseFormHandleSubmit<T>
+  handleSubmit: UseFormHandleSubmit<T>,
+  isEmptyFields: boolean,
   reset: UseFormReset<T>
   setFocus: UseFormSetFocus<T>
   setValue: UseFormSetValue<T>

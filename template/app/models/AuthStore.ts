@@ -1,11 +1,10 @@
 import { ApiResponse } from "apisauce"
-
 import { flow, Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 
+import { DATA_STATUS } from "../common/types"
 import { appLifeCycle } from "../services"
 import { ILoginRequestData, ILoginResponseData } from "../services/api"
 import { apiAuth } from "../services/api/apiAuth"
-import { DATA_STATUS } from "../common/types"
 import { reportCrash } from "../services/reports/crashReporting"
 import { useAlert } from "../utils/hooks"
 
@@ -41,16 +40,10 @@ export const AuthStoreModel = types
     },
   }))
   .actions((self) => ({
-    onAppStarted: () =>
-      flow(function* () {
-        try {
-          self.initializeWithAccessToken(self.accessToken)
-          appLifeCycle.onTokenRestored()
-        } catch (e) {
-          reportCrash(e)
-        }
-      })(),
-
+    onAppStarted: () => {
+      self.initializeWithAccessToken(self.accessToken)
+      appLifeCycle.onTokenRestored()
+    },
     login: (data: ILoginRequestData) =>
       flow(function* () {
         self.setDataStatus(DATA_STATUS.PENDING)
@@ -77,20 +70,19 @@ export const AuthStoreModel = types
         }
       })(),
 
-    logout: () =>
-      flow(function* () {
-        self.setDataStatus(DATA_STATUS.PENDING)
-        try {
-          self.clearAuthData()
-          appLifeCycle.onUserSignOut()
-          self.setDataStatus(DATA_STATUS.FULFILLED)
-        } catch (e) {
-          self.setDataStatus(DATA_STATUS.REJECTED)
-          reportCrash(e)
-        } finally {
-          self.setDataStatus(DATA_STATUS.IDLE)
-        }
-      })(),
+    logout: () => {
+      self.setDataStatus(DATA_STATUS.PENDING)
+      try {
+        self.clearAuthData()
+        appLifeCycle.onUserSignOut()
+        self.setDataStatus(DATA_STATUS.FULFILLED)
+      } catch (e) {
+        self.setDataStatus(DATA_STATUS.REJECTED)
+        reportCrash(e)
+      } finally {
+        self.setDataStatus(DATA_STATUS.IDLE)
+      }
+    },
   }))
 
 export interface AuthStore extends Instance<typeof AuthStoreModel> {}

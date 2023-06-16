@@ -5,13 +5,13 @@
  * See the [Backend API Integration](https://github.com/infinitered/ignite/blob/master/docs/Backend-API-Integration.md)
  * documentation for more details.
  */
-import { ApiResponse, ApisauceInstance, create } from "apisauce"
+import { ApisauceInstance, create } from "apisauce"
 
 import Config from "../../config"
 import { AuthStore } from "../../models"
 import { reportCrash } from "../reports/crashReporting"
 
-import type { IApiConfig } from "./api.types"
+import type { IApiConfig } from "./common/api.types"
 
 /**
  * Configuring the apisauce instance.
@@ -26,10 +26,6 @@ export const API_ROUTES = {
   login: "/auth/session", // POST
   getProjects: "/projects", // GET
 }
-
-export const ERROR_CODE_UNAUTHORIZED = 401
-export const ERROR_CODE_FORBIDDEN = 403
-export const ERROR_CODE_NOT_FOUND = 404
 
 /**
  * Manages all requests to the API. You can use this class to build out

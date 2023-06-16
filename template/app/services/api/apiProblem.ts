@@ -1,5 +1,11 @@
 import { ApiResponse } from "apisauce"
 
+import {
+  ERROR_CODE_FORBIDDEN,
+  ERROR_CODE_NOT_FOUND,
+  ERROR_CODE_UNAUTHORIZED,
+} from "./common/contants"
+
 export type GeneralApiProblem =
   /**
    * Times up.
@@ -57,11 +63,11 @@ export function getGeneralApiProblem(response: ApiResponse<any>): GeneralApiProb
       return { kind: "unknown", temporary: true }
     case "CLIENT_ERROR":
       switch (response.status) {
-        case 401:
+        case ERROR_CODE_UNAUTHORIZED:
           return { kind: "unauthorized" }
-        case 403:
+        case ERROR_CODE_FORBIDDEN:
           return { kind: "forbidden" }
-        case 404:
+        case ERROR_CODE_NOT_FOUND:
           return { kind: "not-found" }
         default:
           return { kind: "rejected" }

@@ -1,6 +1,7 @@
-import { TProject } from "app/common/types/projectType"
 import { format, parseISO } from "date-fns"
 import { makeAutoObservable } from "mobx"
+
+import { TProject } from "app/common/types/projectType"
 
 export class ProjectLocalStore {
   item: TProject

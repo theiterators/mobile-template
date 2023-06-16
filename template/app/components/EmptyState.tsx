@@ -1,102 +1,104 @@
 import React from "react"
 import { Image, ImageProps, ImageStyle, StyleProp, TextStyle, View, ViewStyle } from "react-native"
+
 import { translate } from "../i18n"
 import { spacing } from "../theme"
+
 import { Button, ButtonProps } from "./Button"
 import { Text, TextProps } from "./Text"
 
 interface EmptyStateProps {
   /**
-   * An optional prop that specifies the text/image set to use for the empty state.
+   * Pass any additional props directly to the Button component.
    */
-  preset?: keyof typeof EmptyStatePresets
+  ButtonProps?: ButtonProps,
   /**
-   * Style override for the container.
+   * Pass any additional props directly to the content Text component.
    */
-  style?: StyleProp<ViewStyle>
-  /**
-   * An Image source to be displayed above the heading.
-   */
-  imageSource?: ImageProps["source"]
-  /**
-   * Style overrides for image.
-   */
-  imageStyle?: StyleProp<ImageStyle>
-  /**
-   * Pass any additional props directly to the Image component.
-   */
-  ImageProps?: Omit<ImageProps, "source">
-  /**
-   * The heading text to display if not using `headingTx`.
-   */
-  heading?: TextProps["text"]
-  /**
-   * Heading text which is looked up via i18n.
-   */
-  headingTx?: TextProps["tx"]
-  /**
-   * Optional heading options to pass to i18n. Useful for interpolation
-   * as well as explicitly setting locale or translation fallbacks.
-   */
-  headingTxOptions?: TextProps["txOptions"]
-  /**
-   * Style overrides for heading text.
-   */
-  headingStyle?: StyleProp<TextStyle>
+  ContentTextProps?: TextProps,
   /**
    * Pass any additional props directly to the heading Text component.
    */
-  HeadingTextProps?: TextProps
+  HeadingTextProps?: TextProps,
+  /**
+   * Pass any additional props directly to the Image component.
+   */
+  ImageProps?: Omit<ImageProps, "source">,
+  /**
+   * The button text to display if not using `buttonTx`.
+   */
+  button?: TextProps["text"],
+  /**
+   * Called when the button is pressed.
+   */
+  buttonOnPress?: ButtonProps["onPress"],
+  /**
+   * Style overrides for button.
+   */
+  buttonStyle?: ButtonProps["style"],
+  /**
+   * Style overrides for button text.
+   */
+  buttonTextStyle?: ButtonProps["textStyle"],
+  /**
+   * Button text which is looked up via i18n.
+   */
+  buttonTx?: TextProps["tx"],
+  /**
+   * Optional button options to pass to i18n. Useful for interpolation
+   * as well as explicitly setting locale or translation fallbacks.
+   */
+  buttonTxOptions?: TextProps["txOptions"],
   /**
    * The content text to display if not using `contentTx`.
    */
   content?: TextProps["text"]
   /**
+   * Style overrides for content text.
+   */
+  contentStyle?: StyleProp<TextStyle>,
+  /**
    * Content text which is looked up via i18n.
    */
-  contentTx?: TextProps["tx"]
+  contentTx?: TextProps["tx"],
   /**
    * Optional content options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  contentTxOptions?: TextProps["txOptions"]
+  contentTxOptions?: TextProps["txOptions"],
   /**
-   * Style overrides for content text.
+   * The heading text to display if not using `headingTx`.
    */
-  contentStyle?: StyleProp<TextStyle>
+  heading?: TextProps["text"],
   /**
-   * Pass any additional props directly to the content Text component.
+   * Style overrides for heading text.
    */
-  ContentTextProps?: TextProps
+  headingStyle?: StyleProp<TextStyle>,
   /**
-   * The button text to display if not using `buttonTx`.
+   * Heading text which is looked up via i18n.
    */
-  button?: TextProps["text"]
+  headingTx?: TextProps["tx"],
   /**
-   * Button text which is looked up via i18n.
-   */
-  buttonTx?: TextProps["tx"]
-  /**
-   * Optional button options to pass to i18n. Useful for interpolation
+   * Optional heading options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  buttonTxOptions?: TextProps["txOptions"]
+  headingTxOptions?: TextProps["txOptions"],
   /**
-   * Style overrides for button.
+   * An Image source to be displayed above the heading.
    */
-  buttonStyle?: ButtonProps["style"]
+  imageSource?: ImageProps["source"],
   /**
-   * Style overrides for button text.
+   * Style overrides for image.
    */
-  buttonTextStyle?: ButtonProps["textStyle"]
+  imageStyle?: StyleProp<ImageStyle>,
   /**
-   * Called when the button is pressed.
+   * An optional prop that specifies the text/image set to use for the empty state.
    */
-  buttonOnPress?: ButtonProps["onPress"]
+  preset?: keyof typeof EmptyStatePresets,
   /**
-   * Pass any additional props directly to the Button component.
+   * Style override for the container.
    */
-  ButtonProps?: ButtonProps
+  style?: StyleProp<ViewStyle>
 }
 
 const EmptyStatePresets = {
@@ -117,26 +119,26 @@ export function EmptyState(props: EmptyStateProps) {
 
   const {
     button = preset?.button,
-    buttonTx,
     buttonOnPress,
+    ButtonProps,
+    buttonStyle: $buttonStyleOverride,
+    buttonTextStyle: $buttonTextStyleOverride,
+    buttonTx,
     buttonTxOptions,
     content = preset?.content,
+    contentStyle: $contentStyleOverride,
+    ContentTextProps,
     contentTx,
     contentTxOptions,
     heading = preset?.heading,
+    headingStyle: $headingStyleOverride,
+    HeadingTextProps,
     headingTx,
     headingTxOptions,
-    imageSource,
-    style: $containerStyleOverride,
-    buttonStyle: $buttonStyleOverride,
-    buttonTextStyle: $buttonTextStyleOverride,
-    contentStyle: $contentStyleOverride,
-    headingStyle: $headingStyleOverride,
-    imageStyle: $imageStyleOverride,
-    ButtonProps,
-    ContentTextProps,
-    HeadingTextProps,
     ImageProps,
+    imageSource,
+    imageStyle: $imageStyleOverride,
+    style: $containerStyleOverride,
   } = props
 
   const isImagePresent = !!imageSource
@@ -198,11 +200,11 @@ export function EmptyState(props: EmptyStateProps) {
 
       {isButtonPresent && (
         <Button
-          onPress={buttonOnPress}
           text={button}
+          textStyle={$buttonTextStyleOverride}
           tx={buttonTx}
           txOptions={buttonTxOptions}
-          textStyle={$buttonTextStyleOverride}
+          onPress={buttonOnPress}
           {...ButtonProps}
           style={$buttonStyles}
         />

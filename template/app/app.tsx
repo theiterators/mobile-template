@@ -10,23 +10,22 @@
  * if you're interested in adding screens and navigators.
  */
 
-import { useFonts } from "expo-font"
 import React from "react"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
+import { useFonts } from "expo-font"
 
 import "./i18n"
 import "./utils/helpers/ignoreWarnings"
 
-import Config from "./config"
-import { useInitialRootStore } from "./models"
-import { linking, Router, useNavigationPersistence } from "./navigators"
+import { HIDE_SPLASH_SCREEN_DELAY, NAVIGATION_PERSISTENCE_KEY } from "./common/constants"
 import { ErrorBoundary } from "./screens/error/ErrorBoundary"
 import { setupReactotron } from "./services/reactotron"
 import { MMKVStorage } from "./utils/storage"
-
+import Config from "./config"
+import { useInitialRootStore } from "./models"
+import { linking, Router, useNavigationPersistence } from "./navigators"
 import { appLifeCycle } from "./services"
 import { customFontsToLoad } from "./theme"
-import { HIDE_SPLASH_SCREEN_DELAY, NAVIGATION_PERSISTENCE_KEY } from "./common/constants"
 
 // Set up Reactotron, which is a free desktop app for inspecting and debugging
 // React Native apps. Learn more here: https://github.com/infinitered/reactotron

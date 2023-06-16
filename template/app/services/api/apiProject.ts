@@ -1,4 +1,5 @@
 import { TProject } from "app/common/types/projectType"
+
 import { Api, api, API_ROUTES } from "."
 
 class ApiProject {
@@ -7,6 +8,7 @@ class ApiProject {
   constructor(api: Api) {
     this.api = api
   }
+
   async getProjects() {
     const response = await this.api.getData<TProject[]>(API_ROUTES.getProjects)
     return response

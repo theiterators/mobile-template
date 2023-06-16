@@ -1,8 +1,9 @@
-import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack"
+import React from "react"
+import { createNativeStackNavigator,NativeStackScreenProps } from "@react-navigation/native-stack"
+
+import { MainNavigatorParamListType, MainScreenName } from "app/common/types"
 import * as Screens from "app/screens"
 import { colors } from "app/theme"
-import { MainNavigatorParamListType, MainScreenName } from "app/common/types"
-import React from "react"
 
 export type MainStackScreenProps<T extends keyof MainNavigatorParamListType> =
   NativeStackScreenProps<MainNavigatorParamListType, T>
@@ -13,11 +14,11 @@ const Stack = createNativeStackNavigator<MainNavigatorParamListType>()
 export const MainNavigator = () => {
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
       initialRouteName={MainScreenName.Welcome}
+      screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
     >
-      <Stack.Screen name={MainScreenName.Welcome} component={Screens.WelcomeScreen} />
-      <Stack.Screen name={MainScreenName.Projects} component={Screens.ProjectsScreen} />
+      <Stack.Screen component={Screens.WelcomeScreen} name={MainScreenName.Welcome} />
+      <Stack.Screen component={Screens.ProjectsScreen} name={MainScreenName.Projects} />
     </Stack.Navigator>
   )
 }

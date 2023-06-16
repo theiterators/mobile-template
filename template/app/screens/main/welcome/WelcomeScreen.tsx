@@ -1,11 +1,11 @@
-import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { TextStyle, View, ViewStyle } from "react-native"
-
-import { Button, Text } from "../../../components"
+import { observer } from "mobx-react-lite"
 
 import { TEST_IDS } from "app/common/constants"
+
 import { MainScreenName } from "../../../common/types"
+import { Button, Text } from "../../../components"
 import { useStores } from "../../../models"
 import { MainStackScreenProps } from "../../../navigators"
 import { colors, spacing } from "../../../theme"
@@ -34,10 +34,10 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
     <View style={$container}>
       <View style={$topContainer}>
         <Text
-          testID={TEST_IDS.main.heading}
-          style={$welcomeHeading}
-          tx="welcomeScreen.readyForLaunch"
           preset="heading"
+          style={$welcomeHeading}
+          testID={TEST_IDS.main.heading}
+          tx="welcomeScreen.readyForLaunch"
         />
         <Button tx="project.openProjects" onPress={onNavigationPress} />
       </View>

@@ -1,11 +1,13 @@
-import { DarkTheme, DefaultTheme, NavigationContainer } from "@react-navigation/native"
-import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
+import { DarkTheme, DefaultTheme, NavigationContainer } from "@react-navigation/native"
+import { observer } from "mobx-react-lite"
+
 import Config from "../config"
 import { useStores } from "../models"
-import { MainNavigator, AuthNavigator } from "."
+
 import { navigationRef, useBackButtonHandler } from "./common/navigationUtilities"
+import { AuthNavigator,MainNavigator } from "."
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator

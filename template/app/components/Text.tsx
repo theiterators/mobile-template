@@ -1,6 +1,7 @@
-import i18n from "i18n-js"
 import React from "react"
 import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from "react-native"
+import i18n from "i18n-js"
+
 import { isRTL, translate, TxKeyPath } from "../i18n"
 import { colors, typography } from "../theme"
 
@@ -10,38 +11,38 @@ type Presets = keyof typeof $presets
 
 export interface TextProps extends RNTextProps {
   /**
-   * Text which is looked up via i18n.
+   * Children components.
    */
-  tx?: TxKeyPath
+  children?: React.ReactNode,
   /**
-   * The text to display if not using `tx` or nested components.
+   * One of the different types of text presets.
    */
-  text?: string
+  preset?: Presets,
   /**
-   * Optional options to pass to i18n. Useful for interpolation
-   * as well as explicitly setting locale or translation fallbacks.
+   * Text size modifier.
    */
-  txOptions?: i18n.TranslateOptions
+  size?: Sizes,
   /**
    * An optional style override useful for padding & margin.
    */
   style?: StyleProp<TextStyle>
   /**
-   * One of the different types of text presets.
+   * The text to display if not using `tx` or nested components.
    */
-  preset?: Presets
+  text?: string,
+  /**
+   * Text which is looked up via i18n.
+   */
+  tx?: TxKeyPath,
+  /**
+   * Optional options to pass to i18n. Useful for interpolation
+   * as well as explicitly setting locale or translation fallbacks.
+   */
+  txOptions?: i18n.TranslateOptions,
   /**
    * Text weight modifier.
    */
   weight?: Weights
-  /**
-   * Text size modifier.
-   */
-  size?: Sizes
-  /**
-   * Children components.
-   */
-  children?: React.ReactNode
 }
 
 /**
@@ -51,7 +52,7 @@ export interface TextProps extends RNTextProps {
  * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Text.md)
  */
 export function Text(props: TextProps) {
-  const { weight, size, tx, txOptions, text, children, style: $styleOverride, ...rest } = props
+  const { children, size, style: $styleOverride, text, tx, txOptions, weight, ...rest } = props
 
   const i18nText = tx && translate(tx, txOptions)
   const content = i18nText || text || children

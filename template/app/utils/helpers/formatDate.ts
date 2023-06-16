@@ -1,8 +1,9 @@
-import { Locale, format, parseISO } from "date-fns"
-import I18n from "i18n-js"
+/* eslint-disable no-magic-numbers */
 
-import pl from "date-fns/locale/pl"
+import { format, Locale, parseISO } from "date-fns"
 import en from "date-fns/locale/en-US"
+import pl from "date-fns/locale/pl"
+import I18n from "i18n-js"
 
 type Options = Parameters<typeof format>[2]
 

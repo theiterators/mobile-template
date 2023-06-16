@@ -1,12 +1,12 @@
 import { ApiResponse } from "apisauce"
-
 import { flow, Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
+
+import { TProject } from "app/common/types/projectType"
 
 import { DATA_STATUS } from "../common/types"
 import { apiProject } from "../services/api/apiProject"
 import { reportCrash } from "../services/reports/crashReporting"
 
-import { TProject } from "app/common/types/projectType"
 import { withSetPropAction } from "./helpers/withSetPropAction"
 
 /**

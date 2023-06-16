@@ -4,13 +4,13 @@ import { Image, ImageProps, ImageURISource, Platform } from "react-native"
 // TODO: document new props
 export interface AutoImageProps extends ImageProps {
   /**
+   * How tall should the image be?
+   */
+  maxHeight?: number,
+  /**
    * How wide should the image be?
    */
   maxWidth?: number
-  /**
-   * How tall should the image be?
-   */
-  maxHeight?: number
 }
 
 /**
@@ -57,7 +57,7 @@ export function useAutoImage(
  * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-AutoImage.md)
  */
 export function AutoImage(props: AutoImageProps) {
-  const { maxWidth, maxHeight, ...ImageProps } = props
+  const { maxHeight, maxWidth, ...ImageProps } = props
   const source = props.source as ImageURISource
 
   const [width, height] = useAutoImage(
