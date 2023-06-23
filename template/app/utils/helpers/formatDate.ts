@@ -1,5 +1,3 @@
-/* eslint-disable no-magic-numbers */
-
 import { format, Locale, parseISO } from "date-fns"
 import en from "date-fns/locale/en-US"
 import pl from "date-fns/locale/pl"
