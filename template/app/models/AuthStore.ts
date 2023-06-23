@@ -1,12 +1,13 @@
 import { ApiResponse } from "apisauce"
 import { flow, Instance, SnapshotIn, SnapshotOut, types } from "mobx-state-tree"
 
+import { showAlert } from "app/utils/helpers"
+
 import { DATA_STATUS } from "../common/types"
 import { appLifeCycle } from "../services"
 import { ILoginRequestData, ILoginResponseData } from "../services/api"
 import { apiAuth } from "../services/api/apiAuth"
 import { reportCrash } from "../services/reports/crashReporting"
-import { useAlert } from "../utils/hooks"
 
 import { withSetPropAction } from "./helpers/withSetPropAction"
 
@@ -50,8 +51,7 @@ export const AuthStoreModel = types
         try {
           const response: ApiResponse<ILoginResponseData> = yield apiAuth.login(data)
           if (!response.ok) {
-            const showAlert = useAlert()
-            showAlert("Wrong credentials")
+            showAlert({ message: "Wrong credentials" })
             self.setDataStatus(DATA_STATUS.REJECTED)
             return
           }
