@@ -1,4 +1,4 @@
-/* eslint-disable no-magic-numbers */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 // we always make sure 'react-native' gets included first
 import * as ReactNative from "react-native"
 

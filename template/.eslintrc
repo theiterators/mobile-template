@@ -62,9 +62,12 @@
             "locale": "auto"
           }
         ],
-        "no-magic-numbers": [
+        "@typescript-eslint/no-magic-numbers": [
           "error",
           {
+            "ignoreEnums": true,
+            "ignoreTypeIndexes": true,
+            "ignoreNumericLiteralTypes": true,
             "ignoreArrayIndexes": true,
             "ignore": [-1, 0, 1]
           }
