@@ -34,7 +34,7 @@ jobs:
           ruby-version: "2.7.5"
           bundler-cache: true
       - name: Install node modules
-        run: yarn install --ignore-scripts --network-timeout 1000000
+        run: yarn install  --network-timeout 1000000
       - name: Cache Pods
         uses: actions/cache@v3
         with:
