@@ -70,7 +70,7 @@
     "mobx-state-tree": "5.1.5",
     "react": "18.2.0",
     "react-hook-form": "^7.43.9",
-    "react-native": "0.72.4",
+    "react-native": "0.72.6",
     "react-native-avoid-softinput": "3.1.5",
     "react-native-bootsplash": "4.5.0",
     "react-native-config": "^1.5.1",
