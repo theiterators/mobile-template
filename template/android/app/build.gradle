@@ -160,7 +160,7 @@ android {
       staging {
         applicationId  "com.placeholdername.staging"
         resValue "string", "build_config_package", "com.placeholdername"
-        resValue "string", "app_name", "Placeholder Name String"
+        resValue "string", "app_name", "Placeholder Name Staging"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         vectorDrawables.useSupportLibrary = true
