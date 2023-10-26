@@ -15,6 +15,4 @@ export const spacing = {
   massive: 64,
 } as const
 
-export const androidAvoidOffset = 24
-
 export type Spacing = keyof typeof spacing

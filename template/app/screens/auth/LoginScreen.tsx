@@ -3,7 +3,7 @@ import { TextStyle, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 
 import { TEST_IDS } from "app/common/constants"
-import { Screen, Text } from "app/components"
+import { Screen, Text, TextField } from "app/components"
 import { androidAvoidOffset, spacing } from "app/theme"
 
 import { AuthScreenName } from "../../common/types"
@@ -35,9 +35,6 @@ const $screenContentContainer: ViewStyle = {
   paddingVertical: spacing.huge,
   paddingHorizontal: spacing.large,
   flexGrow: 1,
-}
-const $formContentContainer: ViewStyle = {
-  flex: 1,
 }
 const $signIn: TextStyle = {
   marginBottom: spacing.small,
