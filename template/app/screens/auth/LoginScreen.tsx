@@ -1,6 +1,5 @@
 import React, { FC } from "react"
-import { Platform, TextStyle, ViewStyle } from "react-native"
-import { AvoidSoftInputView } from "react-native-avoid-softinput"
+import { TextStyle, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 
 import { TEST_IDS } from "app/common/constants"
@@ -27,17 +26,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen()
         testID={TEST_IDS.auth.login.heading}
         tx="loginScreen.signIn"
       />
-      {Platform.OS === "android" ? (
-        <AvoidSoftInputView
-          avoidOffset={androidAvoidOffset}
-          easing="easeIn"
-          style={$formContentContainer}
-        >
-          <LoginForm />
-        </AvoidSoftInputView>
-      ) : (
-        <LoginForm />
-      )}
+      <LoginForm />
     </Screen>
   )
 })
