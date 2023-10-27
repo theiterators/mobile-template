@@ -52,6 +52,7 @@ export const LoginForm: FC = observer(() => {
         rules={FORM_VALIDATION_RULES.required}
         testID={TEST_IDS.auth.login.usernameField}
         onSubmitEditing={() => setFocus("password")}
+        blurOnSubmit={false}
       />
       <ControlledTextField
         secureTextEntry

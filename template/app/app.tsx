@@ -12,6 +12,7 @@
 
 import React from "react"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { useFonts } from "expo-font"
 
 import "./i18n"
@@ -86,17 +87,20 @@ function App(props: AppProps) {
   return (
     <>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <ErrorBoundary catchErrors={Config.catchErrors}>
-          <Router
-            initialState={initialNavigationState}
-            linking={linking}
-            onReady={onAppNavigatorReady}
-            onStateChange={onNavigationStateChange}
-          />
-        </ErrorBoundary>
+        <GestureHandlerRootView style={$container}>
+          <ErrorBoundary catchErrors={Config.catchErrors}>
+            <Router
+              initialState={initialNavigationState}
+              linking={linking}
+              onReady={onAppNavigatorReady}
+              onStateChange={onNavigationStateChange}
+            />
+          </ErrorBoundary>
+        </GestureHandlerRootView>
       </SafeAreaProvider>
     </>
   )
 }
 
+const $container = { flex: 1 }
 export default App

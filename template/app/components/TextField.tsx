@@ -13,11 +13,12 @@ import { isRTL, translate } from "../i18n"
 import { colors, spacing, typography } from "../theme"
 
 import { Text, TextProps } from "./Text"
+import { KEYBOARD_AVOIDING_VIEW_OFFSET } from "app/common/constants"
 
 export interface TextFieldAccessoryProps {
-  editable: boolean,
-  multiline: boolean,
-  status: TextFieldProps["status"],
+  editable: boolean
+  multiline: boolean
+  status: TextFieldProps["status"]
   style: StyleProp<any>
 }
 
@@ -25,27 +26,27 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
   /**
    * Pass any additional props directly to the helper Text component.
    */
-  HelperTextProps?: TextProps,
+  HelperTextProps?: TextProps
   /**
    * Pass any additional props directly to the label Text component.
    */
-  LabelTextProps?: TextProps,
+  LabelTextProps?: TextProps
   /**
    * An optional component to render on the left side of the input.
    * Example: `LeftAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
    * Note: It is a good idea to memoize this.
    */
-  LeftAccessory?: ComponentType<TextFieldAccessoryProps>,
+  LeftAccessory?: ComponentType<TextFieldAccessoryProps>
   /**
    * An optional component to render on the right side of the input.
    * Example: `RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
    * Note: It is a good idea to memoize this.
    */
-  RightAccessory?: ComponentType<TextFieldAccessoryProps>,
+  RightAccessory?: ComponentType<TextFieldAccessoryProps>
   /**
    * Style overrides for the container
    */
-  containerStyle?: StyleProp<ViewStyle>,
+  containerStyle?: StyleProp<ViewStyle>
   /**
    * The helper text to display if not using `helperTx`.
    */
@@ -62,41 +63,50 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
   /**
    * Style overrides for the input wrapper
    */
-  inputWrapperStyle?: StyleProp<ViewStyle>,
+  inputWrapperStyle?: StyleProp<Omit<ViewStyle, "height">>
+  /**
+   * This parameter determines how high the field should be positioned above the opened keyboard.
+   */
+  keyboardAvoidingViewOffset?: number
   /**
    * The label text to display if not using `labelTx`.
    */
-  label?: TextProps["text"],
+  label?: TextProps["text"]
   /**
    * Label text which is looked up via i18n.
    */
-  labelTx?: TextProps["tx"],
+  labelTx?: TextProps["tx"]
   /**
    * Optional label options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  labelTxOptions?: TextProps["txOptions"],
+  labelTxOptions?: TextProps["txOptions"]
   /**
    * The placeholder text to display if not using `placeholderTx`.
    */
-  placeholder?: TextProps["text"],
+  placeholder?: TextProps["text"]
   /**
    * Placeholder text which is looked up via i18n.
    */
-  placeholderTx?: TextProps["tx"],
+  placeholderTx?: TextProps["tx"]
   /**
    * Optional placeholder options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  placeholderTxOptions?: TextProps["txOptions"],
+  placeholderTxOptions?: TextProps["txOptions"]
   /**
    * A style modifier for different input states.
    */
-  status?: "error" | "disabled",
+  status?: "error" | "disabled"
   /**
    * Optional input style override.
    */
   style?: StyleProp<TextStyle>
+  /**
+   * The field's height should be passed through this parameter.
+   * The height coming from the style will be overwritten.
+   */
+  fieldHeight?: number
 }
 
 /**
@@ -122,6 +132,8 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     placeholderTxOptions,
     RightAccessory,
     status,
+    fieldHeight = 50,
+    keyboardAvoidingViewOffset = KEYBOARD_AVOIDING_VIEW_OFFSET,
     style: $inputStyleOverride,
     ...TextInputProps
   } = props
@@ -144,6 +156,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     LeftAccessory && { paddingStart: 0 },
     RightAccessory && { paddingEnd: 0 },
     $inputWrapperStyleOverride,
+    { height: fieldHeight },
   ]
 
   const $inputStyles = [
@@ -152,6 +165,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     isRTL && { textAlign: "right" as TextStyle["textAlign"] },
     TextInputProps.multiline && { height: "auto" },
     $inputStyleOverride,
+    { height: fieldHeight + keyboardAvoidingViewOffset },
   ]
 
   const $helperStyles = [
@@ -248,11 +262,11 @@ const $inputWrapperStyle: ViewStyle = {
 
 const $inputStyle: TextStyle = {
   flex: 1,
-  alignSelf: "stretch",
+  alignSelf: "center",
+  textAlignVertical: "center",
   fontFamily: typography.primary.normal,
   color: colors.text,
   fontSize: 16,
-  height: 24,
   // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
   paddingVertical: 0,
   paddingHorizontal: 0,

@@ -1,0 +1,1 @@
+export const KEYBOARD_AVOIDING_VIEW_OFFSET = 60
