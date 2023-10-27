@@ -651,8 +651,6 @@ PODS:
     - React-jsi (= 0.72.6)
     - React-logger (= 0.72.6)
     - React-perflogger (= 0.72.6)
-  - ReactNativeAvoidSoftinput (3.1.5):
-    - React-Core
   - RNBootSplash (4.5.0):
     - React-Core
   - RNCAsyncStorage (1.18.2):
@@ -797,7 +795,6 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - ReactNativeAvoidSoftinput (from `../node_modules/react-native-avoid-softinput`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
@@ -947,8 +944,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  ReactNativeAvoidSoftinput:
-    :path: "../node_modules/react-native-avoid-softinput"
   RNBootSplash:
     :path: "../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
@@ -1052,7 +1047,6 @@ SPEC CHECKSUMS:
   React-runtimescheduler: f23e337008403341177fc52ee4ca94e442c17ede
   React-utils: fa59c9a3375fb6f4aeb66714fd3f7f76b43a9f16
   ReactCommon: dd03c17275c200496f346af93a7b94c53f3093a4
-  ReactNativeAvoidSoftinput: 33a9d92d54716d7b3133f48b93545f27a084a14a
   RNBootSplash: 364ec0f6a61d96bce40e8630d80d949c214a5749
   RNCAsyncStorage: ddc4ee162bfd41b0d2c68bf2d95acd81dd7f1f93
   RNCPicker: 0bc2f0a29abcca7b7ed44a2d036aac9ab6d25700
