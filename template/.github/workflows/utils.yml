@@ -1,0 +1,42 @@
+name: Utils
+
+on:
+  push:
+    branches:
+      - develop
+
+env:
+  PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+  JIRA_PASSWORD: ${{ secrets.JIRA_PASSWORD }}
+  JIRA_USERNAME: ${{ secrets.JIRA_USERNAME }}
+  SLACK_WEB_HOOK: ${{ secrets.SLACK_WEB_HOOK }}
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'update changelog')"
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+      - name: Set up UTF-8 locale
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+      - name: Use Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7.5"
+          bundler-cache: true
+      - name: Update changelog
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: "changelog_notification"
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Updated changelog
+          file_pattern: "fastlane/changelog/changelog.html fastlane/changelog/changelog.txt"
