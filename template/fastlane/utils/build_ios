@@ -1,3 +1,5 @@
+package = load_json(json_path: "./package.json")
+
 desc "Create CI Keychain"
 lane :create_ci_keychain do
   create_keychain(
@@ -19,7 +21,7 @@ lane :app_store_connect_api do
 end
 
 desc "Generate new certificates"
-desc "--buildType=production | staging"
+desc "--buildType=staging|production"
 lane :generate_new_certificates do |options|
   buildType = options[:buildType]
 
@@ -32,8 +34,8 @@ lane :generate_new_certificates do |options|
   )
   update_project_provisioning(
     xcodeproj: './ios/PlaceholderName.xcodeproj',
-    target_filter: "PlaceholderName #{buildType}", 
-    profile: ENV["sigh_#{ENV['APP_IDENTIFIER']}_#{ENV['METHOD']}"],
+    target_filter: "PlaceholderName #{buildType.capitalize}", 
+    profile: ENV["sigh_#{ENV['APP_IDENTIFIER']}_#{ENV['METHOD']}_profile-path"],
     build_configuration: 'Release' 
   )
 end
@@ -41,16 +43,11 @@ end
 desc "--buildType=staging|production"
 lane :build_ios do |options|
   buildType = options[:buildType]
-  scheme = "PlaceholderName"
-  if buildType === "staging"
-    scheme = "PlaceholderName staging"
-  end
 
   build_app( 
-    scheme: scheme, 
-    xcargs: "-allowProvisioningUpdates",
+    scheme: "PlaceholderName #{buildType.capitalize}", 
     workspace: "./ios/PlaceholderName.xcworkspace",
-    export_method: "ad-hoc", 
+    export_method: ENV["IOS_BUILD_METHOD"], 
     output_directory: "./ios/"
   )
 end

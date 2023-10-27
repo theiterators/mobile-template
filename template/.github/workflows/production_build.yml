@@ -1,17 +1,15 @@
-name: Staging Deploy
+name: Production Build
 
 on:
-  push:
+  pull_request:
     branches:
-      - develop
-
-env:
-  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - "*"
+  workflow_dispatch:
 
 jobs:
-  deploy-ios:
+  build-ios:
+    if: contains(github.event.pull_request.labels.*.name, 'ready for review')
     runs-on: macos-latest
-    if: "contains(github.event.head_commit.message, 'staging bump version')"
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v3
@@ -26,7 +24,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
           cache: "yarn"
       - name: Use Ruby
         uses: ruby/setup-ruby@v1
@@ -34,7 +32,7 @@ jobs:
           ruby-version: "2.7.5"
           bundler-cache: true
       - name: Install node modules
-        run: yarn install  --network-timeout 1000000
+        run: yarn install --network-timeout 1000000
       - name: Cache Pods
         uses: actions/cache@v3
         with:
@@ -66,8 +64,8 @@ jobs:
       - name: Build iOS
         uses: maierj/fastlane-action@v3.0.0
         with:
-          lane: "deploy"
-          options: '{ "buildType": "staging", "platform": "ios" }'
+          lane: "build_proj"
+          options: '{ "buildType": "production", "platform": "ios", "method": "adhoc", "mode": "ci" }'
         env:
           TEAM_ID: ${{ secrets.TEAM_ID }}
           ISSUER_ID: ${{ secrets.ISSUER_ID }}
@@ -75,9 +73,9 @@ jobs:
           KEY_CONTENT: ${{ secrets.KEY_CONTENT }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
-  deploy-android:
+  build-android:
+    if: contains(github.event.pull_request.labels.*.name, 'ready for review')
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'staging bump version')"
     timeout-minutes: 60
     container:
       image: reactnativecommunity/react-native-android:latest
@@ -117,5 +115,5 @@ jobs:
       - name: Build Android
         uses: maierj/fastlane-action@v3.0.0
         with:
-          lane: "deploy"
-          options: '{ "buildType": "staging", "platform": "android" }'
+          lane: "build_proj"
+          options: '{ "buildType": "production", "platform": "android" }'

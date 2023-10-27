@@ -8,13 +8,12 @@ build_ios_staging:
   before_script:
     - export LANG=en_US.UTF-8
     - export LANGUAGE=en_US:en
-    - rbenv local 2.7.5
+    - rbenv local 3.2.2
     - bundle install
     - bundle update fastlane
   script:
     - yarn
-    - cd ios; pod deintegrate; pod install; cd ..
-    - bundle exec fastlane build_proj buildType:staging platform:ios
+    - bundle exec fastlane build_proj buildType:staging platform:ios method:adhoc mode:ci
   tags:
     - ios
   only:
@@ -41,7 +40,6 @@ build_android_staging:
       - .gradle/caches
   script:
     - yarn
-    - npx jetify
     - bundle exec fastlane build_proj buildType:staging platform:android
   tags:
     - android
@@ -49,7 +47,7 @@ build_android_staging:
     - merge_requests
   when: manual
 
-deploy_android_staging:
+deploy_android_staging_firebase:
   image: reactnativecommunity/react-native-android:latest
   dependencies: []
   stage: deploy
@@ -69,27 +67,169 @@ deploy_android_staging:
       - .gradle/caches
   script:
     - yarn
-    - npx jetify
-    - fastlane deploy buildType:staging platform:android
+    - fastlane deploy buildType:staging platform:android deployType:firebase
   tags:
     - android
   only:
     - develop
   when: manual
 
-deploy_ios_staging:
+deploy_ios_staging_firebase:
   dependencies: []
   stage: deploy
   before_script:
     - export LANG=en_US.UTF-8
     - export LANGUAGE=en_US:en
-    - rbenv local 2.7.5
-    - bundle install --path ~/.gem
+    - rbenv local 3.2.2
+    - bundle install
     - bundle update fastlane
   script:
     - yarn
-    - cd ios; pod deintegrate; pod install; cd ..
-    - bundle exec fastlane deploy buildType:staging platform:ios
+    - bundle exec fastlane deploy buildType:staging platform:ios method:adhoc mode:ci deployType:firebase
+  tags:
+    - ios
+  only:
+    - develop
+  when: manual
+
+deploy_ios_staging_testflight:
+  dependencies: []
+  stage: deploy
+  before_script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US:en
+    - rbenv local 3.2.2
+    - bundle install
+    - bundle update fastlane
+  script:
+    - yarn
+    - bundle exec fastlane deploy buildType:staging platform:ios method:appstore mode:ci deployType:testflight
+  tags:
+    - ios
+  only:
+    - develop
+  when: manual
+
+build_ios_production:
+  dependencies: []
+  stage: build
+  before_script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US:en
+    - rbenv local 3.2.2
+    - bundle install
+    - bundle update fastlane
+  script:
+    - yarn
+    - bundle exec fastlane build_proj buildType:production platform:ios method:appstore mode:ci
+  tags:
+    - ios
+  only:
+    - merge_requests
+  when: manual
+
+build_android_production:
+  image: reactnativecommunity/react-native-android:latest
+  dependencies: []
+  stage: build
+  before_script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US:en
+    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
+    - chmod +x ./android/gradlew
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - bundle install --gemfile=Gemfile.android
+    - bundle update fastlane --gemfile=Gemfile.android
+  cache:
+    key: bh
+    paths:
+      - ./node_modules
+      - .gradle/wrapper
+      - .gradle/caches
+  script:
+    - yarn
+    - bundle exec fastlane build_proj buildType:production platform:android
+  tags:
+    - android
+  only:
+    - merge_requests
+  when: manual
+
+deploy_android_production_firebase:
+  image: reactnativecommunity/react-native-android:latest
+  dependencies: []
+  stage: deploy
+  before_script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US:en
+    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
+    - chmod +x ./android/gradlew
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - bundle install --gemfile=Gemfile.android
+    - bundle update fastlane --gemfile=Gemfile.android
+  cache:
+    key: bh
+    paths:
+      - ./node_modules
+      - .gradle/wrapper
+      - .gradle/caches
+  script:
+    - yarn
+    - fastlane deploy buildType:production platform:android deployType:firebase
+  tags:
+    - android
+  only:
+    - develop
+  when: manual
+
+deploy_ios_production_firebase:
+  dependencies: []
+  stage: deploy
+  before_script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US:en
+    - rbenv local 3.2.2
+    - bundle install
+    - bundle update fastlane
+  script:
+    - yarn
+    - bundle exec fastlane deploy buildType:production platform:ios method:adhoc mode:ci deployType:firebase
+  tags:
+    - ios
+  only:
+    - develop
+  when: manual
+
+deploy_ios_production_testflight:
+  dependencies: []
+  stage: deploy
+  before_script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US:en
+    - rbenv local 3.2.2
+    - bundle install
+    - bundle update fastlane
+  script:
+    - yarn
+    - bundle exec fastlane deploy buildType:production platform:ios method:appstore mode:ci deployType:testflight
+  tags:
+    - ios
+  only:
+    - develop
+  when: manual
+
+deploy_ios_production_appstore:
+  dependencies: []
+  stage: deploy
+  before_script:
+    - export LANG=en_US.UTF-8
+    - export LANGUAGE=en_US:en
+    - rbenv local 3.2.2
+    - bundle install
+    - bundle update fastlane
+  script:
+    - yarn
+    - bundle exec fastlane deploy buildType:production platform:ios method:appstore mode:ci deployType:appstore
   tags:
     - ios
   only:

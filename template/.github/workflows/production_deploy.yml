@@ -1,0 +1,253 @@
+name: production Deploy
+
+on:
+  push:
+    branches:
+      - develop
+
+env:
+  FIREBASE_APP_TOKEN: ${{ secrets.FIREBASE_APP_TOKEN }}
+
+jobs:
+  deploy-ios-firebase:
+    runs-on: macos-latest
+    if: "contains(github.event.head_commit.message, 'production bump version')"
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up UTF-8 locale
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.MATCH_DEPLOY_KEY }}
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: "yarn"
+      - name: Use Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7.5"
+          bundler-cache: true
+      - name: Install node modules
+        run: yarn install --network-timeout 1000000
+      - name: Cache Pods
+        uses: actions/cache@v3
+        with:
+          path: |
+            ios/Pods
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+      - name: Install Pods
+        run: cd ios && pod install
+      - name: Install gems
+        run: bundle install
+      - name: Cache derived data
+        uses: actions/cache@v3
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-xcode-derived-data-${{ hashFiles('**/*.xcodeproj') }}
+          restore-keys: |
+            ${{ runner.os }}-xcode-derived-data-
+      - name: Cache build products
+        uses: actions/cache@v3
+        with:
+          path: ios/build
+          key: ${{ runner.os }}-ios-build-${{ hashFiles('**/*.xcodeproj') }}
+          restore-keys: |
+            ${{ runner.os }}-ios-build-
+      - name: Build iOS
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: "deploy"
+          options: '{ "buildType": "production", "platform": "ios" }'
+        env:
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          ISSUER_ID: ${{ secrets.ISSUER_ID }}
+          KEY_ID: ${{ secrets.KEY_ID }}
+          KEY_CONTENT: ${{ secrets.KEY_CONTENT }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+  deploy-ios-testflight:
+    runs-on: macos-latest
+    if: "contains(github.event.head_commit.message, 'production bump version')"
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up UTF-8 locale
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.MATCH_DEPLOY_KEY }}
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: "yarn"
+      - name: Use Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7.5"
+          bundler-cache: true
+      - name: Install node modules
+        run: yarn install --network-timeout 1000000
+      - name: Cache Pods
+        uses: actions/cache@v3
+        with:
+          path: |
+            ios/Pods
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+      - name: Install Pods
+        run: cd ios && pod install
+      - name: Install gems
+        run: bundle install
+      - name: Cache derived data
+        uses: actions/cache@v3
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-xcode-derived-data-${{ hashFiles('**/*.xcodeproj') }}
+          restore-keys: |
+            ${{ runner.os }}-xcode-derived-data-
+      - name: Cache build products
+        uses: actions/cache@v3
+        with:
+          path: ios/build
+          key: ${{ runner.os }}-ios-build-${{ hashFiles('**/*.xcodeproj') }}
+          restore-keys: |
+            ${{ runner.os }}-ios-build-
+      - name: Build iOS
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: "deploy"
+          options: '{ "buildType": "production", "platform": "ios", "method": "appstore", "mode": "ci", "deployType": "testflight" }'
+        env:
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          ISSUER_ID: ${{ secrets.ISSUER_ID }}
+          KEY_ID: ${{ secrets.KEY_ID }}
+          KEY_CONTENT: ${{ secrets.KEY_CONTENT }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+  deploy-ios-testflight:
+    runs-on: macos-latest
+    if: "contains(github.event.head_commit.message, 'production bump version')"
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up UTF-8 locale
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.MATCH_DEPLOY_KEY }}
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: "yarn"
+      - name: Use Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7.5"
+          bundler-cache: true
+      - name: Install node modules
+        run: yarn install --network-timeout 1000000
+      - name: Cache Pods
+        uses: actions/cache@v3
+        with:
+          path: |
+            ios/Pods
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+      - name: Install Pods
+        run: cd ios && pod install
+      - name: Install gems
+        run: bundle install
+      - name: Cache derived data
+        uses: actions/cache@v3
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-xcode-derived-data-${{ hashFiles('**/*.xcodeproj') }}
+          restore-keys: |
+            ${{ runner.os }}-xcode-derived-data-
+      - name: Cache build products
+        uses: actions/cache@v3
+        with:
+          path: ios/build
+          key: ${{ runner.os }}-ios-build-${{ hashFiles('**/*.xcodeproj') }}
+          restore-keys: |
+            ${{ runner.os }}-ios-build-
+      - name: Build iOS
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: "deploy"
+          options: '{ "buildType": "production", "platform": "ios", "method": "appstore", "mode": "ci", "deployType": "appstore" }'
+        env:
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          ISSUER_ID: ${{ secrets.ISSUER_ID }}
+          KEY_ID: ${{ secrets.KEY_ID }}
+          KEY_CONTENT: ${{ secrets.KEY_CONTENT }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+  deploy-android-firebase:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'production bump version')"
+    timeout-minutes: 60
+    container:
+      image: reactnativecommunity/react-native-android:latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up UTF-8 locale
+        run: |
+          export LC_ALL=en_US.UTF-8
+          export LANG=en_US.UTF-8
+      - name: Use Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7.5"
+          bundler-cache: true
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install node modules
+        run: yarn install --network-timeout 1000000
+      - name: Install gems
+        run: bundle install
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+      - name: Cache Gradle Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-caches-
+      - name: Build Android
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: "deploy"
+          options: '{ "buildType": "production", "platform": "android", "deployType": "firebase" }'
