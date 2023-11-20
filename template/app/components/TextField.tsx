@@ -159,7 +159,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     { height: fieldHeight },
   ]
 
-  const $inputStyles = [
+  const $inputStyles: StyleProp<TextStyle>[] = [
     $inputStyle,
     disabled && { color: colors.textDim },
     isRTL && { textAlign: "right" as TextStyle["textAlign"] },
