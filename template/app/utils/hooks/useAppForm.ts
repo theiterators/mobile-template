@@ -1,6 +1,5 @@
-import type { Control, FieldValues } from "react-hook-form"
+import type { Control, DefaultValues, FieldValues } from "react-hook-form"
 import {
-  DeepPartial,
   FormState,
   useForm,
   UseFormHandleSubmit,
@@ -12,15 +11,15 @@ import {
 } from "react-hook-form"
 
 export type UseAppFormParams<T extends FieldValues = FieldValues> = {
-  defaultValues: DeepPartial<T>
+  defaultValues: DefaultValues<T>
   mode?: keyof ValidationMode
 }
 
 export type UseAppFormResult<T extends FieldValues = FieldValues> = {
   control: Control<T>
   formState: FormState<T>
-  handleSubmit: UseFormHandleSubmit<T>,
-  isEmptyFields: boolean,
+  handleSubmit: UseFormHandleSubmit<T>
+  isEmptyFields: boolean
   reset: UseFormReset<T>
   setFocus: UseFormSetFocus<T>
   setValue: UseFormSetValue<T>

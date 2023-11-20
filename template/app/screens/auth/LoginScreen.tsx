@@ -3,8 +3,8 @@ import { TextStyle, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 
 import { TEST_IDS } from "app/common/constants"
-import { Screen, Text, TextField } from "app/components"
-import { androidAvoidOffset, spacing } from "app/theme"
+import { Screen, Text } from "app/components"
+import { spacing } from "app/theme"
 
 import { AuthScreenName } from "../../common/types"
 import { AuthStackScreenProps } from "../../navigators"
