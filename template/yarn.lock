@@ -2165,6 +2165,11 @@
   dependencies:
     stacktrace-js "^2.0.0"
 
+"@react-native-firebase/perf@17.5.0":
+  version "17.5.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/perf/-/perf-17.5.0.tgz#6c9e097d0884d5cd889aa08db7539920df30ce98"
+  integrity sha512-26dWvSPKuw3C7i3n4T/twZEo4QpTnDLUMtR8VBE2gLdDP7P5dbVt+JOu3+k9pLZBrIeIBWRwYpWGA2KpnY9/WQ==
+
 "@react-native-picker/picker@2.4.10":
   version "2.4.10"
   resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-2.4.10.tgz#339c7bfc6e1d9a5e934122eaaa7767dc1c5fb725"
