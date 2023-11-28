@@ -2,28 +2,44 @@ import React, { useMemo } from "react"
 import { ImageStyle, ViewStyle } from "react-native"
 
 import { Icon, IconTypes } from "../../components"
+import { ACTIVE_OPACITY } from "app/theme"
+
+const DEFAULT_ICON_SIZE = 18
+
+interface IuseCreateMemoizedAccessoryProps {
+  color?: string
+  containerStyle?: ViewStyle
+  icon: IconTypes
+  onPress?: () => void
+  size?: number
+  style?: ImageStyle
+}
 
 // https://github.com/infinitered/ignite/blob/master/docs/Components-TextField.md#rightaccessory-and-leftaccessory
-const useCreateMemoizedAccessory = (icon: IconTypes, color?: string, style?: ImageStyle) =>
+const useCreateMemoizedAccessory = ({
+  color,
+  containerStyle,
+  icon,
+  onPress,
+  size = DEFAULT_ICON_SIZE,
+  style,
+}: IuseCreateMemoizedAccessoryProps) =>
   useMemo(() => {
     const Accessory = () => (
       <Icon
         color={color}
-        containerStyle={$accessoryContainer}
+        containerStyle={containerStyle}
         icon={icon}
-        size={18}
+        size={size}
         style={[$accessory, style]}
+        onPress={onPress}
       />
     )
     return Accessory
-  }, [icon, color, style])
+  }, [color, containerStyle, icon, size, style, onPress])
 
 export { useCreateMemoizedAccessory }
 
 const $accessory: ImageStyle = {
-  opacity: 0.8,
-}
-
-const $accessoryContainer: ViewStyle = {
-  alignSelf: "center",
+  opacity: ACTIVE_OPACITY,
 }
