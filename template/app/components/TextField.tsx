@@ -149,7 +149,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
   const $labelStyles = [$labelStyle, LabelTextProps?.style]
 
-  const $inputWrapperStyles = [
+  const $inputWrapperStyles: StyleProp<ViewStyle>[] = [
     $inputWrapperStyle,
     status === "error" && { borderColor: colors.error },
     TextInputProps.multiline && { minHeight: 112 },
