@@ -13,7 +13,7 @@ import { isRTL, translate } from "../i18n"
 import { colors, spacing, typography } from "../theme"
 
 import { Text, TextProps } from "./Text"
-import { KEYBOARD_AVOIDING_VIEW_OFFSET } from "app/common/constants"
+import { DEFAULT_FIELD_HEIGHT_SIZE, KEYBOARD_AVOIDING_VIEW_OFFSET } from "app/common/constants"
 
 export interface TextFieldAccessoryProps {
   editable: boolean
@@ -132,7 +132,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     placeholderTxOptions,
     RightAccessory,
     status,
-    fieldHeight = 50,
+    fieldHeight = DEFAULT_FIELD_HEIGHT_SIZE,
     keyboardAvoidingViewOffset = KEYBOARD_AVOIDING_VIEW_OFFSET,
     style: $inputStyleOverride,
     ...TextInputProps
