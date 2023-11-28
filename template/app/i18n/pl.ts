@@ -28,8 +28,10 @@ const pl: Translations = {
     },
   },
   errors: {
-    invalidEmail: "Invalid email address.",
+    error: "Error",
+    somethingWentWrong: "Something went wrong!",
     required: "Required",
+    invalidEmail: "Invalid email address.",
   },
   loginScreen: {
     signIn: "Sign In",
