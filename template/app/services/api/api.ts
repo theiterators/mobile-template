@@ -59,7 +59,7 @@ export class Api {
     this.apisauce.addRequestTransform((request) => {
       const { accessToken } = this.authStore
       if (accessToken) {
-        request.headers = { Authorization: `Bearer ${accessToken}` }
+        request.headers.Authorization = `Bearer ${accessToken}`
       }
     })
   }
