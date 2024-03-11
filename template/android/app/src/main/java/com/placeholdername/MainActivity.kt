@@ -1,16 +1,16 @@
 package com.placeholdername
 
 import android.os.Build
-import android.os.Bundle
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 
-import com.zoontek.rnbootsplash.RNBootSplash
-
 import expo.modules.ReactActivityDelegateWrapper
+
+import android.os.Bundle
+import com.zoontek.rnbootsplash.RNBootSplash
 
 class MainActivity : ReactActivity() {
 
@@ -29,7 +29,19 @@ class MainActivity : ReactActivity() {
   
   override fun onCreate(savedInstanceState: Bundle?) {
     RNBootSplash.init(this, R.style.BootTheme) // ⬅️ initialize the splash screen
-    super.onCreate(null) // super.onCreate(null) with react-native-screens
+    super.onCreate(savedInstanceState) // super.onCreate(null) with react-native-screens
   }
 
+  override fun invokeDefaultOnBackPressed() {
+    if (Build.VERSION.SDK_INT < 34 || Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
+        if (!moveTaskToBack(false)) {
+          // For non-root activities, use the default implementation to finish them.
+            super.invokeDefaultOnBackPressed()
+        }
+        return
+    }
+     // Use the default back button implementation on Android S
+     // because it's doing more than {@link Activity#moveTaskToBack} in fact.
+    super.onBackPressed()
+  }
 }
