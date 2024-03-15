@@ -1619,7 +1619,7 @@
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-14.0.0.tgz#48ce0aa5c05873b07c0c78bfe16c870388f4de9a"
   integrity sha512-5orm59pdnBQlovhU9k4DbjMUZBHNlku7IRgFY56f7pcaaCnXq9yaLJoOQl9sMwNdFzf4gnkTyHmR5uN10mI9rA==
 
-"@expo/webpack-config@^19.0.1":
+"@expo/webpack-config@~19.0.1":
   version "19.0.1"
   resolved "https://registry.yarnpkg.com/@expo/webpack-config/-/webpack-config-19.0.1.tgz#c54db7ecbe37cc8ae3d8cc4a7d8184ab4633827e"
   integrity sha512-5bSxXTUd/DCF44+1dSyU23YKLOOYCr9pMJ+C5Vw7PAi6v6OEyNp4uOVMk2x5DAEpXtvOsJCxvNZdmtY/IqmO/A==
@@ -5758,7 +5758,7 @@ expo-constants@~15.4.0, expo-constants@~15.4.3, expo-constants@~15.4.5:
   dependencies:
     "@expo/config" "~8.5.0"
 
-expo-dev-client@~3.3.8:
+expo-dev-client@~3.3.10:
   version "3.3.10"
   resolved "https://registry.yarnpkg.com/expo-dev-client/-/expo-dev-client-3.3.10.tgz#01129c60aff2e08d61844d3caa2cb8f02be57198"
   integrity sha512-UhZOJ+O90dRo7S/rmFmVIWwa/HxOqoQ4ySCqvWh87O3pFQuluPfVI9PdKicF4djYrNHZZmE8UXqBDN41hiYtAA==
@@ -5800,12 +5800,12 @@ expo-device@~5.9.3:
   dependencies:
     ua-parser-js "^0.7.33"
 
-expo-file-system@~16.0.0, expo-file-system@~16.0.6, expo-file-system@~16.0.8:
+expo-file-system@~16.0.0, expo-file-system@~16.0.8:
   version "16.0.8"
   resolved "https://registry.yarnpkg.com/expo-file-system/-/expo-file-system-16.0.8.tgz#13c79a8e06e42a8e76e9297df6920597a011d989"
   integrity sha512-yDbVT0TUKd7ewQjaY5THum2VRFx2n/biskGhkUmLh3ai21xjIVtaeIzHXyv9ir537eVgt4ReqDNWi7jcXjdUcA==
 
-expo-font@~11.10.2, expo-font@~11.10.3:
+expo-font@~11.10.3:
   version "11.10.3"
   resolved "https://registry.yarnpkg.com/expo-font/-/expo-font-11.10.3.tgz#a3115ebda8e09bd7cb8052619a4bbe606f0c17f4"
   integrity sha512-q1Td2zUvmLbCA9GV4OG4nLPw5gJuNY1VrPycsnemN1m8XWTzzs8nyECQQqrcBhgulCgcKZZJJ6U0kC2iuSoQHQ==
@@ -5857,7 +5857,7 @@ expo-modules-autolinking@1.10.3, expo-modules-autolinking@~1.10.3:
     find-up "^5.0.0"
     fs-extra "^9.1.0"
 
-expo-modules-core@1.11.12, expo-modules-core@~1.11.8:
+expo-modules-core@1.11.12, expo-modules-core@~1.11.12:
   version "1.11.12"
   resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-1.11.12.tgz#d5c7b3ed7ab57d4fb6885a0d8e10287dcf1ffe5f"
   integrity sha512-/e8g4kis0pFLer7C0PLyx98AfmztIM6gU9jLkYnB1pU9JAfQf904XEi3bmszO7uoteBQwSL6FLp1m3TePKhDaA==
@@ -10184,10 +10184,10 @@ react-native-web@~0.19.6:
     postcss-value-parser "^4.2.0"
     styleq "^0.1.3"
 
-react-native@0.73.5:
-  version "0.73.5"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.73.5.tgz#724fd1ae8ec8fee1dcf619c82bdd1695d3cff463"
-  integrity sha512-iHgDArmF4CrhL0qTj+Rn+CBN5pZWUL9lUGl8ub+V9Hwu/vnzQQh8rTMVSwVd2sV6N76KjpE5a4TfIAHkpIHhKg==
+react-native@0.73.6:
+  version "0.73.6"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.73.6.tgz#ed4c675e205a34bd62c4ce8b9bd1ca5c85126d5b"
+  integrity sha512-oqmZe8D2/VolIzSPZw+oUd6j/bEmeRHwsLn1xLA5wllEYsZ5zNuMsDus235ONOnCRwexqof/J3aztyQswSmiaA==
   dependencies:
     "@jest/create-cache-key-function" "^29.6.3"
     "@react-native-community/cli" "12.3.6"
