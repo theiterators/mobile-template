@@ -2192,30 +2192,30 @@
     prompts "^2.4.2"
     semver "^7.5.2"
 
-"@react-native-firebase/analytics@17.5.0":
-  version "17.5.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-17.5.0.tgz#4f133f64edf2c5959116f862a62c12e6f4ec20ce"
-  integrity sha512-SATj+O8YbSJkL5tHtMSxaXqojZROO6+1mq4BDm9m2Gt8HqDXL7FCUl8dyB1h0dp5cvQ6Jl3nkYEICzHNnSXMeQ==
+"@react-native-firebase/analytics@^19.0.1":
+  version "19.0.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-19.0.1.tgz#5855d56d3ffc06953eab5f08bed0f3ccb6465351"
+  integrity sha512-j3tgH24nXSSAq21t+PKcpAxVVV+mKFbiBMkqrI29xKok/63fui5+6E3vSMhIT8xPau7YxzihKAWvD/Qa9LH3PA==
 
-"@react-native-firebase/app@17.5.0":
-  version "17.5.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-17.5.0.tgz#faccb298f1e7f78cab06a20f232857a0edf3e6e8"
-  integrity sha512-8DWjguVmVYmuPWI7mhXlmLB6GxKnPjUjZ4Wnnyj3Wh5uqHzgUREHEA1aH92PT84LJLZL8F6dJZk+fIyo9UyXnA==
+"@react-native-firebase/app@^19.0.1":
+  version "19.0.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-19.0.1.tgz#49ffbfc7853ebf93520a167a359b4deeac78d77c"
+  integrity sha512-opwy3mQfu0Vg7Fz07EzNCuRI6Wr8U3n6wp0IIwDbNg5zJWQN7ALa9OSN1SA16RhPepIXO1fFWbwmRsL2nOgrIw==
   dependencies:
-    opencollective-postinstall "^2.0.1"
+    opencollective-postinstall "^2.0.3"
     superstruct "^0.6.2"
 
-"@react-native-firebase/crashlytics@17.5.0":
-  version "17.5.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-17.5.0.tgz#0685e262b99f67150b268f60a739e0a051fb2245"
-  integrity sha512-BknqnrsGceKDT1jm+gArIymXLguPw1AKkAKqEyH/XU+K0Np6M7+VsISipHjO2dizyGlkFjIN2lGdqTvfLzRC9Q==
+"@react-native-firebase/crashlytics@^19.0.1":
+  version "19.0.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-19.0.1.tgz#7c7410ff75e2b0d6a2f9e3ab23d620baac5ce138"
+  integrity sha512-UhJAMt/KQmCT/eoIqIgvzQ9rrXduluBNpO90eA9DXkeAtXFL84C7GCHseJ5KZyXrsxkWhOCUML/itwk6sNULkw==
   dependencies:
-    stacktrace-js "^2.0.0"
+    stacktrace-js "^2.0.2"
 
-"@react-native-firebase/perf@17.5.0":
-  version "17.5.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/perf/-/perf-17.5.0.tgz#6c9e097d0884d5cd889aa08db7539920df30ce98"
-  integrity sha512-26dWvSPKuw3C7i3n4T/twZEo4QpTnDLUMtR8VBE2gLdDP7P5dbVt+JOu3+k9pLZBrIeIBWRwYpWGA2KpnY9/WQ==
+"@react-native-firebase/perf@^19.0.1":
+  version "19.0.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/perf/-/perf-19.0.1.tgz#dae96cfe02cec120ece11eeac8b9a1c619603abd"
+  integrity sha512-rhgKRRqtgfduUZRwpOjXHh/vUNrExGNj3GrwrOLc0BHKUmmpkMrPrwl8Sh14R51+uvqV3QSpJWkbcz3DgdKWag==
 
 "@react-native-picker/picker@2.6.1":
   version "2.6.1"
@@ -5891,7 +5891,7 @@ expo-updates-interface@~0.15.1:
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-0.15.3.tgz#cdee536dea0a8692833a4d074005bf9c6bbbdd99"
   integrity sha512-uLvsbaCmUsXgJqeen8rYH/jPr874ZUCXEvWpKHxrCv5/XATPlYEaDuecbNSGQ+cu78i6MdtB4BHOwZmoH2d47A==
 
-expo@^50.0.0:
+expo@^50.0.13:
   version "50.0.13"
   resolved "https://registry.yarnpkg.com/expo/-/expo-50.0.13.tgz#fac1ba0dd002598bc90bda3657b69aea55119f94"
   integrity sha512-p0FYrhUJZe92YOwOXx6GZ/WaxF6YtsLXtWkql9pFIIocYBN6iQ3OMGsbQCRSu0ao8rlxsk7HgQDEWK4D+y9tAg==
@@ -9218,7 +9218,7 @@ open@^8.0.4, open@^8.0.9, open@^8.3.0:
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
 
-opencollective-postinstall@^2.0.1:
+opencollective-postinstall@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
   integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
@@ -11159,7 +11159,7 @@ stacktrace-js@2.0.1:
     stack-generator "^2.0.4"
     stacktrace-gps "^3.0.3"
 
-stacktrace-js@^2.0.0, stacktrace-js@^2.0.2:
+stacktrace-js@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/stacktrace-js/-/stacktrace-js-2.0.2.tgz#4ca93ea9f494752d55709a081d400fdaebee897b"
   integrity sha512-Je5vBeY4S1r/RnLydLl0TBTi3F2qdfWmYsGvtfZgEI+SCprPppaIhQf5nGcal4gI4cGpCV/duLcAzT1np6sQqg==
