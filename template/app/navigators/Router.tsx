@@ -7,7 +7,7 @@ import Config from "../config"
 import { useStores } from "../models"
 
 import { navigationRef, useBackButtonHandler } from "./common/navigationUtilities"
-import { AuthNavigator,MainNavigator } from "."
+import { AuthNavigator, MainNavigator } from "."
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
