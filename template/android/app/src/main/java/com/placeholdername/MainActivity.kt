@@ -32,7 +32,7 @@ class MainActivity : ReactActivity() {
     super.onCreate(savedInstanceState) // super.onCreate(null) with react-native-screens
   }
 
-   /**
+  /**
     * Align the back button behavior with Android S
     * where moving root activities to background instead of finishing activities.
     * @see <a href="https://developer.android.com/reference/android/app/Activity#onBackPressed()">onBackPressed</a>
