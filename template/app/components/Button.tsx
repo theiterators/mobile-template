@@ -16,7 +16,7 @@ import { Text, TextProps } from "./Text"
 type Presets = keyof typeof $viewPresets
 
 export interface ButtonAccessoryProps {
-  pressableState: PressableStateCallbackType,
+  pressableState: PressableStateCallbackType
   style: StyleProp<any>
 }
 
@@ -25,53 +25,52 @@ export interface ButtonProps extends PressableProps {
    * An optional component to render on the left side of the text.
    * Example: `LeftAccessory={(props) => <View {...props} />}`
    */
-  LeftAccessory?: ComponentType<ButtonAccessoryProps>,
+  LeftAccessory?: ComponentType<ButtonAccessoryProps>
   /**
    * An optional component to render on the right side of the text.
    * Example: `RightAccessory={(props) => <View {...props} />}`
    */
-  RightAccessory?: ComponentType<ButtonAccessoryProps>,
+  RightAccessory?: ComponentType<ButtonAccessoryProps>
   /**
    * Children components.
    */
-  children?: React.ReactNode,
+  children?: React.ReactNode
   /**
    * Indicates whether the component is disabled.
    */
-  disabled?: boolean,
+  disabled?: boolean
   /**
    * Indicates whether the component is in a loading state.
    */
-  isLoading?: boolean,
+  isLoading?: boolean
   /**
    * One of the different types of button presets.
    */
-  preset?: Presets,
+  preset?: Presets
   /**
    * An optional style override for the "pressed" state.
    */
-  pressedStyle?: StyleProp<ViewStyle>,
+  pressedStyle?: StyleProp<ViewStyle>
   /**
    * An optional style override for the button text when in the "pressed" state.
    */
-  pressedTextStyle?: StyleProp<TextStyle>,
-
+  pressedTextStyle?: StyleProp<TextStyle>
   /**
    * An optional style override useful for padding & margin.
    */
-  style?: StyleProp<ViewStyle>,
+  style?: StyleProp<ViewStyle>
   /**
    * The text to display if not using `tx` or nested components.
    */
-  text?: TextProps["text"],
+  text?: TextProps["text"]
   /**
    * An optional style override for the button text.
    */
-  textStyle?: StyleProp<TextStyle>,
+  textStyle?: StyleProp<TextStyle>
   /**
    * Text which is looked up via i18n.
    */
-  tx?: TextProps["tx"],
+  tx?: TextProps["tx"]
   /**
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
@@ -82,10 +81,18 @@ export interface ButtonProps extends PressableProps {
 /**
  * A component that allows users to take actions and make choices.
  * Wraps the Text component with a Pressable component.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Button.md)
+ * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/components/Button/}
+ * @param {ButtonProps} props - The props for the `Button` component.
+ * @returns {JSX.Element} The rendered `Button` component.
+ * @example
+ * <Button
+ *   tx="common.ok"
+ *   style={styles.button}
+ *   textStyle={styles.buttonText}
+ *   onPress={handleButtonPress}
+ * />
  */
-export function Button(props: ButtonProps) {
+export function Button(props: ButtonProps): JSX.Element {
   const {
     children,
     isLoading,
@@ -102,14 +109,24 @@ export function Button(props: ButtonProps) {
   } = props
 
   const preset: Presets = $viewPresets[props.preset] ? props.preset : "default"
-  function $viewStyle({ pressed }) {
+  /**
+   * @param {PressableStateCallbackType} root0 - The root object containing the pressed state.
+   * @param {boolean} root0.pressed - The pressed state.
+   * @returns {StyleProp<ViewStyle>} The view style based on the pressed state.
+   */
+  function $viewStyle({ pressed }: PressableStateCallbackType): StyleProp<ViewStyle> {
     return [
       $viewPresets[preset],
       $viewStyleOverride,
       !!pressed && [$pressedViewPresets[preset], $pressedViewStyleOverride],
     ]
   }
-  function $textStyle({ pressed }) {
+  /**
+   * @param {PressableStateCallbackType} root0 - The root object containing the pressed state.
+   * @param {boolean} root0.pressed - The pressed state.
+   * @returns {StyleProp<TextStyle>} The text style based on the pressed state.
+   */
+  function $textStyle({ pressed }: PressableStateCallbackType): StyleProp<TextStyle> {
     return [
       $textPresets[preset],
       $textStyleOverride,

@@ -111,8 +111,9 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
 
 /**
  * A component that allows for the entering and editing of text.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-TextField.md)
+ * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/components/TextField/}
+ * @param {TextFieldProps} props - The props for the `TextField` component.
+ * @returns {JSX.Element} The rendered `TextField` component.
  */
 export const TextField = forwardRef(function TextField(props: TextFieldProps, ref: Ref<TextInput>) {
   const {

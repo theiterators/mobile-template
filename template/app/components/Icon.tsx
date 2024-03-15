@@ -16,27 +16,27 @@ interface IconProps extends TouchableOpacityProps {
   /**
    * An optional tint color for the icon
    */
-  color?: string,
+  color?: string
 
   /**
    * Style overrides for the icon container
    */
-  containerStyle?: StyleProp<ViewStyle>,
+  containerStyle?: StyleProp<ViewStyle>
 
   /**
    * The name of the icon
    */
-  icon: IconTypes,
+  icon: IconTypes
 
   /**
    * An optional function to be called when the icon is pressed
    */
-  onPress?: TouchableOpacityProps["onPress"],
+  onPress?: TouchableOpacityProps["onPress"]
 
   /**
    * An optional size for the icon. If not provided, the icon will be sized to the icon's resolution.
    */
-  size?: number,
+  size?: number
 
   /**
    * Style overrides for the icon image
@@ -47,10 +47,11 @@ interface IconProps extends TouchableOpacityProps {
 /**
  * A component to render a registered icon.
  * It is wrapped in a <TouchableOpacity /> if `onPress` is provided, otherwise a <View />.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Icon.md)
+ * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/components/Icon/}
+ * @param {IconProps} props - The props for the `Icon` component.
+ * @returns {JSX.Element} The rendered `Icon` component.
  */
-export function Icon(props: IconProps) {
+export function Icon(props: IconProps): JSX.Element {
   const {
     color,
     containerStyle: $containerStyleOverride,

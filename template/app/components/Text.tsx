@@ -13,15 +13,15 @@ export interface TextProps extends RNTextProps {
   /**
    * Children components.
    */
-  children?: React.ReactNode,
+  children?: React.ReactNode
   /**
    * One of the different types of text presets.
    */
-  preset?: Presets,
+  preset?: Presets
   /**
    * Text size modifier.
    */
-  size?: Sizes,
+  size?: Sizes
   /**
    * An optional style override useful for padding & margin.
    */
@@ -29,16 +29,16 @@ export interface TextProps extends RNTextProps {
   /**
    * The text to display if not using `tx` or nested components.
    */
-  text?: string,
+  text?: string
   /**
    * Text which is looked up via i18n.
    */
-  tx?: TxKeyPath,
+  tx?: TxKeyPath
   /**
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  txOptions?: i18n.TranslateOptions,
+  txOptions?: i18n.TranslateOptions
   /**
    * Text weight modifier.
    */
@@ -48,10 +48,11 @@ export interface TextProps extends RNTextProps {
 /**
  * For your text displaying needs.
  * This component is a HOC over the built-in React Native one.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Text.md)
+ * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/components/Text/}
+ * @param {TextProps} props - The props for the `Text` component.
+ * @returns {JSX.Element} The rendered `Text` component.
  */
-export function Text(props: TextProps) {
+export function Text(props: TextProps): JSX.Element {
   const { children, size, style: $styleOverride, text, tx, txOptions, weight, ...rest } = props
 
   const i18nText = tx && translate(tx, txOptions)
