@@ -50,7 +50,7 @@ interface AppProps {
 /**
  * This is the root component of our app.
  */
-function App(props: AppProps) {
+function App(props: AppProps): React.JSX.Element {
   const { onAppFinished, onAppNavigatorReady, onAppStarted } = appLifeCycle
 
   const { hideSplashScreen } = props
@@ -103,4 +103,5 @@ function App(props: AppProps) {
 }
 
 const $container = { flex: 1 }
+
 export default App

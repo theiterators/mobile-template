@@ -25,46 +25,46 @@ interface BaseToggleProps extends Omit<TouchableOpacityProps, "style"> {
   /**
    * Pass any additional props directly to the helper Text component.
    */
-  HelperTextProps?: TextProps,
+  HelperTextProps?: TextProps
   /**
    * Pass any additional props directly to the label Text component.
    */
-  LabelTextProps?: TextProps,
+  LabelTextProps?: TextProps
   /**
    * Style overrides for the container
    */
-  containerStyle?: StyleProp<ViewStyle>,
+  containerStyle?: StyleProp<ViewStyle>
   /**
    * If false, input is not editable. The default value is true.
    */
-  editable?: TextInputProps["editable"],
+  editable?: TextInputProps["editable"]
   /**
    * The helper text to display if not using `helperTx`.
    */
-  helper?: TextProps["text"],
+  helper?: TextProps["text"]
   /**
    * Helper text which is looked up via i18n.
    */
-  helperTx?: TextProps["tx"],
+  helperTx?: TextProps["tx"]
   /**
    * Optional helper options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  helperTxOptions?: TextProps["txOptions"],
+  helperTxOptions?: TextProps["txOptions"]
   /**
    * Optional input style override.
    * This gives the inputs their inner characteristics and "on" background-color.
    */
-  inputInnerStyle?: ViewStyle,
+  inputInnerStyle?: ViewStyle
   /**
    * Optional input wrapper style override.
    * This gives the inputs their size, shape, "off" background-color, and outer border.
    */
-  inputOuterStyle?: ViewStyle,
+  inputOuterStyle?: ViewStyle
   /**
    * Style overrides for the input wrapper
    */
-  inputWrapperStyle?: StyleProp<ViewStyle>,
+  inputWrapperStyle?: StyleProp<ViewStyle>
   /**
    * The label text to display if not using `labelTx`.
    */
@@ -73,32 +73,32 @@ interface BaseToggleProps extends Omit<TouchableOpacityProps, "style"> {
    * The position of the label relative to the action component.
    * Default: right
    */
-  labelPosition?: "left" | "right",
+  labelPosition?: "left" | "right"
   /**
    * Style overrides for label text.
    */
-  labelStyle?: StyleProp<TextStyle>,
+  labelStyle?: StyleProp<TextStyle>
   /**
    * Label text which is looked up via i18n.
    */
-  labelTx?: TextProps["tx"],
+  labelTx?: TextProps["tx"]
   /**
    * Optional label options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  labelTxOptions?: TextProps["txOptions"],
+  labelTxOptions?: TextProps["txOptions"]
   /**
    * Invoked with the new value when the value changes.
    */
-  onValueChange?: SwitchProps["onValueChange"],
+  onValueChange?: SwitchProps["onValueChange"]
   /**
    * A style modifier for different input states.
    */
-  status?: "error" | "disabled",
+  status?: "error" | "disabled"
   /**
    * The value of the field. If true the component will be turned on.
    */
-  value?: boolean,
+  value?: boolean
   /**
    * The variant of the toggle.
    * Options: "checkbox", "switch", "radio"
@@ -111,7 +111,7 @@ interface CheckboxToggleProps extends BaseToggleProps {
   /**
    * Checkbox-only prop that changes the icon used for the "on" state.
    */
-  checkboxIcon?: IconTypes,
+  checkboxIcon?: IconTypes
   /**
    * Optional style prop that affects the Image component.
    */
@@ -123,7 +123,7 @@ interface RadioToggleProps extends BaseToggleProps {
   /**
    * Optional style prop that affects the dot View.
    */
-  inputDetailStyle?: ViewStyle,
+  inputDetailStyle?: ViewStyle
   variant?: "radio"
 }
 
@@ -132,7 +132,7 @@ interface SwitchToggleProps extends BaseToggleProps {
    * Optional style prop that affects the knob View.
    * Note: `width` and `height` rules should be points (numbers), not percentages.
    */
-  inputDetailStyle?: Omit<ViewStyle, "width" | "height"> & { height?: number, width?: number; },
+  inputDetailStyle?: Omit<ViewStyle, "width" | "height"> & { height?: number; width?: number }
   /**
    * Switch-only prop that adds a text/icon label for on/off states.
    */
@@ -143,23 +143,24 @@ interface SwitchToggleProps extends BaseToggleProps {
 export type ToggleProps = CheckboxToggleProps | RadioToggleProps | SwitchToggleProps
 
 interface ToggleInputProps {
-  checkboxIcon?: CheckboxToggleProps["checkboxIcon"],
-  detailStyle: Omit<ViewStyle & ImageStyle, "overflow">,
+  checkboxIcon?: CheckboxToggleProps["checkboxIcon"]
+  detailStyle: Omit<ViewStyle & ImageStyle, "overflow">
   disabled: boolean
-  innerStyle: ViewStyle,
-  on: boolean,
-  outerStyle: ViewStyle,
-  status: BaseToggleProps["status"],
+  innerStyle: ViewStyle
+  on: boolean
+  outerStyle: ViewStyle
+  status: BaseToggleProps["status"]
   switchAccessibilityMode?: SwitchToggleProps["switchAccessibilityMode"]
 }
 
 /**
  * Renders a boolean input.
  * This is a controlled component that requires an onValueChange callback that updates the value prop in order for the component to reflect user actions. If the value prop is not updated, the component will continue to render the supplied value prop instead of the expected result of any user actions.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Toggle.md)
+ * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/components/Toggle/}
+ * @param {ToggleProps} props - The props for the `Toggle` component.
+ * @returns {JSX.Element} The rendered `Toggle` component.
  */
-export function Toggle(props: ToggleProps) {
+export function Toggle(props: ToggleProps): JSX.Element {
   const {
     containerStyle: $containerStyleOverride,
     editable = true,
@@ -196,6 +197,9 @@ export function Toggle(props: ToggleProps) {
     HelperTextProps?.style,
   ]
 
+  /**
+   * @param {GestureResponderEvent} e - The event object.
+   */
   function handlePress(e: GestureResponderEvent) {
     if (disabled) return
     onValueChange?.(!value)
@@ -248,7 +252,11 @@ const ToggleInputs: Record<Variants, FC<ToggleInputProps>> = {
   radio: Radio,
 }
 
-function Checkbox(props: ToggleInputProps) {
+/**
+ * @param {ToggleInputProps} props - The props for the `Checkbox` component.
+ * @returns {JSX.Element} The rendered `Checkbox` component.
+ */
+function Checkbox(props: ToggleInputProps): JSX.Element {
   const {
     checkboxIcon,
     detailStyle: $detailStyleOverride,
@@ -309,7 +317,11 @@ function Checkbox(props: ToggleInputProps) {
   )
 }
 
-function Radio(props: ToggleInputProps) {
+/**
+ * @param {ToggleInputProps} props - The props for the `Radio` component.
+ * @returns {JSX.Element} The rendered `Radio` component.
+ */
+function Radio(props: ToggleInputProps): JSX.Element {
   const {
     detailStyle: $detailStyleOverride,
     disabled,
@@ -368,7 +380,11 @@ function Radio(props: ToggleInputProps) {
   )
 }
 
-function Switch(props: ToggleInputProps) {
+/**
+ * @param {ToggleInputProps} props - The props for the `Switch` component.
+ * @returns {JSX.Element} The rendered `Switch` component.
+ */
+function Switch(props: ToggleInputProps): JSX.Element {
   const {
     detailStyle: $detailStyleOverride,
     disabled,
@@ -470,14 +486,18 @@ function Switch(props: ToggleInputProps) {
   )
 }
 
-function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off" }) {
+/**
+ * @param {ToggleInputProps & { role: "on" | "off" }} props - The props for the `SwitchAccessibilityLabel` component.
+ * @returns {JSX.Element} The rendered `SwitchAccessibilityLabel` component.
+ */
+function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off" }): JSX.Element {
   const { detailStyle, disabled, innerStyle, on, role, status, switchAccessibilityMode } = props
 
   if (!switchAccessibilityMode) return null
 
   const shouldLabelBeVisible = (on && role === "on") || (!on && role === "off")
 
-  const $switchAccessibilityStyle = [
+  const $switchAccessibilityStyle: StyleProp<ViewStyle> = [
     $switchAccessibility,
     role === "off" && { end: "5%" },
     role === "on" && { left: "5%" },
@@ -513,7 +533,11 @@ function SwitchAccessibilityLabel(props: ToggleInputProps & { role: "on" | "off"
   )
 }
 
-function FieldLabel(props: BaseToggleProps) {
+/**
+ * @param {BaseToggleProps} props - The props for the `FieldLabel` component.
+ * @returns {JSX.Element} The rendered `FieldLabel` component.
+ */
+function FieldLabel(props: BaseToggleProps): JSX.Element {
   const {
     label,
     labelPosition,

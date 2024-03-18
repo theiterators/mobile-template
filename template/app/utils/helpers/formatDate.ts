@@ -1,13 +1,13 @@
 import { format, Locale, parseISO } from "date-fns"
-import en from "date-fns/locale/en-US"
-import pl from "date-fns/locale/pl"
+import { pl, enUS } from "date-fns/locale"
+
 import I18n from "i18n-js"
 
 type Options = Parameters<typeof format>[2]
 
 const getLocale = (): Locale => {
   const locale = I18n.currentLocale().split("-")[0]
-  return locale === "pl" ? pl : en
+  return locale === "pl" ? pl : enUS
 }
 
 export const formatDate = (date: string, dateFormat?: string, options?: Options) => {

@@ -58,6 +58,7 @@ interface BaseScreenProps {
 interface FixedScreenProps extends BaseScreenProps {
   preset?: "fixed"
 }
+
 interface ScrollScreenProps extends BaseScreenProps {
   /**
    * Pass any additional props directly to the ScrollView component.
@@ -84,18 +85,33 @@ export type ScreenProps = ScrollScreenProps | FixedScreenProps | AutoScreenProps
 
 const isIos = Platform.OS === "ios"
 
-function isNonScrolling(preset?: ScreenProps["preset"]) {
+type ScreenPreset = "fixed" | "scroll" | "auto"
+
+/**
+ * @param {ScreenPreset?} preset - The preset to check.
+ * @returns {boolean} - Whether the preset is non-scrolling.
+ */
+function isNonScrolling(preset?: ScreenPreset): boolean {
   return !preset || preset === "fixed"
 }
 
 const AUTO_SCREEN_PERCENT = 0.92
 
-function useAutoPreset(props: AutoScreenProps) {
+/**
+ * Custom hook that handles the automatic enabling/disabling of scroll ability based on the content size and screen size.
+ * @param {UseAutoPresetProps} props - The props for the `useAutoPreset` hook.
+ * @returns {{boolean, Function, Function}} - The scroll state, and the `onContentSizeChange` and `onLayout` functions.
+ */
+function useAutoPreset(props: AutoScreenProps): {
+  scrollEnabled: boolean
+  onContentSizeChange: (w: number, h: number) => void
+  onLayout: (e: LayoutChangeEvent) => void
+} {
   const { preset, scrollEnabledToggleThreshold } = props
   const { percent = AUTO_SCREEN_PERCENT, point = 0 } = scrollEnabledToggleThreshold || {}
 
-  const scrollViewHeight = useRef(null)
-  const scrollViewContentHeight = useRef(null)
+  const scrollViewHeight = useRef<null | number>(null)
+  const scrollViewContentHeight = useRef<null | number>(null)
   const [scrollEnabled, setScrollEnabled] = useState(true)
 
   function updateScrollState() {
@@ -117,12 +133,19 @@ function useAutoPreset(props: AutoScreenProps) {
     if (!scrollEnabled && !contentFitsScreen) setScrollEnabled(true)
   }
 
+  /**
+   * @param {number} w - The width of the content.
+   * @param {number} h - The height of the content.
+   */
   function onContentSizeChange(w: number, h: number) {
     // update scroll-view content height
     scrollViewContentHeight.current = h
     updateScrollState()
   }
 
+  /**
+   * @param {LayoutChangeEvent} e = The layout change event.
+   */
   function onLayout(e: LayoutChangeEvent) {
     const { height } = e.nativeEvent.layout
     // update scroll-view  height
@@ -140,7 +163,11 @@ function useAutoPreset(props: AutoScreenProps) {
   }
 }
 
-function ScreenWithoutScrolling(props: ScreenProps) {
+/**
+ * @param {ScreenProps} props - The props for the `ScreenWithoutScrolling` component.
+ * @returns {JSX.Element} - The rendered `ScreenWithoutScrolling` component.
+ */
+function ScreenWithoutScrolling(props: ScreenProps): JSX.Element {
   const { children, contentContainerStyle, style } = props
   return (
     <View style={[$outerStyle, style]}>
@@ -149,7 +176,11 @@ function ScreenWithoutScrolling(props: ScreenProps) {
   )
 }
 
-function ScreenWithScrolling(props: ScreenProps) {
+/**
+ * @param {ScreenProps} props - The props for the `ScreenWithScrolling` component.
+ * @returns {JSX.Element} - The rendered `ScreenWithScrolling` component.
+ */
+function ScreenWithScrolling(props: ScreenProps): JSX.Element {
   const {
     children,
     contentContainerStyle,
@@ -158,7 +189,7 @@ function ScreenWithScrolling(props: ScreenProps) {
     style,
   } = props as ScrollScreenProps
 
-  const ref = useRef<ScrollView>()
+  const ref = useRef<ScrollView>(null)
 
   const { onContentSizeChange, onLayout, scrollEnabled } = useAutoPreset(props as AutoScreenProps)
 
@@ -190,7 +221,15 @@ function ScreenWithScrolling(props: ScreenProps) {
   )
 }
 
-export function Screen(props: ScreenProps) {
+/**
+ * Represents a screen component that provides a consistent layout and behavior for different screen presets.
+ * The `Screen` component can be used with different presets such as "fixed", "scroll", or "auto".
+ * It handles safe area insets, status bar settings, keyboard avoiding behavior, and scrollability based on the preset.
+ * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/components/Screen/}
+ * @param {ScreenProps} props - The props for the `Screen` component.
+ * @returns {JSX.Element} The rendered `Screen` component.
+ */
+export function Screen(props: ScreenProps): JSX.Element {
   const {
     backgroundColor = colors.background,
     KeyboardAvoidingViewProps,

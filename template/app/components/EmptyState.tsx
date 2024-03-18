@@ -11,44 +11,44 @@ interface EmptyStateProps {
   /**
    * Pass any additional props directly to the Button component.
    */
-  ButtonProps?: ButtonProps,
+  ButtonProps?: ButtonProps
   /**
    * Pass any additional props directly to the content Text component.
    */
-  ContentTextProps?: TextProps,
+  ContentTextProps?: TextProps
   /**
    * Pass any additional props directly to the heading Text component.
    */
-  HeadingTextProps?: TextProps,
+  HeadingTextProps?: TextProps
   /**
    * Pass any additional props directly to the Image component.
    */
-  ImageProps?: Omit<ImageProps, "source">,
+  ImageProps?: Omit<ImageProps, "source">
   /**
    * The button text to display if not using `buttonTx`.
    */
-  button?: TextProps["text"],
+  button?: TextProps["text"]
   /**
    * Called when the button is pressed.
    */
-  buttonOnPress?: ButtonProps["onPress"],
+  buttonOnPress?: ButtonProps["onPress"]
   /**
    * Style overrides for button.
    */
-  buttonStyle?: ButtonProps["style"],
+  buttonStyle?: ButtonProps["style"]
   /**
    * Style overrides for button text.
    */
-  buttonTextStyle?: ButtonProps["textStyle"],
+  buttonTextStyle?: ButtonProps["textStyle"]
   /**
    * Button text which is looked up via i18n.
    */
-  buttonTx?: TextProps["tx"],
+  buttonTx?: TextProps["tx"]
   /**
    * Optional button options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  buttonTxOptions?: TextProps["txOptions"],
+  buttonTxOptions?: TextProps["txOptions"]
   /**
    * The content text to display if not using `contentTx`.
    */
@@ -56,45 +56,45 @@ interface EmptyStateProps {
   /**
    * Style overrides for content text.
    */
-  contentStyle?: StyleProp<TextStyle>,
+  contentStyle?: StyleProp<TextStyle>
   /**
    * Content text which is looked up via i18n.
    */
-  contentTx?: TextProps["tx"],
+  contentTx?: TextProps["tx"]
   /**
    * Optional content options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  contentTxOptions?: TextProps["txOptions"],
+  contentTxOptions?: TextProps["txOptions"]
   /**
    * The heading text to display if not using `headingTx`.
    */
-  heading?: TextProps["text"],
+  heading?: TextProps["text"]
   /**
    * Style overrides for heading text.
    */
-  headingStyle?: StyleProp<TextStyle>,
+  headingStyle?: StyleProp<TextStyle>
   /**
    * Heading text which is looked up via i18n.
    */
-  headingTx?: TextProps["tx"],
+  headingTx?: TextProps["tx"]
   /**
    * Optional heading options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  headingTxOptions?: TextProps["txOptions"],
+  headingTxOptions?: TextProps["txOptions"]
   /**
    * An Image source to be displayed above the heading.
    */
-  imageSource?: ImageProps["source"],
+  imageSource?: ImageProps["source"]
   /**
    * Style overrides for image.
    */
-  imageStyle?: StyleProp<ImageStyle>,
+  imageStyle?: StyleProp<ImageStyle>
   /**
    * An optional prop that specifies the text/image set to use for the empty state.
    */
-  preset?: keyof typeof EmptyStatePresets,
+  preset?: keyof typeof EmptyStatePresets
   /**
    * Style override for the container.
    */
@@ -111,10 +111,11 @@ const EmptyStatePresets = {
 
 /**
  * A component to use when there is no data to display. It can be utilized to direct the user what to do next.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-EmptyState.md)
+ * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/components/EmptyState/}
+ * @param {EmptyStateProps} props - The props for the `EmptyState` component.
+ * @returns {JSX.Element} The rendered `EmptyState` component.
  */
-export function EmptyState(props: EmptyStateProps) {
+export function EmptyState(props: EmptyStateProps): JSX.Element {
   const preset = EmptyStatePresets[props.preset] ? EmptyStatePresets[props.preset] : undefined
 
   const {
@@ -149,7 +150,7 @@ export function EmptyState(props: EmptyStateProps) {
   const $containerStyles = [$containerStyleOverride]
   const $imageStyles = [
     $image,
-    (isHeadingPresent || isContentPresent || isButtonPresent) && { marginBottom: spacing.xxxs },
+    (isHeadingPresent || isContentPresent || isButtonPresent) && { marginBottom: spacing.micro },
     $imageStyleOverride,
     ImageProps?.style,
   ]

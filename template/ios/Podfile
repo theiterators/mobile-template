@@ -11,7 +11,7 @@ $RNFirebaseAsStaticFramework = true
 production = ENV["PRODUCTION"] == "1"
 ENV['RCT_NEW_ARCH_ENABLED'] = podfile_properties['newArchEnabled'] == 'true' ? '1' : '0'
 
-platform :ios, podfile_properties['ios.deploymentTarget'] || '13.0'
+platform :ios, podfile_properties['ios.deploymentTarget'] || '13.4'
 install! 'cocoapods',
   :deterministic_uuids => false
 
@@ -48,9 +48,6 @@ target 'PlaceholderName' do
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
   use_frameworks! :linkage => ENV['USE_FRAMEWORKS'].to_sym if ENV['USE_FRAMEWORKS']
 
-  # Flags change depending on the env values.
-  flags = get_default_flags()
-
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'FirebaseCoreInternal', :modular_headers => true
@@ -66,11 +63,6 @@ target 'PlaceholderName' do
   use_react_native!(
     :path => config[:reactNativePath],
     :production => production,
-    # Hermes is now enabled by default. Disable by setting this in Podfile.properties.json.
-    # Upcoming versions of React Native may rely on get_default_flags(), but
-    # we make it explicit here to aid in the React Native upgrade process.
-    :hermes_enabled => podfile_properties['expo.jsEngine'] == nil || podfile_properties['expo.jsEngine'] == 'hermes',
-    :fabric_enabled => flags[:fabric_enabled],
     # Note that if you have use_frameworks! enabled, Flipper will not work if enabled
     :flipper_configuration => flipper_config,
     # An absolute path to your application root.
@@ -95,7 +87,7 @@ target 'PlaceholderName' do
       # necessary for Mac Catalyst builds
       :mac_catalyst_enabled => false
     )
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+
     File.delete("./.xcode.env.local") if File.exist?("./.xcode.env.local")
   
     # This is necessary for Xcode 14, because it signs resource bundles by default

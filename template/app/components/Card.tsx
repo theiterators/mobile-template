@@ -74,28 +74,28 @@ interface CardProps extends TouchableOpacityProps {
   /**
    * Style overrides for footer text.
    */
-  footerStyle?: StyleProp<TextStyle>,
+  footerStyle?: StyleProp<TextStyle>
   /**
    * Footer text which is looked up via i18n.
    */
-  footerTx?: TextProps["tx"],
+  footerTx?: TextProps["tx"]
   /**
    * Optional footer options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  footerTxOptions?: TextProps["txOptions"],
+  footerTxOptions?: TextProps["txOptions"]
   /**
    * The heading text to display if not using `headingTx`.
    */
-  heading?: TextProps["text"],
+  heading?: TextProps["text"]
   /**
    * Style overrides for heading text.
    */
-  headingStyle?: StyleProp<TextStyle>,
+  headingStyle?: StyleProp<TextStyle>
   /**
    * Heading text which is looked up via i18n.
    */
-  headingTx?: TextProps["tx"],
+  headingTx?: TextProps["tx"]
   /**
    * Optional heading options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
@@ -120,10 +120,11 @@ interface CardProps extends TouchableOpacityProps {
 /**
  * Cards are useful for displaying related information in a contained way.
  * If a ListItem displays content horizontally, a Card can be used to display content vertically.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Card.md)
+ * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/components/Card/}
+ * @param {CardProps} props - The props for the `Card` component.
+ * @returns {JSX.Element} The rendered `Card` component.
  */
-export function Card(props: CardProps) {
+export function Card(props: CardProps): JSX.Element {
   const {
     content,
     ContentComponent,
@@ -175,7 +176,7 @@ export function Card(props: CardProps) {
   ]
   const $footerStyle = [
     $footerPresets[preset],
-    (isHeadingPresent || isContentPresent) && { marginTop: spacing.xxxs },
+    (isHeadingPresent || isContentPresent) && { marginTop: spacing.micro },
     $footerStyleOverride,
     FooterTextProps?.style,
   ]

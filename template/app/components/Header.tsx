@@ -14,120 +14,121 @@ import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/hooks/useSafeArea
 
 import { Icon, IconTypes } from "./Icon"
 import { Text, TextProps } from "./Text"
+import { DEFAULT_HEADER_HEIGHT } from "app/common/constants"
 
 export interface HeaderProps {
   /**
    * Left action custom ReactElement if the built in action props don't suffice.
    * Overrides `leftIcon`, `leftTx` and `leftText`.
    */
-  LeftActionComponent?: ReactElement,
+  LeftActionComponent?: ReactElement
   /**
    * Right action custom ReactElement if the built in action props don't suffice.
    * Overrides `rightIcon`, `rightTx` and `rightText`.
    */
-  RightActionComponent?: ReactElement,
+  RightActionComponent?: ReactElement
   /**
    * Background color
    */
-  backgroundColor?: string,
+  backgroundColor?: string
   /**
    * Optional outer header container style override.
    */
-  containerStyle?: StyleProp<ViewStyle>,
-  leftActionTestID?: string,
+  containerStyle?: StyleProp<ViewStyle>
+  leftActionTestID?: string
   /**
    * Icon that should appear on the left.
    * Can be used with `onLeftPress`.
    */
-  leftIcon?: IconTypes,
+  leftIcon?: IconTypes
   /**
    * An optional tint color for the left icon
    */
-  leftIconColor?: string,
+  leftIconColor?: string
   /**
    * Left action text to display if not using `leftTx`.
    * Can be used with `onLeftPress`. Overrides `leftIcon`.
    */
-  leftText?: TextProps["text"],
+  leftText?: TextProps["text"]
   /**
    * Left action text text which is looked up via i18n.
    * Can be used with `onLeftPress`. Overrides `leftIcon`.
    */
-  leftTx?: TextProps["tx"],
+  leftTx?: TextProps["tx"]
   /**
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  leftTxOptions?: TextProps["txOptions"],
+  leftTxOptions?: TextProps["txOptions"]
   /**
    * What happens when you press the left icon or text action.
    */
-  onLeftPress?: TouchableOpacityProps["onPress"],
+  onLeftPress?: TouchableOpacityProps["onPress"]
   /**
    * What happens when you press the right icon or text action.
    */
-  onRightPress?: TouchableOpacityProps["onPress"],
-  rightActionTestID?: string,
+  onRightPress?: TouchableOpacityProps["onPress"]
+  rightActionTestID?: string
   /**
    * Icon that should appear on the right.
    * Can be used with `onRightPress`.
    */
-  rightIcon?: IconTypes,
+  rightIcon?: IconTypes
   /**
    * An optional tint color for the right icon
    */
-  rightIconColor?: string,
+  rightIconColor?: string
   /**
    * Right action text to display if not using `rightTx`.
    * Can be used with `onRightPress`. Overrides `rightIcon`.
    */
-  rightText?: TextProps["text"],
+  rightText?: TextProps["text"]
   /**
    * Right action text text which is looked up via i18n.
    * Can be used with `onRightPress`. Overrides `rightIcon`.
    */
-  rightTx?: TextProps["tx"],
+  rightTx?: TextProps["tx"]
   /**
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  rightTxOptions?: TextProps["txOptions"],
+  rightTxOptions?: TextProps["txOptions"]
   /**
    * Override the default edges for the safe area.
    */
-  safeAreaEdges?: ExtendedEdge[],
+  safeAreaEdges?: ExtendedEdge[]
   /**
    * Optional inner header wrapper style override.
    */
-  style?: StyleProp<ViewStyle>,
+  style?: StyleProp<ViewStyle>
   /**
    * TestID used for testing purposes
    * */
-  testID?: string,
+  testID?: string
   /**
    * Title text to display if not using `tx` or nested components.
    */
-  title?: TextProps["text"],
+  title?: TextProps["text"]
   /**
    * Optional outer title container style override.
    */
-  titleContainerStyle?: StyleProp<ViewStyle>,
+  titleContainerStyle?: StyleProp<ViewStyle>
   /**
    * The layout of the title relative to the action components.
    * - `center` will force the title to always be centered relative to the header. If the title or the action buttons are too long, the title will be cut off.
    * - `flex` will attempt to center the title relative to the action buttons. If the action buttons are different widths, the title will be off-center relative to the header.
    */
-  titleMode?: "center" | "flex",
+  titleMode?: "center" | "flex"
 
   /**
    * Optional title style override.
    */
-  titleStyle?: StyleProp<TextStyle>,
+  titleStyle?: StyleProp<TextStyle>
 
   /**
    * Title text which is looked up via i18n.
    */
-  titleTx?: TextProps["tx"],
+  titleTx?: TextProps["tx"]
 
   /**
    * Optional options to pass to i18n. Useful for interpolation
@@ -137,24 +138,25 @@ export interface HeaderProps {
 }
 
 interface HeaderActionProps {
-  ActionComponent?: ReactElement,
-  backgroundColor?: string,
-  icon?: IconTypes,
-  iconColor?: string,
-  onPress?: TouchableOpacityProps["onPress"],
-  testID?: string,
-  text?: TextProps["text"],
-  tx?: TextProps["tx"],
+  ActionComponent?: ReactElement
+  backgroundColor?: string
+  icon?: IconTypes
+  iconColor?: string
+  onPress?: TouchableOpacityProps["onPress"]
+  testID?: string
+  text?: TextProps["text"]
+  tx?: TextProps["tx"]
   txOptions?: TextProps["txOptions"]
 }
 
 /**
  * Header that appears on many screens. Will hold navigation buttons and screen title.
  * The Header is meant to be used with the `screenOptions.header` option on navigators, routes, or screen components via `navigation.setOptions({ header })`.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Header.md)
+ * @see [Documentation and Examples]{@link https://docs.infinite.red/ignite-cli/boilerplate/components/Header/}
+ * @param {HeaderProps} props - The props for the `Header` component.
+ * @returns {JSX.Element} The rendered `Header` component.
  */
-export function Header(props: HeaderProps) {
+export function Header(props: HeaderProps): JSX.Element {
   const {
     backgroundColor = colors.background,
     containerStyle: $containerStyleOverride,
@@ -289,7 +291,7 @@ function HeaderAction(props: HeaderActionProps) {
 }
 
 const $wrapper: ViewStyle = {
-  height: 56,
+  height: DEFAULT_HEADER_HEIGHT,
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
