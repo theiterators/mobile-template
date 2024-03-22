@@ -16,6 +16,7 @@ import { Text, TextProps } from "./Text"
 type Presets = keyof typeof $viewPresets
 
 export interface ButtonAccessoryProps {
+  disabled?: boolean
   pressableState: PressableStateCallbackType
   style: StyleProp<any>
 }
@@ -36,9 +37,18 @@ export interface ButtonProps extends PressableProps {
    */
   children?: React.ReactNode
   /**
-   * Indicates whether the component is disabled.
+   * disabled prop, accessed directly for declarative styling reasons.
+   * https://reactnative.dev/docs/pressable#disabled
    */
   disabled?: boolean
+  /**
+   * An optional style override for the disabled state
+   */
+  disabledStyle?: StyleProp<ViewStyle>
+  /**
+   * An optional style override for the button text when in the "disabled" state.
+   */
+  disabledTextStyle?: StyleProp<TextStyle>
   /**
    * Indicates whether the component is in a loading state.
    */
@@ -95,6 +105,9 @@ export interface ButtonProps extends PressableProps {
 export function Button(props: ButtonProps): JSX.Element {
   const {
     children,
+    disabled,
+    disabledStyle: $disabledViewStyleOverride,
+    disabledTextStyle: $disabledTextStyleOverride,
     isLoading,
     LeftAccessory,
     pressedStyle: $pressedViewStyleOverride,
@@ -119,6 +132,7 @@ export function Button(props: ButtonProps): JSX.Element {
       $viewPresets[preset],
       $viewStyleOverride,
       !!pressed && [$pressedViewPresets[preset], $pressedViewStyleOverride],
+      !!disabled && $disabledViewStyleOverride,
     ]
   }
   /**
@@ -131,14 +145,23 @@ export function Button(props: ButtonProps): JSX.Element {
       $textPresets[preset],
       $textStyleOverride,
       !!pressed && [$pressedTextPresets[preset], $pressedTextStyleOverride],
+      !!disabled && $disabledTextStyleOverride,
     ]
   }
 
   return (
-    <Pressable accessibilityRole="button" style={$viewStyle} {...rest}>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ disabled: !!disabled }}
+      style={$viewStyle}
+      {...rest}
+      disabled={disabled}
+    >
       {(state) => (
         <>
-          {!!LeftAccessory && <LeftAccessory pressableState={state} style={$leftAccessoryStyle} />}
+          {!!LeftAccessory && (
+            <LeftAccessory disabled={disabled} pressableState={state} style={$leftAccessoryStyle} />
+          )}
 
           {isLoading ? (
             <LoadingSpinner />
@@ -149,7 +172,11 @@ export function Button(props: ButtonProps): JSX.Element {
           )}
 
           {!!RightAccessory && (
-            <RightAccessory pressableState={state} style={$rightAccessoryStyle} />
+            <RightAccessory
+              disabled={disabled}
+              pressableState={state}
+              style={$rightAccessoryStyle}
+            />
           )}
         </>
       )}

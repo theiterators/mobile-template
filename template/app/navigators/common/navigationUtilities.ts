@@ -141,6 +141,7 @@ export function useNavigationPersistence(storage: Storage, persistenceKey: strin
       }
 
       // Save the current route name for later comparison
+      // @ts-expect-error
       routeNameRef.current = currentRouteName
 
       // Persist state to storage
