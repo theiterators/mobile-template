@@ -18,7 +18,7 @@ export function ErrorDetails(props: ErrorDetailsProps) {
       safeAreaEdges={["top", "bottom"]}
     >
       <View style={$topSection}>
-        <Icon icon="ladybug" size={64} />
+        <Icon icon="hidden" size={64} />
         <Text preset="subheading" style={$heading} tx="errorScreen.title" />
         <Text tx="errorScreen.friendlySubtitle" />
       </View>

@@ -21,9 +21,11 @@
 		4DF025962A1E459B00CEAF42 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE406F552862D73000A81E39 /* BootSplash.storyboard */; };
 		4DF025972A1E459B00CEAF42 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		6D6BF5B8AB94021BEF605627 /* libPods-PlaceholderName-PlaceholderNameTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF14997439D9A09C27006D20 /* libPods-PlaceholderName-PlaceholderNameTests.a */; };
+		9EAFC7D4BC3430D309DADAA2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 2C15F00B4B38A68A41657C75 /* PrivacyInfo.xcprivacy */; };
 		AFC18C601C076FBF048763B6 /* libPods-PlaceholderName-PlaceholderName staging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDEBD403585DC712FEE5F8A4 /* libPods-PlaceholderName-PlaceholderName staging.a */; };
 		B0439612A6D7BE1E7DB3080B /* libPods-PlaceholderName.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8BF08C722F8E7AE0DDCFE53 /* libPods-PlaceholderName.a */; };
 		BE406F562862D73000A81E39 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE406F552862D73000A81E39 /* BootSplash.storyboard */; };
+		E82FDCDCDB5A99AE06D93C0C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 79BED5BCE3DD0AFBFBEA24C1 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PlaceholderName/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PlaceholderName/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PlaceholderName/main.m; sourceTree = "<group>"; };
+		2C15F00B4B38A68A41657C75 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = PlaceholderName/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		4029ACEAA8F5CC8700593D8F /* Pods-PlaceholderName-PlaceholderNameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceholderName-PlaceholderNameTests.release.xcconfig"; path = "Target Support Files/Pods-PlaceholderName-PlaceholderNameTests/Pods-PlaceholderName-PlaceholderNameTests.release.xcconfig"; sourceTree = "<group>"; };
 		4DD054AC2A20CC090072A6CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "PlaceholderName/firebase/production/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4DD054AE2A20CC130072A6CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "PlaceholderName/firebase/staging/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -54,6 +57,7 @@
 		60AFC6A444146688685E63B9 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PlaceholderName-PlaceholderName staging/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		6D46BCC80195243490C8F143 /* Pods-PlaceholderName-PlaceholderNameTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceholderName-PlaceholderNameTests.debug.xcconfig"; path = "Target Support Files/Pods-PlaceholderName-PlaceholderNameTests/Pods-PlaceholderName-PlaceholderNameTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6FE905C2AC493E0BA9FA8127 /* Pods-PlaceholderName.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceholderName.release.xcconfig"; path = "Target Support Files/Pods-PlaceholderName/Pods-PlaceholderName.release.xcconfig"; sourceTree = "<group>"; };
+		79BED5BCE3DD0AFBFBEA24C1 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = PlaceholderName/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		8A9A8F34A0F36C6E5B576F3F /* Pods-PlaceholderName.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceholderName.debug.xcconfig"; path = "Target Support Files/Pods-PlaceholderName/Pods-PlaceholderName.debug.xcconfig"; sourceTree = "<group>"; };
 		8F78A1691C4BBB578E782E52 /* Pods-PlaceholderName-PlaceholderName staging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlaceholderName-PlaceholderName staging.release.xcconfig"; path = "Target Support Files/Pods-PlaceholderName-PlaceholderName staging/Pods-PlaceholderName-PlaceholderName staging.release.xcconfig"; sourceTree = "<group>"; };
 		951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PlaceholderName/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
@@ -122,6 +126,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				BE406F552862D73000A81E39 /* BootSplash.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				79BED5BCE3DD0AFBFBEA24C1 /* PrivacyInfo.xcprivacy */,
 			);
 			name = PlaceholderName;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				547A8E9E9663ECB3355FB756 /* ExpoModulesProviders */,
+				2C15F00B4B38A68A41657C75 /* PrivacyInfo.xcprivacy */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -367,6 +373,7 @@
 				BE406F562862D73000A81E39 /* BootSplash.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				4DD054AD2A20CC090072A6CF /* GoogleService-Info.plist in Resources */,
+				E82FDCDCDB5A99AE06D93C0C /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +384,7 @@
 				4DF025962A1E459B00CEAF42 /* BootSplash.storyboard in Resources */,
 				4DF025972A1E459B00CEAF42 /* Images.xcassets in Resources */,
 				4DD054B02A20CC170072A6CF /* GoogleService-Info.plist in Resources */,
+				9EAFC7D4BC3430D309DADAA2 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -925,6 +933,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -952,6 +961,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
@@ -972,6 +982,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -993,6 +1005,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				USE_HERMES = true;
 			};
 			name = Debug;
@@ -1001,6 +1014,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1028,6 +1042,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
@@ -1044,6 +1059,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",

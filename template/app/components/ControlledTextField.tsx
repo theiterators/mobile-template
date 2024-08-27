@@ -9,7 +9,7 @@ interface Props<T extends FieldValues = FieldValues>
   control: Control<T>
   controlFieldValue?: (text: string) => string
   name: Path<T>
-  rules?: RegisterOptions
+  rules?: RegisterOptions<T>
 }
 
 const forwardedTextField = <T extends FieldValues>(
