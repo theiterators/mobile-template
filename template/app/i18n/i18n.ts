@@ -1,23 +1,39 @@
-import { I18nManager } from "react-native"
 import * as Localization from "expo-localization"
-import i18n from "i18n-js"
+import { I18n } from "i18n-js"
+import { I18nManager } from "react-native"
 
 // if English isn't your default language, move Translations to the appropriate language file.
 import en, { Translations } from "./en"
-import pl from "./pl"
 
-i18n.fallbacks = true
-/**
- * we need always include "*-US" for some valid language codes because when you change the system language,
- * the language code is the suffixed with "-US". i.e. if a device is set to English ("en"),
- * if you change to another language and then return to English language code is now "en-US".
- */
-i18n.translations = { pl, en, "en-US": en }
+// Migration guide from i18n 3.x -> 4.x:
+// https://github.com/fnando/i18n-js/blob/main/MIGRATING_FROM_V3_TO_V4.md
+// https://github.com/fnando/i18n/discussions/24
 
-i18n.locale = Localization.locale
+// to use regional locales use { "en-US": enUS } etc
+const fallbackLocale = "en-US"
+export const i18n = new I18n(
+  { en, "en-US": en },
+  { locale: fallbackLocale, defaultLocale: fallbackLocale, enableFallback: true },
+)
+
+const systemLocale = Localization.getLocales()[0]
+const systemLocaleTag = systemLocale?.languageTag ?? fallbackLocale
+
+if (Object.prototype.hasOwnProperty.call(i18n.translations, systemLocaleTag)) {
+  // if specific locales like en-FI or en-US is available, set it
+  i18n.locale = systemLocaleTag
+} else {
+  // otherwise try to fallback to the general locale (dropping the -XX suffix)
+  const generalLocale = systemLocaleTag.split("-")[0]
+  if (Object.prototype.hasOwnProperty.call(i18n.translations, generalLocale)) {
+    i18n.locale = generalLocale
+  } else {
+    i18n.locale = fallbackLocale
+  }
+}
 
 // handle RTL languages
-export const isRTL = Localization.isRTL
+export const isRTL = systemLocale?.textDirection === "rtl"
 I18nManager.allowRTL(isRTL)
 I18nManager.forceRTL(isRTL)
 
@@ -41,5 +57,5 @@ type RecursiveKeyOfInner<TObj extends object> = {
 type RecursiveKeyOfHandleValue<TValue, Text extends string> = TValue extends any[]
   ? Text
   : TValue extends object
-  ? Text | `${Text}${RecursiveKeyOfInner<TValue>}`
-  : Text
+    ? Text | `${Text}${RecursiveKeyOfInner<TValue>}`
+    : Text
