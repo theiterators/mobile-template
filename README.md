@@ -20,6 +20,6 @@ Required dependencies:
 
 - ruby version >= 2.7.0
 
-- Yarn
+- Yarn 3.6.4 or higher as default package manager
 
 - NodeJs
