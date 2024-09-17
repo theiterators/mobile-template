@@ -8,7 +8,7 @@
   },
   "files": [
     "template",
-    "template.config.js"
+    "template.json"
   ],
   "keywords": [
     "react-native",
@@ -16,5 +16,9 @@
     "boilerplate"
   ],
   "author": "Andrii Manevych",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "inquirer": "^11.0.1"
+  }
 }

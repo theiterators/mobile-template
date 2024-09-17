@@ -33,7 +33,27 @@
     "expo:start": "expo start",
     "expo:android": "expo start --android",
     "expo:ios": "expo start --ios",
-    "expo:web": "expo start --web"
+    "expo:web": "expo start --web",
+    "postversion": "react-native-version --never-amend",
+    "release": "release-it",
+    "release:patch": "release-it patch",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major"
+  },
+  "release-it": {
+    "git": {
+      "requireCleanWorkingDir": true,
+      "commitMessage": "chore: release v${version}",
+      "changelog": "git log $(git describe --tags --abbrev=0 @^)..@ --merges --pretty=format:\"* %s\" | sed -n 's/Merge branch '\\''\\(.*\\)'\\'' into.*/- \\1/p'"
+    },
+    "npm": {
+      "ignoreVersion": false,
+      "publish": false
+    },
+    "gitlab": {
+      "release": true,
+      "releaseName": "v${version}"
+    }
   },
   "overrides": {
     "react-error-overlay": "6.0.9"
@@ -132,10 +152,12 @@
     "query-string": "^9.1.0",
     "react-devtools-core": "5.3.1",
     "react-dom": "18.3.1",
+    "react-native-version": "^4.0.0",
     "react-native-web": "~0.19.6",
     "react-test-renderer": "18.3.1",
     "reactotron-core-client": "^2.8.10",
     "regenerator-runtime": "^0.14.1",
+    "release-it": "^17.6.0",
     "ts-jest": "29",
     "typescript": "~5.5.4"
   },

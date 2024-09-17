@@ -1,0 +1,54 @@
+{
+  "cli": {
+    "version": ">= 12.3.0",
+    "appVersionSource": "local",
+    "requireCommit": true,
+    "promptToConfigurePushNotifications": false
+  },
+  "build": {
+    "base": {
+      "developmentClient": false,
+      "distribution": "internal",
+      "yarn": "3.6.4",
+      "android": {
+        "gradleCommand": ":apk:assembleStagingRelease",
+        "image": "latest"
+      },
+      "ios": {
+        "image": "latest",
+        "scheme": "com.placeholdername.staging"
+      }
+    },
+    "previewStaging": {
+      "extends": "base"
+    },
+    "previewProduction": {
+      "extends": "base",
+      "ios": {
+        "scheme": "com.placeholdername"
+      },
+      "android": {
+        "gradleCommand": ":apk:assembleProductionRelease",
+        "image": "latest"
+      }
+    },
+    "production": {
+      "extends": "previewProduction",
+      "distribution": "store"
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "bundleIdentifier": "com.placeholdername",
+        "ascApiKeyId": "APP_ID_CODE",
+        "appleTeamId": ""
+      },
+      "android": {
+        "applicationId": "com.placeholdername",
+        "serviceAccountKeyPath": "google.json/path",
+        "track": "internal"
+      }
+    }
+  }
+}
