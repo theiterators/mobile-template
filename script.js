@@ -20,6 +20,7 @@ const choices = {
     destination: ".gitlab-ci.yml",
   },
 };
+
 // Prompt user for CI/CD option
 const questionMessage = chalk.red.bold(
   "Which CI/CD setup would you like to use?"
