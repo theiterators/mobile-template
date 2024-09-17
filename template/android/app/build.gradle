@@ -185,8 +185,6 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         vectorDrawables.useSupportLibrary = true
-        versionCode 1
-        versionName "0.0.1"
       }
       staging {
         applicationId  "com.placeholdername.staging"
@@ -195,8 +193,6 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         vectorDrawables.useSupportLibrary = true
-        versionCode 1
-        versionName "0.0.1"
       }
     }
 

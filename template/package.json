@@ -42,7 +42,8 @@
   },
   "release-it": {
     "git": {
-      "requireCleanWorkingDir": true,
+      "requireUpstream": false,
+      "requireCleanWorkingDir": false,
       "commitMessage": "chore: release v${version}",
       "changelog": "git log $(git describe --tags --abbrev=0 @^)..@ --merges --pretty=format:\"* %s\" | sed -n 's/Merge branch '\\''\\(.*\\)'\\'' into.*/- \\1/p'"
     },
@@ -51,6 +52,7 @@
       "publish": false
     },
     "gitlab": {
+      
       "release": true,
       "releaseName": "v${version}"
     }
