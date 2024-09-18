@@ -103,9 +103,9 @@ const AUTO_SCREEN_PERCENT = 0.92
  * @returns {{boolean, Function, Function}} - The scroll state, and the `onContentSizeChange` and `onLayout` functions.
  */
 function useAutoPreset(props: AutoScreenProps): {
+  onContentSizeChange: (w: number, h: number) => void,
+  onLayout: (e: LayoutChangeEvent) => void,
   scrollEnabled: boolean
-  onContentSizeChange: (w: number, h: number) => void
-  onLayout: (e: LayoutChangeEvent) => void
 } {
   const { preset, scrollEnabledToggleThreshold } = props
   const { percent = AUTO_SCREEN_PERCENT, point = 0 } = scrollEnabledToggleThreshold || {}

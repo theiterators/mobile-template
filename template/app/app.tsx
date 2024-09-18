@@ -11,8 +11,8 @@
  */
 
 import React from "react"
-import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
+import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 import { useFonts } from "expo-font"
 
 import "./i18n"

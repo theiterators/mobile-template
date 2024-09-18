@@ -56,6 +56,7 @@ export class AppLifeCycle implements AppLifecycleFunc {
 
   onAppFinished = () => {
     this.implementsAppLifecycle("onAppFinished")
+    this.#eventSubscription.remove()
   }
 
   onAppNavigatorReady = () => {

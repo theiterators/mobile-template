@@ -9,11 +9,12 @@ import {
   ViewStyle,
 } from "react-native"
 
+import { DEFAULT_FIELD_HEIGHT_SIZE, KEYBOARD_AVOIDING_VIEW_OFFSET } from "app/common/constants"
+
 import { isRTL, translate } from "../i18n"
 import { colors, spacing, typography } from "../theme"
 
 import { Text, TextProps } from "./Text"
-import { DEFAULT_FIELD_HEIGHT_SIZE, KEYBOARD_AVOIDING_VIEW_OFFSET } from "app/common/constants"
 
 export interface TextFieldAccessoryProps {
   editable: boolean
@@ -47,6 +48,11 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
    * Style overrides for the container
    */
   containerStyle?: StyleProp<ViewStyle>
+  /**
+   * The field's height should be passed through this parameter.
+   * The height coming from the style will be overwritten.
+   */
+  fieldHeight?: number
   /**
    * The helper text to display if not using `helperTx`.
    */
@@ -88,12 +94,12 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
   /**
    * Placeholder text which is looked up via i18n.
    */
-  placeholderTx?: TextProps["tx"]
+  placeholderTx?: TextProps["tx"],
   /**
    * Optional placeholder options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
    */
-  placeholderTxOptions?: TextProps["txOptions"]
+  placeholderTxOptions?: TextProps["txOptions"],
   /**
    * A style modifier for different input states.
    */
@@ -102,11 +108,6 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
    * Optional input style override.
    */
   style?: StyleProp<TextStyle>
-  /**
-   * The field's height should be passed through this parameter.
-   * The height coming from the style will be overwritten.
-   */
-  fieldHeight?: number
 }
 
 /**
@@ -118,11 +119,13 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
 export const TextField = forwardRef(function TextField(props: TextFieldProps, ref: Ref<TextInput>) {
   const {
     containerStyle: $containerStyleOverride,
+    fieldHeight = DEFAULT_FIELD_HEIGHT_SIZE,
     helper,
     HelperTextProps,
     helperTx,
     helperTxOptions,
     inputWrapperStyle: $inputWrapperStyleOverride,
+    keyboardAvoidingViewOffset = KEYBOARD_AVOIDING_VIEW_OFFSET,
     label,
     LabelTextProps,
     labelTx,
@@ -133,8 +136,6 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     placeholderTxOptions,
     RightAccessory,
     status,
-    fieldHeight = DEFAULT_FIELD_HEIGHT_SIZE,
-    keyboardAvoidingViewOffset = KEYBOARD_AVOIDING_VIEW_OFFSET,
     style: $inputStyleOverride,
     ...TextInputProps
   } = props

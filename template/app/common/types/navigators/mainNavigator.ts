@@ -2,7 +2,7 @@ import { NavigationProp } from "@react-navigation/native"
 
 export enum MainScreenName {
   Projects = "Projects",
-  Welcome = "Welcome"
+  Welcome = "Welcome",
 }
 
 export type MainNavigatorParamListType = {

@@ -7,7 +7,7 @@ import { IPickerItem } from "./Picker"
 
 interface NativeIOSPickerProps {
   children: React.ReactNode
-  data: IPickerItem[],
+  data: IPickerItem[]
   onValueChange: (itemValue: string) => void
 }
 

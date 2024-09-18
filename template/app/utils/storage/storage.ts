@@ -8,10 +8,10 @@ type Load = <T extends "number" | "boolean" | "string" | "object">(
 ) => T extends "number"
   ? number
   : T extends "boolean"
-  ? boolean
-  : T extends "string"
-  ? string
-  : object
+    ? boolean
+    : T extends "string"
+      ? string
+      : object
 
 class Storage {
   storage: MMKV = new MMKV()
@@ -33,7 +33,7 @@ class Storage {
       case "object":
         try {
           return JSON.parse(this.storage.getString(key))
-        } catch (e) {
+        } catch {
           return this.storage.getString(key)
         }
       default:

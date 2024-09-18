@@ -1,8 +1,9 @@
 import React, { useMemo } from "react"
 import { ImageStyle, ViewStyle } from "react-native"
 
-import { Icon, IconTypes } from "../../components"
 import { ACTIVE_OPACITY } from "app/theme"
+
+import { Icon, IconTypes } from "../../components"
 
 const DEFAULT_ICON_SIZE = 18
 

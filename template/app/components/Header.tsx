@@ -8,13 +8,14 @@ import {
   ViewStyle,
 } from "react-native"
 
+import { DEFAULT_HEADER_HEIGHT } from "app/common/constants"
+
 import { isRTL, translate } from "../i18n"
 import { ACTIVE_OPACITY, colors, spacing } from "../theme"
 import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/hooks/useSafeAreaInsetsStyle"
 
 import { Icon, IconTypes } from "./Icon"
 import { Text, TextProps } from "./Text"
-import { DEFAULT_HEADER_HEIGHT } from "app/common/constants"
 
 export interface HeaderProps {
   /**

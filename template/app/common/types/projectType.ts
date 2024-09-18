@@ -5,10 +5,10 @@ export type TProject = {
   createdAt: string
   createdBy: string
   id: string
-  members: TUser[],
-  modifiedAt: string,
-  modifiedBy: string,
-  name: string,
-  organizationId: string,
+  members: TUser[]
+  modifiedAt: string
+  modifiedBy: string
+  name: string
+  organizationId: string
   type: string
 }

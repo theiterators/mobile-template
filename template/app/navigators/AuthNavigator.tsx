@@ -1,5 +1,5 @@
 import React from "react"
-import { createNativeStackNavigator,NativeStackScreenProps } from "@react-navigation/native-stack"
+import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
 
 import { AuthNavigatorParamListType, AuthScreenName } from "app/common/types"
 import * as Screens from "app/screens"

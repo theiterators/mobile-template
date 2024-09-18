@@ -9,8 +9,8 @@ import { IPickerItem } from "./Picker"
 
 interface NativeAndroidPickerProps {
   children: React.ReactNode
-  data: IPickerItem[],
-  onValueChange: (itemValue: string) => void,
+  data: IPickerItem[]
+  onValueChange: (itemValue: string) => void
   selectedValue: string
 }
 

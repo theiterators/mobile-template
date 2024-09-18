@@ -1,4 +1,5 @@
 import { TranslateOptions } from "i18n-js"
+
 import { i18n, TxKeyPath } from "./i18n"
 
 /**

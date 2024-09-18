@@ -1,6 +1,5 @@
 import { format, Locale, parseISO } from "date-fns"
-import { pl, enUS } from "date-fns/locale"
-
+import { enUS,pl } from "date-fns/locale"
 import I18n from "i18n-js"
 
 type Options = Parameters<typeof format>[2]

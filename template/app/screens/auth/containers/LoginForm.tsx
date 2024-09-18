@@ -44,6 +44,7 @@ export const LoginForm: FC = observer(() => {
   return (
     <View style={$formContainer}>
       <ControlledTextField
+        blurOnSubmit={false}
         control={control}
         inputWrapperStyle={$inputWrapperStyle}
         name="username"
@@ -52,7 +53,6 @@ export const LoginForm: FC = observer(() => {
         rules={FORM_VALIDATION_RULES.required}
         testID={TEST_IDS.auth.login.usernameField}
         onSubmitEditing={() => setFocus("password")}
-        blurOnSubmit={false}
       />
       <ControlledTextField
         secureTextEntry

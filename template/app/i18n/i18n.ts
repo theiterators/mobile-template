@@ -1,6 +1,6 @@
+import { I18nManager } from "react-native"
 import * as Localization from "expo-localization"
 import { I18n } from "i18n-js"
-import { I18nManager } from "react-native"
 
 // if English isn't your default language, move Translations to the appropriate language file.
 import en, { Translations } from "./en"
