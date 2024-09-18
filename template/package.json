@@ -34,7 +34,7 @@
     "expo:android": "expo start --android",
     "expo:ios": "expo start --ios",
     "expo:web": "expo start --web",
-    "postversion": "react-native-version --never-amend",
+    "postversion": "react-native-version --legacy --never-amend",
     "release": "release-it",
     "release:patch": "release-it patch",
     "release:minor": "release-it minor",
@@ -52,7 +52,6 @@
       "publish": false
     },
     "gitlab": {
-      
       "release": true,
       "releaseName": "v${version}"
     }
