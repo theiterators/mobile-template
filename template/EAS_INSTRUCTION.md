@@ -19,4 +19,4 @@ fairebase login:ci
 
 4. GITLAB_TOKEN This is a token used for gitlab api. It could be a personal access token generated in gitlab account under profile -> preferences -> Access token. Make sure [api] checkbox is selected
 
-5. FIREBASE_APP_ID This is a token used for firebase app upload. Can be found on firebase settings tab and stored in local [gitlab-ci.yml] file
+5. FIREBASE_APP_ID This is an id used for firebase app upload. Can be found on firebase settings tab and stored in local [gitlab-ci.yml] file
