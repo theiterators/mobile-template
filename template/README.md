@@ -161,6 +161,11 @@ Make sure you have installed:
 1. Run `yarn start` in main directory.
 2. Run `yarn ios:staging` or `yarn android:staging:debug` in main directory.
 
+## Bump version
+
+1. run `export GITLAB_TOKEN=your_gitlab_token` in code editor terminal
+2. run `npm run release` to automatically bump version and make git tag
+
 ## CI/CD
 
 You have configured CI/CD for your project. You can change it for your needs and remove unused files.
@@ -172,6 +177,9 @@ You have configured CI/CD for your project. You can change it for your needs and
    - `.gitlab-ci` file contains 2 stages: `build` and `deploy`.
    - [GITLAB_INSTRUCTION](GITLAB_INSTRUCTION.md) - instructions for configuring CI/CD for your project.
    - `Gemfile.android` - contains gems for building android project.
+3. EAS_GITLAB:
+   - `.gitlab-ci` file contains 1 stages: `build_deploy` and pipelines for different builds.
+   - [EAS_INSTRUCTION](EAS_INSTRUCTION.md) - instructions for configuring CI/CD for your project.
 
 ---
 

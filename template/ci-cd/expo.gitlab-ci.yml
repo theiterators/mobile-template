@@ -26,13 +26,11 @@ before_script:
 variables:
   EXPO_TOKEN: $EXPO_TOKEN
   FIREBASE_TOKEN: $FIREBASE_TOKEN
-  FIREBASE_APP_ID: $FIREBASE_APP_ID
   GITLAB_TOKEN: $GITLAB_TOKEN
-  FIREBASE_STAGING_APP_ID_ANDROID: 'can be found on firebase'
-  FIREBASE_PRODUCTION_APP_ID_ANDROID: 'can be found on firebase'
-  FIREBASE_STAGING_APP_ID_IOS: 'can be found on firebase'
-  FIREBASE_PRODUCTION_APP_ID_IOS: 'can be found on firebase'
-
+  FIREBASE_STAGING_APP_ID_ANDROID: "can be found on firebase"
+  FIREBASE_PRODUCTION_APP_ID_ANDROID: "can be found on firebase"
+  FIREBASE_STAGING_APP_ID_IOS: "can be found on firebase"
+  FIREBASE_PRODUCTION_APP_ID_IOS: "can be found on firebase"
 
 image: node:alpine
 
@@ -45,6 +43,11 @@ cache:
 .build-deploy-job: &build_deploy_job
   stage: build_deploy
   script:
+    # Extract the latest changes from Release notes
+    - |
+      RESPONSE=$(curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/releases")
+    - RELEASE_NOTES=$(echo "$RESPONSE" | jq -r 'if .[0] != null and .[0].description != null then .[0].description else "No release notes available." end')
+    - echo "Release notes - $RELEASE_NOTES"
     # Build the app using platform and profile
     - npx eas-cli build --platform $PLATFORM --profile $PROFILE --non-interactive
     # Fetch build URL and download the artifact (APK for Android, IPA for iOS)
@@ -86,17 +89,16 @@ ios_firebase_production:
 
 ios_testflight:
   stage: build_deploy
-  script: 
+  script:
     # Build iOS and submit IPA
     - npx eas-cli build --platform ios --profile production --auto-submit --latest --non-interactive
   when: manual
   only:
     - develop
 
-
-android_testflight:
+android_google_play:
   stage: build_deploy
-  script: 
+  script:
     # Build iOS and submit apk
     - npx eas-cli build --platform android --profile production --auto-submit --latest --non-interactive
   when: manual

@@ -42,7 +42,7 @@
       "ios": {
         "bundleIdentifier": "com.placeholdername",
         "ascApiKeyId": "APP_ID_CODE",
-        "appleTeamId": ""
+        "appleTeamId": "E2KG6LTEW8"
       },
       "android": {
         "applicationId": "com.placeholdername",
