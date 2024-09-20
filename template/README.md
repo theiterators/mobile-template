@@ -132,6 +132,9 @@ yarn test:maestro
 
 ## Before running app
 
+Run npm run init:
+- It will run the init script to setup  environment 
+
 Config your firebase project:
 
 1. Create [firebase project](https://console.firebase.google.com/)

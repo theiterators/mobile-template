@@ -28,7 +28,7 @@ cache:
     # Extract the latest changes from Release notes
     - |
       RESPONSE=$(curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/releases")
-    - RELEASE_NOTES=$(echo "$RESPONSE" | jq -r 'if .[0] != null and .[0].description != null then .[0].description else "No release notes available." end')
+       - RELEASE_NOTES=$(echo "$RESPONSE" | jq -r 'if type == "array" and .[0] != null and .[0].description != null then .[0].description else "No release notes available." end')
     - echo "Release notes - $RELEASE_NOTES"
     # Build the app using platform and profile
     - npx eas-cli build --platform $PLATFORM --profile $PROFILE --non-interactive
@@ -38,8 +38,6 @@ cache:
     # Deploy the artifact to Firebase App Distribution
     - if [ "$PLATFORM" == "android" ]; then firebase appdistribution:distribute app.apk --app $FIREBASE_APP_ID --token $FIREBASE_TOKEN; else firebase appdistribution:distribute app.ipa --app $FIREBASE_APP_ID --token $FIREBASE_TOKEN; fi
   when: manual
-  only:
-    - develop
 
 android_firebase_staging:
   <<: *build_deploy_job
@@ -75,8 +73,6 @@ ios_testflight:
     # Build iOS and submit IPA
     - npx eas-cli build --platform ios --profile production --auto-submit --latest --non-interactive
   when: manual
-  only:
-    - develop
 
 android_google_play:
   stage: build_deploy
@@ -84,5 +80,3 @@ android_google_play:
     # Build iOS and submit apk
     - npx eas-cli build --platform android --profile production --auto-submit --latest --non-interactive
   when: manual
-  only:
-    - develop

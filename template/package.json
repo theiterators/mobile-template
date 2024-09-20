@@ -39,7 +39,8 @@
     "release:patch": "release-it patch",
     "release:minor": "release-it minor",
     "release:major": "release-it major",
-    "prepare": "husky"
+    "prepare": "husky",
+    "init": "node ./bin/postInstall && ./bin/setup"
   },
   "release-it": {
     "git": {
