@@ -2,11 +2,7 @@
 // we always make sure 'react-native' gets included first
 import * as ReactNative from "react-native"
 
-import "react-native-gesture-handler/jestSetup"
-import "./mocks/firebase-mock"
-import "./mocks/react-navigation"
-import "./mocks/safe-area-context-mock"
-import "./mocks/react-navigation-elements-mock"
+import "./mocks"
 
 import mockFile from "./mockFile"
 
@@ -17,14 +13,17 @@ jest.doMock("react-native", () => {
     {
       Image: {
         ...ReactNative.Image,
-        resolveAssetSource: jest.fn((_source) => mockFile),  
+        resolveAssetSource: jest.fn((_source) => mockFile),
         getSize: jest.fn(
           (
-            uri: string,  
+            uri: string,
             success: (width: number, height: number) => void,
             failure?: (_error: any) => void, // eslint-disable-line @typescript-eslint/no-unused-vars
           ) => success(100, 100),
         ),
+      },
+      LogBox: {
+        ignoreLogs: jest.fn(), // Mock LogBox.ignoreLogs
       },
     },
     ReactNative,
@@ -34,13 +33,6 @@ jest.doMock("react-native", () => {
 jest.mock("@react-native-async-storage/async-storage", () =>
   require("@react-native-async-storage/async-storage/jest/async-storage-mock"),
 )
-
-jest.mock("i18n-js", () => ({
-  currentLocale: () => "en",
-  t: (key: string, params: Record<string, string>) => {
-    return `${key} ${JSON.stringify(params)}`
-  },
-}))
 
 declare const tron // eslint-disable-line @typescript-eslint/no-unused-vars
 
