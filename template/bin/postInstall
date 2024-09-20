@@ -23,7 +23,7 @@ if (["darwin", "linux"].includes(process.platform)) {
 run('npx pod-install')
 
 // Set up Husky
-run("npm run prepare")
+run("npx husky")
 
 // Run baby run
 function run(command) {

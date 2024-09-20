@@ -1,237 +1,85 @@
 stages:
-  - build
-  - deploy
+  - build_deploy
 
-build_ios_staging:
-  dependencies: []
-  stage: build
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - rbenv local 3.2.2
-    - bundle install
-    - bundle update fastlane
+before_script:
+  - yarn
+  - apk add --no-cache bash git curl jq
+  - npm install -g firebase-tools
+
+variables:
+  EXPO_TOKEN: $EXPO_TOKEN
+  FIREBASE_TOKEN: $FIREBASE_TOKEN
+  GITLAB_TOKEN: $GITLAB_TOKEN
+  FIREBASE_STAGING_APP_ID_ANDROID: "can be found on firebase"
+  FIREBASE_PRODUCTION_APP_ID_ANDROID: "can be found on firebase"
+  FIREBASE_STAGING_APP_ID_IOS: "can be found on firebase"
+  FIREBASE_PRODUCTION_APP_ID_IOS: "can be found on firebase"
+
+image: node:alpine
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .yarn
+
+# Base job template for building and deploying
+.build-deploy-job: &build_deploy_job
+  stage: build_deploy
   script:
-    - yarn
-    - bundle exec fastlane build_proj buildType:staging platform:ios method:adhoc mode:ci
-  tags:
-    - ios
-  only:
-    - merge_requests
+    # Extract the latest changes from Release notes
+    - |
+      RESPONSE=$(curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/releases")
+    - RELEASE_NOTES=$(echo "$RESPONSE" | jq -r 'if .[0] != null and .[0].description != null then .[0].description else "No release notes available." end')
+    - echo "Release notes - $RELEASE_NOTES"
+    # Build the app using platform and profile
+    - npx eas-cli build --platform $PLATFORM --profile $PROFILE --non-interactive
+    # Fetch build URL and download the artifact (APK for Android, IPA for iOS)
+    - BUILD_URL=$(npx eas-cli build:list --platform $PLATFORM --status finished --limit 1 --non-interactive --json | jq -r '.[0].artifacts.buildUrl')
+    - if [ "$PLATFORM" == "android" ]; then curl -L -o app.apk "$BUILD_URL"; else curl -L -o app.ipa "$BUILD_URL"; fi
+    # Deploy the artifact to Firebase App Distribution
+    - if [ "$PLATFORM" == "android" ]; then firebase appdistribution:distribute app.apk --app $FIREBASE_APP_ID --token $FIREBASE_TOKEN; else firebase appdistribution:distribute app.ipa --app $FIREBASE_APP_ID --token $FIREBASE_TOKEN; fi
   when: manual
 
-build_android_staging:
-  image: reactnativecommunity/react-native-android:latest
-  dependencies: []
-  stage: build
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
-    - chmod +x ./android/gradlew
-    - export GRADLE_USER_HOME=`pwd`/.gradle
-    - bundle install --gemfile=Gemfile.android
-    - bundle update fastlane --gemfile=Gemfile.android
-  cache:
-    key: bh
-    paths:
-      - ./node_modules
-      - .gradle/wrapper
-      - .gradle/caches
+android_firebase_staging:
+  <<: *build_deploy_job
+  variables:
+    PLATFORM: "android"
+    PROFILE: "previewStaging"
+    FIREBASE_APP_ID: $FIREBASE_STAGING_APP_ID_ANDROID
+
+android_firebase_production:
+  <<: *build_deploy_job
+  variables:
+    PLATFORM: "android"
+    PROFILE: "previewProduction"
+    FIREBASE_APP_ID: $FIREBASE_PRODUCTION_APP_ID_ANDROID
+
+ios_firebase_staging:
+  <<: *build_deploy_job
+  variables:
+    PLATFORM: "ios"
+    PROFILE: "previewStaging"
+    FIREBASE_APP_ID: $FIREBASE_STAGING_APP_ID_IOS
+
+ios_firebase_production:
+  <<: *build_deploy_job
+  variables:
+    PLATFORM: "ios"
+    PROFILE: "previewProduction"
+    FIREBASE_APP_ID: $FIREBASE_PRODUCTION_APP_ID_IOS
+
+ios_testflight:
+  stage: build_deploy
   script:
-    - yarn
-    - bundle exec fastlane build_proj buildType:staging platform:android
-  tags:
-    - android
-  only:
-    - merge_requests
+    # Build iOS and submit IPA
+    - npx eas-cli build --platform ios --profile production --auto-submit --latest --non-interactive
   when: manual
 
-deploy_android_staging_firebase:
-  image: reactnativecommunity/react-native-android:latest
-  dependencies: []
-  stage: deploy
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
-    - chmod +x ./android/gradlew
-    - export GRADLE_USER_HOME=`pwd`/.gradle
-    - bundle install --gemfile=Gemfile.android
-    - bundle update fastlane --gemfile=Gemfile.android
-  cache:
-    key: bh
-    paths:
-      - ./node_modules
-      - .gradle/wrapper
-      - .gradle/caches
+
+android_google_play:
+  stage: build_deploy
   script:
-    - yarn
-    - fastlane deploy buildType:staging platform:android deployType:firebase
-  tags:
-    - android
-  only:
-    - develop
+    # Build iOS and submit apk
+    - npx eas-cli build --platform android --profile production --auto-submit --latest --non-interactive
   when: manual
 
-deploy_ios_staging_firebase:
-  dependencies: []
-  stage: deploy
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - rbenv local 3.2.2
-    - bundle install
-    - bundle update fastlane
-  script:
-    - yarn
-    - bundle exec fastlane deploy buildType:staging platform:ios method:adhoc mode:ci deployType:firebase
-  tags:
-    - ios
-  only:
-    - develop
-  when: manual
-
-deploy_ios_staging_testflight:
-  dependencies: []
-  stage: deploy
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - rbenv local 3.2.2
-    - bundle install
-    - bundle update fastlane
-  script:
-    - yarn
-    - bundle exec fastlane deploy buildType:staging platform:ios method:appstore mode:ci deployType:testflight
-  tags:
-    - ios
-  only:
-    - develop
-  when: manual
-
-build_ios_production:
-  dependencies: []
-  stage: build
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - rbenv local 3.2.2
-    - bundle install
-    - bundle update fastlane
-  script:
-    - yarn
-    - bundle exec fastlane build_proj buildType:production platform:ios method:appstore mode:ci
-  tags:
-    - ios
-  only:
-    - merge_requests
-  when: manual
-
-build_android_production:
-  image: reactnativecommunity/react-native-android:latest
-  dependencies: []
-  stage: build
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
-    - chmod +x ./android/gradlew
-    - export GRADLE_USER_HOME=`pwd`/.gradle
-    - bundle install --gemfile=Gemfile.android
-    - bundle update fastlane --gemfile=Gemfile.android
-  cache:
-    key: bh
-    paths:
-      - ./node_modules
-      - .gradle/wrapper
-      - .gradle/caches
-  script:
-    - yarn
-    - bundle exec fastlane build_proj buildType:production platform:android
-  tags:
-    - android
-  only:
-    - merge_requests
-  when: manual
-
-deploy_android_production_firebase:
-  image: reactnativecommunity/react-native-android:latest
-  dependencies: []
-  stage: deploy
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
-    - chmod +x ./android/gradlew
-    - export GRADLE_USER_HOME=`pwd`/.gradle
-    - bundle install --gemfile=Gemfile.android
-    - bundle update fastlane --gemfile=Gemfile.android
-  cache:
-    key: bh
-    paths:
-      - ./node_modules
-      - .gradle/wrapper
-      - .gradle/caches
-  script:
-    - yarn
-    - fastlane deploy buildType:production platform:android deployType:firebase
-  tags:
-    - android
-  only:
-    - develop
-  when: manual
-
-deploy_ios_production_firebase:
-  dependencies: []
-  stage: deploy
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - rbenv local 3.2.2
-    - bundle install
-    - bundle update fastlane
-  script:
-    - yarn
-    - bundle exec fastlane deploy buildType:production platform:ios method:adhoc mode:ci deployType:firebase
-  tags:
-    - ios
-  only:
-    - develop
-  when: manual
-
-deploy_ios_production_testflight:
-  dependencies: []
-  stage: deploy
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - rbenv local 3.2.2
-    - bundle install
-    - bundle update fastlane
-  script:
-    - yarn
-    - bundle exec fastlane deploy buildType:production platform:ios method:appstore mode:ci deployType:testflight
-  tags:
-    - ios
-  only:
-    - develop
-  when: manual
-
-deploy_ios_production_appstore:
-  dependencies: []
-  stage: deploy
-  before_script:
-    - export LANG=en_US.UTF-8
-    - export LANGUAGE=en_US:en
-    - rbenv local 3.2.2
-    - bundle install
-    - bundle update fastlane
-  script:
-    - yarn
-    - bundle exec fastlane deploy buildType:production platform:ios method:appstore mode:ci deployType:appstore
-  tags:
-    - ios
-  only:
-    - develop
-  when: manual

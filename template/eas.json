@@ -9,14 +9,13 @@
     "base": {
       "developmentClient": false,
       "distribution": "internal",
-      "yarn": "3.6.4",
       "android": {
-        "gradleCommand": ":apk:assembleStagingRelease",
+        "gradleCommand": ":app:assembleStagingRelease",
         "image": "latest"
       },
       "ios": {
         "image": "latest",
-        "scheme": "com.placeholdername.staging"
+        "scheme": "placeholdername staging"
       }
     },
     "previewStaging": {
@@ -25,10 +24,10 @@
     "previewProduction": {
       "extends": "base",
       "ios": {
-        "scheme": "com.placeholdername"
+        "scheme": "placeholdername"
       },
       "android": {
-        "gradleCommand": ":apk:assembleProductionRelease",
+        "gradleCommand": ":app:assembleProductionRelease",
         "image": "latest"
       }
     },
