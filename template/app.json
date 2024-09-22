@@ -48,9 +48,6 @@
         "resizeMode": "contain",
         "backgroundColor": "#fff"
       }
-    },
-    "plugins": [
-      "expo-localization"
-    ]
+    }
   }
 }

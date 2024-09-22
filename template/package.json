@@ -40,7 +40,8 @@
     "release:minor": "release-it minor",
     "release:major": "release-it major",
     "prepare": "husky",
-    "init": "node ./bin/postInstall && ./bin/setup"
+    "init": "node ./bin/postInstall && ./bin/setup",
+    "eas-build-on-success": "./bin/distribute-firebase.sh"
   },
   "release-it": {
     "git": {

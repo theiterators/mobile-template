@@ -8,12 +8,6 @@ before_script:
 
 variables:
   EXPO_TOKEN: $EXPO_TOKEN
-  FIREBASE_TOKEN: $FIREBASE_TOKEN
-  GITLAB_TOKEN: $GITLAB_TOKEN
-  FIREBASE_STAGING_APP_ID_ANDROID: "can be found on firebase"
-  FIREBASE_PRODUCTION_APP_ID_ANDROID: "can be found on firebase"
-  FIREBASE_STAGING_APP_ID_IOS: "can be found on firebase"
-  FIREBASE_PRODUCTION_APP_ID_IOS: "can be found on firebase"
 
 image: node:alpine
 
@@ -26,18 +20,7 @@ cache:
 .build-deploy-job: &build_deploy_job
   stage: build_deploy
   script:
-    # Extract the latest changes from Release notes
-    - |
-      RESPONSE=$(curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/releases")
-    - RELEASE_NOTES=$(echo "$RESPONSE" | jq -r 'if .[0] != null and .[0].description != null then .[0].description else "No release notes available." end')
-    - echo "Release notes - $RELEASE_NOTES"
-    # Build the app using platform and profile
-    - npx eas-cli build --platform $PLATFORM --profile $PROFILE --non-interactive
-    # Fetch build URL and download the artifact (APK for Android, IPA for iOS)
-    - BUILD_URL=$(npx eas-cli build:list --platform $PLATFORM --status finished --limit 1 --non-interactive --json | jq -r '.[0].artifacts.buildUrl')
-    - if [ "$PLATFORM" == "android" ]; then curl -L -o app.apk "$BUILD_URL"; else curl -L -o app.ipa "$BUILD_URL"; fi
-    # Deploy the artifact to Firebase App Distribution
-    - if [ "$PLATFORM" == "android" ]; then firebase appdistribution:distribute app.apk --app $FIREBASE_APP_ID --token $FIREBASE_TOKEN; else firebase appdistribution:distribute app.ipa --app $FIREBASE_APP_ID --token $FIREBASE_TOKEN; fi
+     - npx eas-cli build --platform $PLATFORM --profile $PROFILE --non-interactive
   when: manual
 
 android_firebase_staging:
