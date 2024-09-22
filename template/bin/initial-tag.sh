@@ -17,3 +17,9 @@ fi
 
 # Create the initial tag
 git tag -a "$INITIAL_TAG" -m "Initial release"
+
+# Push the tag to the remote repository
+echo "Pushing tag $INITIAL_TAG to the remote repository..."
+git push origin "$INITIAL_TAG"
+
+echo "Initial tag $INITIAL_TAG created and pushed successfully."
