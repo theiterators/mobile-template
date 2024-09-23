@@ -40,8 +40,8 @@
     "release:minor": "release-it minor",
     "release:major": "release-it major",
     "prepare": "husky",
-    "init": "./bin/initial-tag.sh && ./bin/setup ",
-    "eas-build-on-success": "./bin/distribute-firebase.sh"
+    "init": "./bin/setup ",
+    "eas-build-on-success": "./bin/trigger-deploy-job.sh"
   },
   "release-it": {
     "git": {

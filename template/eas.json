@@ -6,9 +6,6 @@
     "promptToConfigurePushNotifications": false
   },
   "build": {
-    "env": {
-      "GITLAB_PROJECT_ID": "unique gitlab project id"
-    },
     "base": {
       "developmentClient": false,
       "distribution": "internal",
@@ -22,11 +19,7 @@
       }
     },
     "previewStaging": {
-      "extends": "base",
-      "env": {
-        "FIREBASE_APP_ID_IOS": "firebase ios staging project id",
-        "FIREBASE_APP_ID_ANDROID": "firebase android staging project id"
-      }
+      "extends": "base"
     },
     "previewProduction": {
       "extends": "base",
@@ -36,10 +29,6 @@
       "android": {
         "gradleCommand": ":app:assembleProductionRelease",
         "image": "latest"
-      },
-      "env": {
-        "FIREBASE_APP_ID_IOS": "firebase ios production project id",
-        "FIREBASE_APP_ID_ANDROID": "firebase ios production project id"
       }
     },
     "production": {

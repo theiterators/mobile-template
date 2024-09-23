@@ -1,5 +1,7 @@
 const { defaults: tsjPreset } = require("ts-jest/presets")
 
+thirdPartyIgnorePatterns = []
+
 /** @type {import('@jest/types').Config.ProjectConfig} */
 module.exports = {
   ...tsjPreset,
