@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # GitLab API details
-GITLAB_API_URL="https://gitlab.com/api/v4/projects/$GITLAB_PROJECT_ID/trigger/pipeline"
+GITLAB_API_URL="https://gitlab.iterato.rs/api/v4/projects/$GITLAB_PROJECT_ID/trigger/pipeline"
 REF="main"  # Branch or tag to trigger the pipeline on
 
 

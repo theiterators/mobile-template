@@ -27,7 +27,7 @@ cache:
   script:
     # Extract the latest changes from Release notes
     - |
-      RESPONSE=$(curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/releases")
+      RESPONSE=$(curl --header "PRIVATE-TOKEN: $GITLAB_TOKEN" "https://gitlab.iterato.rs/api/v4/projects/$CI_PROJECT_ID/releases")
        - RELEASE_NOTES=$(echo "$RESPONSE" | jq -r 'if type == "array" and .[0] != null and .[0].description != null then .[0].description else "No release notes available." end')
     - echo "Release notes - $RELEASE_NOTES"
     # Build the app using platform and profile
