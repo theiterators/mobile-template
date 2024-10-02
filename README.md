@@ -21,6 +21,8 @@ Required dependencies:
 	-	Log in to your EAS (Expo) account by executing: `eas login`.
 	-	Configure iOS profiles by running: `eas credentials --platform=ios`. When prompted to select certificate options, choose **Use an existing one for your project**.
 	-	Configure the Android keystore by running: `eas credentials --platform=android`.
+	-	Run `eas build --profile production` to build first version for stores
+ 	-	Create apps on App Store Connect and Google Play Publish
 	-	Modify the `eas.json` file’s **submit** section with the application-specific information.
 	-	Set all required environment variables.
 
@@ -28,10 +30,7 @@ Required dependencies:
 
 -	**EXPO_TOKEN**: This token is required for Expo authentication. You can generate a personal access token in your Expo account by navigating to **Account Settings -> Access Token**.
 
--	**FIREBASE_TOKEN**: This token is used for Firebase authentication. It can be either a personal access token or a service account key. For more details on generating a CI token, refer to the Firebase documentation: [Firebase CI Token Documentation](https://firebase.google.com/docs/cli#cli-ci-systems). To generate the token, use the following command:
-```bash
-firebase login:ci
-```
+-	**FIREBASE_TOKEN**: This token is used for Firebase authentication. It can be either a personal access token or a service account key. For more details on generating a CI token, refer to the Firebase documentation: [Firebase CI Token Documentation](https://firebase.google.com/docs/cli#cli-ci-systems). To generate the token, use the command: `firebase login:ci`
 
 - **FIREBASE_STAGING_APP_ID_ANDROID**
 - **FIREBASE_PRODUCTION_APP_ID_ANDROID**
