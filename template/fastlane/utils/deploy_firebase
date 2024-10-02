@@ -1,8 +1,0 @@
-lane :deploy_firebase do
-  firebase_app_distribution(
-    app: ENV["FIREBASE_APP_ID"],
-    groups: ENV["FIREBASE_APP_GROUPS"],
-    release_notes: "Fixes and improvements",
-    firebase_cli_token: ENV["FIREBASE_TOKEN"],
-  )
-end
