@@ -37,8 +37,9 @@
         "scheme": "rnwarsaw"
       },
       "android": {
-        "gradleCommand": ":app:assembleProductionRelease",
-        "image": "latest"
+        "gradleCommand": ":app:bundleProductionRelease",
+        "image": "latest",
+        "buildType": "app-bundle"
       },
       "distribution": "store"
     }
