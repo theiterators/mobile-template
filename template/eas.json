@@ -1,0 +1,51 @@
+{
+  "cli": {
+    "version": ">= 12.3.0",
+    "appVersionSource": "local",
+    "requireCommit": true,
+    "promptToConfigurePushNotifications": false
+  },
+  "build": {
+    "base": {
+      "developmentClient": false,
+      "distribution": "internal",
+      "android": {
+        "gradleCommand": ":app:assembleStagingRelease",
+        "image": "latest"
+      },
+      "ios": {
+        "image": "latest",
+        "scheme": "placeholdername staging"
+      }
+    },
+    "previewStaging": {
+      "extends": "base"
+    },
+    "previewProduction": {
+      "extends": "base",
+      "ios": {
+        "scheme": "placeholdername"
+      },
+      "android": {
+        "gradleCommand": ":app:assembleProductionRelease",
+        "image": "latest"
+      }
+    },
+    "production": {
+      "extends": "previewProduction",
+      "distribution": "store"
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "bundleIdentifier": "com.placeholdername",
+        "appleTeamId": "APPLE_TEAM_ID"
+      },
+      "android": {
+        "applicationId": "com.placeholdername",
+        "track": "internal"
+      }
+    }
+  }
+}

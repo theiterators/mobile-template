@@ -1,0 +1,24 @@
+{
+  "name": "mobile-template",
+  "version": "0.2.2",
+  "description": "Mobile template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "template",
+    "template.json"
+  ],
+  "keywords": [
+    "react-native",
+    "template",
+    "boilerplate"
+  ],
+  "author": "Andrii Manevych",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "inquirer": "^11.0.1"
+  }
+}

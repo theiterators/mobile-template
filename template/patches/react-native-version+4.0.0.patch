@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-version/index.js b/node_modules/react-native-version/index.js
+index 345f3d4..1cc9d15 100644
+--- a/node_modules/react-native-version/index.js
++++ b/node_modules/react-native-version/index.js
+@@ -183,7 +183,7 @@ function version(program, projectPath) {
+ 
+ 	var appJSON;
+ 	const appJSONPath = path.join(projPath, "app.json");
+-	const isExpoApp = isExpoProject(projPath);
++	const isExpoApp = false;
+ 
+ 	isExpoApp && log({ text: "Expo detected" }, programOpts.quiet);
+ 

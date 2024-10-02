@@ -1,0 +1,21 @@
+desc "get app build number"
+desc "platform: ios | android"
+private_lane :get_app_build do |options|
+	platform = options[:platform]
+
+    build = 0
+
+    if platform == "android"
+       	appBuildGradlePath = '../android/app/build.gradle'
+		versionCodeRegex = /versionCode\s+(\d+)/ 
+		appBuildGradle = File.read(appBuildGradlePath)
+		build = appBuildGradle[versionCodeRegex, 1]
+	else
+        pbxprojPath = '../ios/PlaceholderName.xcodeproj/project.pbxproj'
+		currentProjectVersionRegex = /CURRENT_PROJECT_VERSION = (\d+);/ 
+		pbxproj = File.read(pbxprojPath)
+		build = pbxproj[currentProjectVersionRegex, 1]
+	end
+
+    build
+end

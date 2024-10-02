@@ -1,0 +1,84 @@
+stages:
+  - build_deploy
+
+before_script:
+  - apk add --no-cache bash git curl jq
+  - npm install -g firebase-tools
+
+variables:
+  EXPO_TOKEN: $EXPO_TOKEN
+  FIREBASE_TOKEN: $FIREBASE_TOKEN
+  FIREBASE_STAGING_APP_ID_ANDROID: $FIREBASE_STAGING_APP_ID_ANDROID
+  FIREBASE_PRODUCTION_APP_ID_ANDROID: $FIREBASE_PRODUCTION_APP_ID_ANDROID
+  FIREBASE_STAGING_APP_ID_IOS: $FIREBASE_STAGING_APP_ID_IOS
+  FIREBASE_PRODUCTION_APP_ID_IOS: $FIREBASE_PRODUCTION_APP_ID_IOS
+
+image: node:alpine
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .yarn
+
+# Base job template for building and deploying
+.build-deploy-job: &build_deploy_job
+  stage: build_deploy
+  script:
+    # Extract the latest changes from the CHANGELOG.md file
+    - |
+      if [ -f "CHANGELOG.md" ]; then
+        RELEASE_NOTES=$(head -n 20 CHANGELOG.md)
+      else
+        RELEASE_NOTES="CHANGELOG.md not found"
+      fi
+    - echo "Release notes - $RELEASE_NOTES"
+    # Build the app using platform and profile
+    - npx eas-cli build --platform $PLATFORM --profile $PROFILE --non-interactive
+    # Fetch build URL and download the artifact (APK for Android, IPA for iOS)
+    - BUILD_URL=$(npx eas-cli build:list --platform $PLATFORM --status finished --limit 1 --non-interactive --json | jq -r '.[0].artifacts.buildUrl')
+    - if [ "$PLATFORM" == "android" ]; then curl -L -o app.apk "$BUILD_URL"; else curl -L -o app.ipa "$BUILD_URL"; fi
+    # Deploy the artifact to Firebase App Distribution
+    - if [ "$PLATFORM" == "android" ]; then firebase appdistribution:distribute app.apk --app $FIREBASE_APP_ID --token $FIREBASE_TOKEN; else firebase appdistribution:distribute app.ipa --app $FIREBASE_APP_ID --token $FIREBASE_TOKEN; fi
+  when: manual
+
+android_firebase_staging:
+  <<: *build_deploy_job
+  variables:
+    PLATFORM: "android"
+    PROFILE: "previewStaging"
+    FIREBASE_APP_ID: $FIREBASE_STAGING_APP_ID_ANDROID
+
+android_firebase_production:
+  <<: *build_deploy_job
+  variables:
+    PLATFORM: "android"
+    PROFILE: "previewProduction"
+    FIREBASE_APP_ID: $FIREBASE_PRODUCTION_APP_ID_ANDROID
+
+ios_firebase_staging:
+  <<: *build_deploy_job
+  variables:
+    PLATFORM: "ios"
+    PROFILE: "previewStaging"
+    FIREBASE_APP_ID: $FIREBASE_STAGING_APP_ID_IOS
+
+ios_firebase_production:
+  <<: *build_deploy_job
+  variables:
+    PLATFORM: "ios"
+    PROFILE: "previewProduction"
+    FIREBASE_APP_ID: $FIREBASE_PRODUCTION_APP_ID_IOS
+
+ios_testflight:
+  stage: build_deploy
+  script:
+    # Build iOS and submit IPA
+    - npx eas-cli build --platform ios --profile production --auto-submit --latest --non-interactive
+  when: manual
+
+android_google_play:
+  stage: build_deploy
+  script:
+    # Build iOS and submit apk
+    - npx eas-cli build --platform android --profile production --auto-submit --latest --non-interactive
+  when: manual
