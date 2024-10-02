@@ -32,7 +32,14 @@
       }
     },
     "production": {
-      "extends": "previewProduction",
+      "extends": "base",
+      "ios": {
+        "scheme": "rnwarsaw"
+      },
+      "android": {
+        "gradleCommand": ":app:assembleProductionRelease",
+        "image": "latest"
+      },
       "distribution": "store"
     }
   },
